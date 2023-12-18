@@ -146,18 +146,20 @@
     </ResourceDictionary>
   </Styles.Resources>
 
-  <Style Selector="TextBlock.DefaultWindowTitle">
-    <Setter Property="Foreground"
-            Value="Black"/>
-    <Setter Property="FontFamily"
-            Value="Calibri"/>
-    <Setter Property="FontSize"
-            Value="16"/>
-    <Setter Property="VerticalAlignment"
-            Value="Center"/>
-    <Setter Property="HorizontalAlignment"
-            Value="Left"/>
-  </Style>
+	<Style Selector="TextBlock.DefaultWindowTitle">
+		<Setter Property="Foreground"
+				Value="Black"/>
+		<Setter Property="FontFamily"
+				Value="Calibri"/>
+		<Setter Property="FontSize"
+				Value="16"/>
+		<Setter Property="LineHeight"
+				Value="{Binding Path=$self.FontSize}"/>
+		<Setter Property="VerticalAlignment"
+				Value="Center"/>
+		<Setter Property="HorizontalAlignment"
+				Value="Left"/>
+	</Style>
 	
   <Style Selector=":is(controls|CustomWindow)">
 	  <Setter Property="MenuPathClasses"

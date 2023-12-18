@@ -62,10 +62,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="11.0.0" />
-		<PackageReference Include="Avalonia.Desktop" Version="11.0.0" />
-		<PackageReference Include="Avalonia.Diagnostics" Version="11.0.0" />
-		<PackageReference Include="IgnoresAccessChecksToGenerator" Version="0.6.0" PrivateAssets="All" />
+		<PackageReference Include="Avalonia" Version="11.0.6" />
+		<PackageReference Include="Avalonia.Desktop" Version="11.0.6" />
+		<PackageReference Include="Avalonia.Diagnostics" Version="11.0.6" />
+		<PackageReference Include="IgnoresAccessChecksToGenerator" Version="0.7.0" PrivateAssets="All" />
 	</ItemGroup>
 	<ItemGroup>
 		<InternalsAssemblyName Include="Avalonia" />
