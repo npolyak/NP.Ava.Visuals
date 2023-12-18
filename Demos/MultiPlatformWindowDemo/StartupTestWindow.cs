@@ -24,7 +24,9 @@ namespace NP.Demos.MultiPlatformWindowDemo
         {
             var window = new CustomWindow
             {
-                DragOnBeginMove = false
+                DragOnBeginMove = false,
+                Width=600,
+                Height=500,
             };
 
             window.Classes.Add("WindowContentHeaderAndViewModel");
@@ -37,6 +39,8 @@ namespace NP.Demos.MultiPlatformWindowDemo
         {
             var window = new CustomWindow
             {
+                Width = 600,
+                Height = 500,
                 //Classes = new Classes("CompleteHeaderRestyling")
             };
 
