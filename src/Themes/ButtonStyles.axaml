@@ -1,0 +1,157 @@
+﻿<!-- (c) Nick Polyak 2021 - http://awebpros.com/
+      License: MIT License (https://opensource.org/licenses/MIT)
+ 
+      short overview of copyright rules:
+      1. you can use this framework in any commercial or non-commercial
+         product as long as you retain this copyright message
+      2. Do not blame the author of this software if something goes wrong.
+ 
+      Also, please, mention this software in any documentation for the
+      products that use it.
+-->
+
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:np="https://np.com/visuals">
+	<Style Selector="Button">
+		<Setter Property="HorizontalAlignment"
+				Value="Center"/>
+		<Setter Property="VerticalAlignment"
+				Value="Center"/>
+	</Style>
+	
+    <Style Selector=":is(Button).IconButton">
+      <Setter Property="np:AttachedProperties.IconStretch"
+              Value="Uniform"/>
+      <Setter Property="np:AttachedProperties.RealBackground"
+              Value="{Binding Path=Background, RelativeSource={RelativeSource Self}}"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border x:Name="IconBorder"
+					CornerRadius="{TemplateBinding CornerRadius}"
+                    Background="{TemplateBinding (np:AttachedProperties.RealBackground)}">
+              <Path Data="{TemplateBinding (np:AttachedProperties.IconData)}"
+                    Fill="{TemplateBinding Foreground}"
+                    Stretch="{TemplateBinding (np:AttachedProperties.IconStretch)}"
+                    Margin="{TemplateBinding (np:AttachedProperties.IconMargin)}"
+                    Width="{TemplateBinding (np:AttachedProperties.IconWidth)}"
+                    Height="{TemplateBinding (np:AttachedProperties.IconHeight)}"/>
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style Selector=":is(Button).IconButton:pointerover">
+      <Setter Property="np:AttachedProperties.RealBackground"
+              Value="{Binding Path=(np:AttachedProperties.MouseOverBrush), RelativeSource={RelativeSource Self}}"/>
+    </Style>
+    <Style Selector=":is(Button).IconButton:pressed">
+      <Setter Property="np:AttachedProperties.RealBackground"
+              Value="{Binding Path=Background, RelativeSource={RelativeSource Self}}"/>
+    </Style>
+    <Style Selector=":is(Button).HeaderIconButton">
+      <Setter Property="Opacity"
+          Value="0.5"/>
+      <Setter Property="Background"
+              Value="Transparent"/>
+      <Setter Property="np:AttachedProperties.MouseOverBrush"
+          Value="LightGray"/>
+      <Setter Property="Foreground"
+              Value="{DynamicResource MostProminentBrush}"/>
+      <Setter Property="np:AttachedProperties.IconWidth"
+              Value="12"/>
+      <Setter Property="np:AttachedProperties.IconHeight"
+              Value="12"/>
+      <Setter Property="VerticalAlignment"
+          Value="Stretch"/>
+      <Setter Property="np:CallAction.TheEvent"
+              Value="{x:Static Button.ClickEvent}"/>
+    </Style>
+
+    <Style Selector=":is(Button).WindowIconButton">
+      <Setter Property="Width"
+              Value="35"/>
+      <Setter Property="np:ClassesBehavior.InsertClasses"
+              Value="HeaderIconButton"/>
+      <!--<Setter Property="np:AttachedProperties.IconMargin"
+              Value="5"/>-->
+    </Style>
+  
+    <Style Selector=":is(Button).IconButton:disabled">
+      <Setter Property="IsHitTestVisible"
+              Value="False"/>
+      <Setter Property="Opacity"
+              Value="0.2"/>
+    </Style>
+
+    <Style Selector="ToggleButton.IconToggleButton[IsChecked=True]">
+      <Setter Property="Opacity"
+              Value="1"/>
+      <Setter Property="Foreground"
+              Value="DarkBlue"/>
+    </Style>
+
+    <Style Selector="ToggleButton.AlternateIconToggleButton">
+      <Setter Property="np:AttachedProperties.IconData"
+              Value="{Binding Path=(np:AttachedProperties.PrimaryIconData), 
+                                RelativeSource={RelativeSource Self}}"/>
+    </Style>
+
+	<Style Selector="ToggleButton.AlternateIconToggleButton[IsChecked=True]">
+		<Setter Property="np:AttachedProperties.IconData"
+                Value="{Binding Path=(np:AttachedProperties.AlternateIconData), 
+                                RelativeSource={RelativeSource Self}}"/>
+	</Style>
+	
+
+	<Style Selector="np|NpToggleButton">
+		<Setter Property="Background" 
+				Value="Transparent"/>
+		<Setter Property="BorderThickness"
+				Value="1"/>
+		<Setter Property="Padding"
+				Value="2.5"/>
+		<Setter Property="BorderBrush"
+				Value="#808080"/>
+		<Setter Property="Foreground"
+				Value="#FF119EDA"/>
+		<Setter Property="Width"
+				Value="20"/>
+		<Setter Property="Height"
+				Value="20"/>
+		<Setter Property="Focusable"
+				Value="True"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Border Name="border"
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						BorderThickness="{TemplateBinding BorderThickness}"
+						CornerRadius="{TemplateBinding CornerRadius}"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch">
+					<Path Name="checkMark"
+						  Fill="{TemplateBinding Foreground}"
+						  Stretch="Uniform"
+						  HorizontalAlignment="Stretch"
+						  VerticalAlignment="Stretch"
+						  Data="{StaticResource CheckMark}"
+						  Margin="{TemplateBinding Padding}"/>
+				</Border>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+	<Style Selector="np|NpToggleButton:pointerover /template/ Border#border">
+		<Setter Property="BorderBrush" Value="#A0A0A0"/>
+	</Style>
+	<Style Selector="np|NpToggleButton /template/ Path#checkMark">
+		<Setter Property="IsVisible" Value="False"/>
+	</Style>
+	<Style Selector="np|NpToggleButton:checked /template/ Path#checkMark">
+		<Setter Property="IsVisible" Value="True"/>
+	</Style>
+	<Style Selector="np|NpToggleButton:disabled /template/ Border#border">
+		<Setter Property="Opacity" Value="0.5"/>
+	</Style>
+</Styles>

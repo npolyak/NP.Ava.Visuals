@@ -1,0 +1,18 @@
+<np:CustomWindow xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:np="https://np.com/visuals"
+					xmlns:local="clr-namespace:NP.Demos.ImplantedWindowTest"
+					x:Class="NP.Demos.BehaviorPrototypes.MainWindow"
+					Classes="PlainCustomWindow"
+					Title="NP.BehaviorPrototypes"
+					Width="600"
+					Height="400">
+	<Grid x:Name="TheGrid" 
+		  ColumnDefinitions="*,*"
+		  Background="LightBlue">
+		<!--<np:EmbeddedNativeControl ProcessExePath="C:\Program Files\Notepad++\notepad++.exe"/>-->
+		<!--<local:ImplantedWindowHostContainer x:Name="HostContainer" 
+											ImplantedWindowHandle="{Binding Path=(np:ProcessWindowBehavior.MainWindowHandle), RelativeSource={RelativeSource Self}}"/>-->
+											
+	</Grid>
+</np:CustomWindow>

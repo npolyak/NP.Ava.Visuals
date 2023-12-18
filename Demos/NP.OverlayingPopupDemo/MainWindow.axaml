@@ -1,0 +1,33 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:np="https://np.com/visuals"
+        x:Class="NP.OverlayingPopupDemo.MainWindow"
+        Title="NP.OverlayingPopupDemo"
+        x:Name="Root"
+		Width="500"
+		Height="400">
+	<Window.Styles>
+		<StyleInclude Source="avares://NP.Avalonia.Visuals/Themes/OverlayingPopupStyles.axaml" />
+	</Window.Styles>
+	<Grid RowDefinitions="*, Auto"
+		  Margin="10">
+		<Grid x:Name="GridWithOverlay">
+			<np:OverlayingPopup x:Name="ThePopup"
+								   Background="Yellow"
+								   HorizontalContentAlignment="Stretch"
+								   VerticalContentAlignment="Stretch"
+								   Padding="10">
+				<np:OverlayingPopup.ContentTemplate>
+					<DataTemplate>
+						<Grid Background="Red"/>
+					</DataTemplate>
+				</np:OverlayingPopup.ContentTemplate>
+			</np:OverlayingPopup>
+		</Grid>
+		<ToggleButton IsChecked="{Binding Path=#ThePopup.IsOpen}"
+					  Grid.Row="1"
+					  HorizontalAlignment="Right"
+					  VerticalAlignment="Center"/>
+	</Grid>
+</Window>
+

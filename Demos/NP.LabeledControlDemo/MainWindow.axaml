@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:NP.LabeledControlDemo"
+        xmlns:np="https://np.com/visuals"
+        x:Class="NP.LabeledControlDemo.MainWindow"
+        Title="NP.LabeledControlDemo"
+        x:Name="Root"
+		Width="500"
+		Height="400">
+	<Grid Margin="15">
+		<np:LabeledControl Text="Enter Text:"
+						   ControlRow="0"
+						   ControlColumn="1"
+						   TextWidth="150"
+						   HorizontalTextAlignment="Right"
+						   VerticalTextAlignment="Center">
+			<ControlTemplate>
+				<TextBox Width="200"/>
+			</ControlTemplate>
+		</np:LabeledControl>
+	</Grid>
+</Window>

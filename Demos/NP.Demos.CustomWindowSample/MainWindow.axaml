@@ -1,0 +1,13 @@
+<np:CustomWindow xmlns="https://github.com/avaloniaui"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:np="https://np.com/visuals"
+				x:Class="NP.Demos.CustomWindowSample.MainWindow"
+				Classes="PlainCustomWindow"
+				MenuForeground="Blue"
+				WindowButtonClasses="WindowIconButton IconButton MyWindowButton"
+				MenuPathClasses="DefaultCustomWindowMenu MyMenuIcon"
+				Title="NP.CustomWindowSample"
+				HeaderBackground="White"
+				Width="600"
+				Height="400">
+</np:CustomWindow>

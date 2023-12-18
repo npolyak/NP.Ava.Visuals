@@ -1,0 +1,50 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:NP.GridSplitterInOverlayWindowDemo"
+        xmlns:np="https://np.com/visuals"
+        x:Class="NP.GridSplitterInOverlayWindowDemo.MainWindow"
+        Title="NP.GridSplitterInOverlayWindowDemo"
+        x:Name="Root"
+		Width="500"
+		Height="400">
+	<Grid 
+		  Margin="10"
+		  np:GridPartsResizeBehavior.Target="{Binding RelativeSource={RelativeSource Self}}"
+		  np:OverlayWindowBehavior.IsOpen="{Binding Path=(np:GridPartsResizeBehavior.CurrentSplitterPosition), 
+													Converter={x:Static ObjectConverters.IsNotNull}
+													RelativeSource={RelativeSource Self}}"
+		  np:OverlayWindowBehavior.IsTopmost="True"
+		  np:OverlayWindowBehavior.Content="{Binding RelativeSource={RelativeSource Self}, 
+													 Converter={x:Static np:ToControlContainerConverter.Instance}}">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"
+							  MinWidth="30"/>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="*"
+							  MinWidth="30"/>
+		</Grid.ColumnDefinitions>
+		<np:OverlayWindowBehavior.ContentTemplate>
+			<DataTemplate>
+				<Grid Background="#55880000"
+					  DataContext="{Binding Control}">
+					<Grid HorizontalAlignment="Left"
+						  VerticalAlignment="Stretch"
+						  Width="4"
+						  Background="Black"
+						  RenderTransformOrigin="0,0">
+						<Grid.RenderTransform>
+							<TranslateTransform X="{Binding Path=(np:GridPartsResizeBehavior.CurrentSplitterPosition)}" Y="0"/>
+						</Grid.RenderTransform>
+					</Grid>
+				</Grid>
+			</DataTemplate>
+		</np:OverlayWindowBehavior.ContentTemplate>
+		<local:MyGridSplitter x:Name="TheSplitter" 
+					  ShowsPreview="True"
+					  Grid.Column="1"
+					  Width="4"
+					  Background="Black"
+					  PreviewContent="{x:Null}">
+		</local:MyGridSplitter>
+	</Grid>
+</Window>

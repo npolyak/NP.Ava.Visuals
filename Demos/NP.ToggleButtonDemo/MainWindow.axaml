@@ -1,0 +1,34 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:NP.DataGridFilteringDemo"
+        xmlns:np="https://np.com/visuals"
+        x:Class="NP.DataGridFilteringDemo.MainWindow"
+        Title="NP.DataGridFilteringDemo"
+        x:Name="Root"
+		Width="500"
+		Height="400">
+	<Window.Styles>
+		<Style Selector="TextBox.DataGridFilterTextBox">
+			<Setter Property="Background"
+					Value="Black"/>
+			<Setter Property="Foreground"
+					Value="White"/>
+			<Setter Property="CaretBrush"
+					Value="White"/>
+		</Style>
+	</Window.Styles>
+	<Grid RowDefinitions="*,*"	
+		  Margin="15">
+		<CheckBox HorizontalAlignment="Center"
+				  VerticalAlignment="Center"/>
+
+		<np:NpToggleButton Grid.Row="1"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center" 
+						   Width="40"
+						   Height="40"
+						   >
+			
+		</np:NpToggleButton>
+	</Grid>
+</Window>

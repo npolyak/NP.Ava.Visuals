@@ -1,0 +1,13 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="NP.LabeledControlDemo.App"
+             xmlns:np="https://np.com/visuals"
+             xmlns:local="clr-namespace:NP.LabeledControlDemo">
+  <Application.Styles>
+    <!--<FluentTheme Mode="Dark"/>-->
+	  <!--<StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>-->
+	  <!--<StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>-->
+	  <SimpleTheme />
+	  <StyleInclude Source="avares://NP.Avalonia.Visuals/Themes/ThemeStyles.axaml"/>
+  </Application.Styles>
+</Application>

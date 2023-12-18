@@ -1,0 +1,33 @@
+<local:CustomWindow xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:np="https://np.com/visuals"
+					xmlns:local="clr-namespace:NP.Demos.BehaviorPrototypes"
+					x:Class="NP.Demos.BehaviorPrototypes.MainWindow"
+					Classes="PlainCustomWindow"
+					Title="NP.BehaviorPrototypes"
+					Width="600"
+					Height="400">
+	<Grid RowDefinitions="*,*"
+		  Background="Aqua"
+		  np:ProcessWindowBehavior.ProcessExePath="C:/Windows/system32/notepad.exe">
+		<Grid HorizontalAlignment="Center"
+			  VerticalAlignment="Center"
+			  Width="50"
+			  Height="50"
+			  Background="Red"
+			  np:CallAction.TheEvent="{x:Static InputElement.PointerPressedEvent}"
+			  np:CallAction.TheRoutingStrategy="Bubble"
+			  np:CallAction.TargetObject="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+			  np:CallAction.MethodName="OnPressed"/>
+
+		<Grid HorizontalAlignment="Center"
+			  VerticalAlignment="Center"
+			  Grid.Row="1"
+			  Width="50"
+			  Height="50"
+			  Background="Red"
+			  np:EventBehavior.TheEvent="{x:Static InputElement.PointerPressedEvent}"
+			  np:EventBehavior.TheRoutingStrategy="Bubble"
+			  np:EventBehavior.EventToFire="{x:Static local:Events.MyEvent}"/>
+	</Grid>
+</local:CustomWindow>

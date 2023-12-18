@@ -1,0 +1,17 @@
+<np:CustomWindow xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:np="https://np.com/visuals"
+        x:Class="NP.Demos.ImplantWinByHandle.MainWindow"
+        Title="NP.Demos.ImplantWinByHandle"
+		Classes="PlainCustomWindow"
+		Width="600"
+		Height="400">
+	<Grid ColumnDefinitions="*, *">
+		<!--<np:ImplantedWindowHostContainer x:Name="HostContainer"
+										 np:ProcessControllerBehavior.ProcessExePath="C:\Program Files\Notepad++\notepad++.exe"
+										 ImplantedWindowHandle="{Binding Path=MainWindowHandle,
+																		 RelativeSource={RelativeSource Self}}"/>-->
+		<np:ImplantedWindowHostContainer x:Name="HostContainer"
+										 ImplantedWindowHandle="2886836"/>
+	</Grid>
+</np:CustomWindow>

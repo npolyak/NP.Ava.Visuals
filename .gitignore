@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/src/bin/Debug
+/src/obj
+/Demos/NP.Demos.CustomWindowSample/obj
+/Demos/NP.Demos.CustomWindowSample/bin/Debug
+/Demos/NP.Demos.CustomWindowSample/.vs/NP.Demos.CustomWindowSample/FileContentIndex
+/Demos/MultiPlatformWindowDemo/.vs/MultiPlatformWindowDemo/config
+/Demos/MultiPlatformWindowDemo/log.txt
