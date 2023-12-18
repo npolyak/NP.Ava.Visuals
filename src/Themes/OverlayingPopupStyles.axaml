@@ -1,0 +1,30 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:np="https://np.com/visuals">
+	<Style Selector="np|OverlayingPopup">
+		<Setter Property="PlacementMode"
+				Value="AnchorAndGravity"/>
+		<Setter Property="PlacementAnchor"
+				Value="{Binding Path=Parent, RelativeSource={RelativeSource Self}}"/>
+		<Setter Property="HorizontalContentAlignment"
+				Value="Center"/>
+		<Setter Property="VerticalContentAlignment"
+				Value="Center"/>
+		<Setter Property="Child">
+			<Setter.Value>
+				<Template>
+					<Grid Width="{Binding $parent[Popup].Parent.Bounds.Width}"
+						  Height="{Binding $parent[Popup].Parent.Bounds.Height}"
+						  Background="{Binding $parent[Popup].Background}"
+						  Opacity="{Binding $parent[Popup].Opacity}">
+						<ContentPresenter Content="{Binding $parent[np:OverlayingPopup].Content}"
+										  ContentTemplate="{Binding	$parent[np:OverlayingPopup].ContentTemplate}"
+										  HorizontalAlignment="{Binding $parent[Popup].HorizontalContentAlignment}"
+										  VerticalAlignment="{Binding $parent[Popup].VerticalContentAlignment}"
+										  Margin="{Binding $parent[Popup].Padding}"/>
+					</Grid>
+				</Template>
+			</Setter.Value>
+		</Setter>
+	</Style>
+</Styles>
