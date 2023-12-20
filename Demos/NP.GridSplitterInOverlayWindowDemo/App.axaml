@@ -5,7 +5,6 @@
              xmlns:local="clr-namespace:NP.GridSplitterInOverlayWindowDemo">
   <Application.Styles>
     <!--<FluentTheme Mode="Dark"/>-->
-	  <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
-	  <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
+	  <SimpleTheme/>
   </Application.Styles>
 </Application>
