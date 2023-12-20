@@ -4,7 +4,7 @@ using Avalonia.Styling;
 using NP.ViewModelInterfaces.ThemingAndL10N;
 using System;
 
-namespace NP.Avalonia.Visuals.ThemingAndL10N
+namespace NP.Ava.Visuals.ThemingAndL10N
 {
     public class ThemeInfo: IThemeInfo
     {

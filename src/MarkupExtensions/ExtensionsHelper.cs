@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NP.Avalonia.Visuals.MarkupExtensions
+namespace NP.Ava.Visuals.MarkupExtensions
 {
     public static class ExtensionsHelper
     {

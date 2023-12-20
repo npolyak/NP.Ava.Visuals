@@ -1,4 +1,4 @@
-﻿namespace NP.Avalonia.Visuals.WindowsOnly
+﻿namespace NP.Ava.Visuals.WindowsOnly
 {
     /// <summary>
     /// borrowed from http://pinvoke.net/default.aspx/Enums/WindowLongFlags.html

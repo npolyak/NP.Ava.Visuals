@@ -1,4 +1,4 @@
-﻿namespace NP.Avalonia.Visuals.Behaviors
+﻿namespace NP.Ava.Visuals.Behaviors
 {
     public enum VisualFlow
     {

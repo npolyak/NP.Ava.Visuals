@@ -46,8 +46,8 @@
 	<Styles.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceInclude Source="avares://NP.Avalonia.Visuals/Themes/Geometries.axaml"/>
-				<ResourceInclude Source="avares://NP.Avalonia.Visuals/Themes/ThemeResources.axaml"/>
+				<ResourceInclude Source="avares://NP.Ava.Visuals/Themes/Geometries.axaml"/>
+				<ResourceInclude Source="avares://NP.Ava.Visuals/Themes/ThemeResources.axaml"/>
 			</ResourceDictionary.MergedDictionaries>
 			<ControlTemplate x:Key="TextAndIconDataTemplate">
 				<np:AutoGrid RowsHeights="{Binding $parent[TemplatedControl;1].(np:AttachedProperties.RowsHeights)}"

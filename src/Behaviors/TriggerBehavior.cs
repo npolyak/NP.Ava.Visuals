@@ -4,7 +4,7 @@ using Avalonia.Data;
 using NP.Utilities;
 using System;
 
-namespace NP.Avalonia.Visuals.Behaviors
+namespace NP.Ava.Visuals.Behaviors
 {
     public static class TriggerBehavior
     {

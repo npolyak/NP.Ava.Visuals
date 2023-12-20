@@ -19,7 +19,7 @@ using Avalonia.Media;
 using NP.Utilities;
 using System.Collections.Generic;
 
-namespace NP.Avalonia.Visuals.Controls
+namespace NP.Ava.Visuals.Controls
 {
     public class DataGridAttachedProps
     { 

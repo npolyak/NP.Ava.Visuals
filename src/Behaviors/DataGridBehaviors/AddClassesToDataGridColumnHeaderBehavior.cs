@@ -5,7 +5,7 @@ using System;
 using NP.Concepts.Behaviors;
 using System.Collections.Generic;
 
-namespace NP.Avalonia.Visuals.Behaviors.DataGridBehaviors
+namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
 {
     public static class AddClassesToDataGridColumnHeaderBehavior
     {

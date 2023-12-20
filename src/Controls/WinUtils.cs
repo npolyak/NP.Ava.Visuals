@@ -2,7 +2,7 @@
 using Avalonia.Platform;
 using System;
 
-namespace NP.Avalonia.Visuals.Controls
+namespace NP.Ava.Visuals.Controls
 {
     public static class WinUtils
     {

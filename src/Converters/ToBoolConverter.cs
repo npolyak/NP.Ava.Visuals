@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace NP.Avalonia.Visuals.Converters
+namespace NP.Ava.Visuals.Converters
 {
     public class ToBoolConverter<TVal> : IValueConverter
     {

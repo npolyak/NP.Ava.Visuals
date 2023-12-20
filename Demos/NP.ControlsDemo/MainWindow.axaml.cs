@@ -2,9 +2,9 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using NP.Avalonia.Visuals.Behaviors;
-using NP.Avalonia.Visuals.Controls;
-using NP.Avalonia.Visuals.ThemingAndL10N;
+using NP.Ava.Visuals.Behaviors;
+using NP.Ava.Visuals.Controls;
+using NP.Ava.Visuals.ThemingAndL10N;
 
 namespace NP.ControlsDemo
 {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NP.Avalonia.Visuals.ThemingAndL10N
+namespace NP.Ava.Visuals.ThemingAndL10N
 {
     public class StyleReference : Styles
     {

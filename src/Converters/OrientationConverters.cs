@@ -5,7 +5,7 @@ using NP.Utilities;
 using System;
 using System.Globalization;
 
-namespace NP.Avalonia.Visuals.Converters
+namespace NP.Ava.Visuals.Converters
 {
     public class OrientationConverters<T> : IValueConverter
     {

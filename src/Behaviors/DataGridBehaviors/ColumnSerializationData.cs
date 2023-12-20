@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace NP.Avalonia.Visuals.Behaviors.DataGridBehaviors
+namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
 {
     public class ColumnSerializationData
     {

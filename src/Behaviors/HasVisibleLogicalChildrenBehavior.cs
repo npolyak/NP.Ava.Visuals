@@ -1,12 +1,12 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.LogicalTree;
-using NP.Avalonia.Visuals.Controls;
+using NP.Ava.Visuals.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NP.Avalonia.Visuals.Behaviors
+namespace NP.Ava.Visuals.Behaviors
 {
     public class HasVisibleLogicalChildrenBehavior : LogicalChildBehavior
     {

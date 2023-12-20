@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace NP.Avalonia.Visuals.Converters
+namespace NP.Ava.Visuals.Converters
 {
     internal class AndConverter : IMultiValueConverter
     {

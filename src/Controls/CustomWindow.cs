@@ -22,14 +22,14 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Styling;
 using Avalonia.VisualTree;
-using NP.Avalonia.Visuals.Behaviors;
+using NP.Ava.Visuals.Behaviors;
 using NP.Utilities;
 using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace NP.Avalonia.Visuals.Controls
+namespace NP.Ava.Visuals.Controls
 {
     public class CustomWindow : Window, IStyleable
     {

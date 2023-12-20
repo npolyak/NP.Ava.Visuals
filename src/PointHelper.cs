@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using NP.Utilities;
 
-namespace NP.Avalonia.Visuals
+namespace NP.Ava.Visuals
 {
     public static class PointHelper
     {

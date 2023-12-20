@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace NP.Avalonia.Visuals.MarkupExtensions
+namespace NP.Ava.Visuals.MarkupExtensions
 {
     public class DynamicResourceBinding : Binding, IBinding
 	{

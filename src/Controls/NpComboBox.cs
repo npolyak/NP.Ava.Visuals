@@ -4,10 +4,10 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using NP.Avalonia.Visuals.Behaviors;
+using NP.Ava.Visuals.Behaviors;
 using System;
 
-namespace NP.Avalonia.Visuals.Controls
+namespace NP.Ava.Visuals.Controls
 {
     public class NpComboBox : ComboBox
     {        /// <summary>

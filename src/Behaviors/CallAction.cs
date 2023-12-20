@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NP.Avalonia.Visuals.Behaviors
+namespace NP.Ava.Visuals.Behaviors
 {
     public static class CallAction
     {

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
-namespace NP.Avalonia.Visuals.Behaviors
+namespace NP.Ava.Visuals.Behaviors
 {
     public class PropContainer : KeyedDisposable<AvaloniaProperty?>
     {

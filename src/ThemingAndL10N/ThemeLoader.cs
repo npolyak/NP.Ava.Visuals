@@ -9,7 +9,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace NP.Avalonia.Visuals.ThemingAndL10N
+namespace NP.Ava.Visuals.ThemingAndL10N
 {
     public class ThemeLoader : ResourceDictionary, IThemeLoader, IResourceProvider
     {

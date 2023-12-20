@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using NP.Utilities;
 using System;
 
-namespace NP.Avalonia.Visuals.Behaviors
+namespace NP.Ava.Visuals.Behaviors
 {
     public class StringContactBehavior
     {

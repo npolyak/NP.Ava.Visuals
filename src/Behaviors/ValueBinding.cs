@@ -4,7 +4,7 @@ using NP.Utilities;
 using System;
 using System.Reactive.Subjects;
 
-namespace NP.Avalonia.Visuals.Behaviors
+namespace NP.Ava.Visuals.Behaviors
 {
     //internal class ValueBinding<T> : IBinding
     //{

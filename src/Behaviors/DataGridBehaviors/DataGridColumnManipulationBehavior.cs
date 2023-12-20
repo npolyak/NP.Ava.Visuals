@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NP.Avalonia.Visuals.Behaviors.DataGridBehaviors
+namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
 {
     public static class DataGridColumnManipulationBehavior
     {

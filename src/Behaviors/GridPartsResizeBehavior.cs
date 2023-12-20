@@ -5,7 +5,7 @@ using NP.Concepts.Behaviors;
 using System;
 using NP.Utilities;
 
-namespace NP.Avalonia.Visuals.Behaviors
+namespace NP.Ava.Visuals.Behaviors
 {
     public class GridPartsResizeBehavior
     {

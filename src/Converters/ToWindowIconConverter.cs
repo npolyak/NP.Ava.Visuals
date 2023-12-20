@@ -16,7 +16,7 @@ using System;
 using System.Globalization;
 using System.IO;
 
-namespace NP.Avalonia.Visuals.Converters
+namespace NP.Ava.Visuals.Converters
 {
     public class ToWindowIconConverter : IValueConverter
     {

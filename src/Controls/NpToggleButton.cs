@@ -5,7 +5,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Input;
 
-namespace NP.Avalonia.Visuals.Controls
+namespace NP.Ava.Visuals.Controls
 {
     [PseudoClasses(":checked", ":unchecked")]
     public class NpToggleButton : TemplatedControl

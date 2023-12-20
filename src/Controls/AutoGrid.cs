@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using NP.Concepts.Behaviors;
 using System;
 using NP.Utilities;
-using NP.Avalonia.Visuals.Behaviors;
+using NP.Ava.Visuals.Behaviors;
 using Avalonia.Collections;
 using Avalonia.Metadata;
 using System.Linq;
@@ -11,9 +11,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Avalonia.Data;
 using System.Reactive.Linq;
-using NP.Avalonia.Visuals.Converters;
+using NP.Ava.Visuals.Converters;
 
-namespace NP.Avalonia.Visuals.Controls
+namespace NP.Ava.Visuals.Controls
 {
     public class AutoGrid : Control
     {

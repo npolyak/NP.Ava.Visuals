@@ -2,7 +2,7 @@
 using Avalonia.VisualTree;
 using NP.Concepts.Behaviors;
 
-namespace NP.Avalonia.Visuals.Behaviors
+namespace NP.Ava.Visuals.Behaviors
 {
     public class ReactiveVisualDesendantsBehavior : FlattenReactiveTreeBehavior<Visual>
     {

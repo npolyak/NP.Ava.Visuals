@@ -17,7 +17,6 @@ namespace NP.DataGridColumnVisibilityDemo
 #endif
         }
 
-
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);

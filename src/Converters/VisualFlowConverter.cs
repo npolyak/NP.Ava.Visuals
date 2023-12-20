@@ -1,12 +1,12 @@
 ﻿using Avalonia.Data.Converters;
 using Avalonia.Layout;
 using Avalonia.Media;
-using NP.Avalonia.Visuals.Behaviors;
+using NP.Ava.Visuals.Behaviors;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace NP.Avalonia.Visuals.Converters
+namespace NP.Ava.Visuals.Converters
 {
     public class VisualFlowConverter<T> : IValueConverter, IMultiValueConverter
     {

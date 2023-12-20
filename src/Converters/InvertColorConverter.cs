@@ -1,10 +1,10 @@
 ﻿using Avalonia.Data.Converters;
 using Avalonia.Media;
-using NP.Avalonia.Visuals.ColorUtils;
+using NP.Ava.Visuals.ColorUtils;
 using System;
 using System.Globalization;
 
-namespace NP.Avalonia.Visuals.Converters
+namespace NP.Ava.Visuals.Converters
 {
     public class InvertColorConverter : IValueConverter
     {

@@ -4,7 +4,7 @@ using System.Collections;
 using System;
 using Avalonia.Collections;
 
-namespace NP.Avalonia.Visuals.Behaviors.DataGridBehaviors
+namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
 {
     public static class DataGridCollectionViewBehavior
     {

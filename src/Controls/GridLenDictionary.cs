@@ -1,7 +1,7 @@
 ﻿using Avalonia.Controls;
 using System.Collections.Generic;
 
-namespace NP.Avalonia.Visuals.Controls
+namespace NP.Ava.Visuals.Controls
 {
     public class GridLenDictionary : Dictionary<int, GridLength>
     {

@@ -3,7 +3,7 @@ using Avalonia.Data.Converters;
 using System;
 using System.Globalization;
 
-namespace NP.Avalonia.Visuals.Converters
+namespace NP.Ava.Visuals.Converters
 {
     public class ToControlContainerConverter : IValueConverter
     {

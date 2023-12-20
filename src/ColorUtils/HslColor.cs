@@ -1,6 +1,6 @@
 ﻿using NP.Utilities;
 
-namespace NP.Avalonia.Visuals.ColorUtils
+namespace NP.Ava.Visuals.ColorUtils
 {
     public record HslColor(byte A, float H, float S, float L)
     {

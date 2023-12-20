@@ -3,12 +3,12 @@ using Avalonia.Controls;
 using Avalonia.Controls.Generators;
 using Avalonia.Controls.Presenters;
 using Avalonia.LogicalTree;
-using NP.Avalonia.Visuals.Behaviors;
+using NP.Ava.Visuals.Behaviors;
 using System;
 using System.Collections.Specialized;
 using System.Linq;
 
-namespace NP.Avalonia.Visuals.Controls
+namespace NP.Ava.Visuals.Controls
 {
     //public class NpItemsPresenter : ItemsPresenter, IChildIndexProvider
     //{

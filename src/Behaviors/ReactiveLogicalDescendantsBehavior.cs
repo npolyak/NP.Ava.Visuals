@@ -1,7 +1,7 @@
 ﻿using Avalonia.LogicalTree;
 using NP.Concepts.Behaviors;
 
-namespace NP.Avalonia.Visuals.Behaviors
+namespace NP.Ava.Visuals.Behaviors
 {
     public class ReactiveLogicalDescendantsBehavior : FlattenReactiveTreeBehavior<ILogical>
     {

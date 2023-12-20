@@ -1,10 +1,10 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
-using NP.Avalonia.Visuals.Controls;
+using NP.Ava.Visuals.Controls;
 using NP.Utilities;
 
-namespace NP.Avalonia.Visuals.Behaviors
+namespace NP.Ava.Visuals.Behaviors
 {
     public class ResizeBehavior
     {

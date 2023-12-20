@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System;
 using NP.Utilities;
 
-namespace NP.Avalonia.Visuals.Behaviors
+namespace NP.Ava.Visuals.Behaviors
 {
     public static class ClassesBehavior
     {

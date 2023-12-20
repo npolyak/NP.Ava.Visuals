@@ -2,8 +2,8 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
-		<RootNamespace>NP.Avalonia.Visuals</RootNamespace>
-		<PackageId>NP.Avalonia.Visuals</PackageId>
+		<RootNamespace>NP.Ava.Visuals</RootNamespace>
+		<PackageId>NP.Ava.Visuals</PackageId>
 		<Version>1.0.38</Version>
 		<Authors>Nick Polyak, Ph. D.</Authors>
 		<Company>AWebPros</Company>
@@ -48,7 +48,6 @@
 		<None Remove="Assets\avalonia-32.png" />
 		<None Remove="LICENSE" />
 		<None Remove="*.nupkg" />
-		<None Remove="NP.Avalonia.Visuals.nuspec" />
 		<None Remove="README.md" />
 	</ItemGroup>
 

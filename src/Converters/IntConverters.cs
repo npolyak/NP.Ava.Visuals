@@ -9,7 +9,7 @@
 // Also, please, mention this software in any documentation for the 
 // products that use it.
 
-namespace NP.Avalonia.Visuals.Converters
+namespace NP.Ava.Visuals.Converters
 {
     public static class IntConverters
     {

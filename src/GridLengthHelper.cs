@@ -1,7 +1,7 @@
 ﻿using Avalonia.Controls;
 using System.Globalization;
 
-namespace NP.Avalonia.Visuals
+namespace NP.Ava.Visuals
 {
     public static class GridLengthHelper
     {

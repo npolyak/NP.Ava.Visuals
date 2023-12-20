@@ -3,7 +3,7 @@ using Avalonia.LogicalTree;
 using NP.Concepts.Behaviors;
 using System;
 
-namespace NP.Avalonia.Visuals.Behaviors
+namespace NP.Ava.Visuals.Behaviors
 {
     public abstract class LogicalChildBehavior : IDisposable
     {

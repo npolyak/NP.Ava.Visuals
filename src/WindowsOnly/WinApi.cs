@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace NP.Avalonia.Visuals.WindowsOnly
+namespace NP.Ava.Visuals.WindowsOnly
 {
     // from http://pinvoke.net/
     public static class WinApi

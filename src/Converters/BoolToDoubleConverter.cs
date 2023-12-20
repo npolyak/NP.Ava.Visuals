@@ -1,4 +1,4 @@
-﻿namespace NP.Avalonia.Visuals.Converters
+﻿namespace NP.Ava.Visuals.Converters
 {
     public class BoolToDoubleConverter : GenericBoolConverter<double>
     {

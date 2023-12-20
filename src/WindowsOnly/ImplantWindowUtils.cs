@@ -1,9 +1,9 @@
 ﻿using Avalonia.Controls;
-using NP.Avalonia.Visuals.Controls;
+using NP.Ava.Visuals.Controls;
 using System;
 using System.Runtime.InteropServices;
 
-namespace NP.Avalonia.Visuals.WindowsOnly
+namespace NP.Ava.Visuals.WindowsOnly
 {
     public static class ImplantWindowUtils
     {

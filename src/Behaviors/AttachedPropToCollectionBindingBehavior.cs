@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace NP.Avalonia.Visuals.Behaviors
+namespace NP.Ava.Visuals.Behaviors
 {
     public class AttachedPropToCollectionBindingBehavior<TProp, TTarget> : 
         ToCollectionBindingBehavior<TProp, TTarget>

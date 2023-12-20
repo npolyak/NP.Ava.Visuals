@@ -5,9 +5,9 @@ using Avalonia;
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using NP.Avalonia.Visuals.WindowsOnly;
+using NP.Ava.Visuals.WindowsOnly;
 
-namespace NP.Avalonia.Visuals.Controls
+namespace NP.Ava.Visuals.Controls
 {
     public class ImplantedWindowHost : NativeControlHost
     {

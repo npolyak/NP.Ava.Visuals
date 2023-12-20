@@ -1,10 +1,10 @@
 ﻿using Avalonia;
 using Avalonia.Controls.Presenters;
 using Avalonia.Data;
-using NP.Avalonia.Visuals.Converters;
+using NP.Ava.Visuals.Converters;
 using System;
 
-namespace NP.Avalonia.Visuals.Controls
+namespace NP.Ava.Visuals.Controls
 {
     public class AvaloniaContentPresenter : ContentPresenter
     {

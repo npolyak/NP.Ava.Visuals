@@ -3,7 +3,7 @@ using Avalonia.Media;
 using NP.Utilities;
 using System;
 
-namespace NP.Avalonia.Visuals.ColorUtils
+namespace NP.Ava.Visuals.ColorUtils
 {
     public static class ColorHelper
     {

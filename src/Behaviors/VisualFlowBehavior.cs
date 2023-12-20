@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using System;
 
-namespace NP.Avalonia.Visuals.Behaviors
+namespace NP.Ava.Visuals.Behaviors
 {
     public static class VisualFlowBehavior
     {

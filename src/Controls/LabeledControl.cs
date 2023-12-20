@@ -5,7 +5,7 @@ using Avalonia.Markup.Xaml.Templates;
 using Avalonia.Media;
 using Avalonia.Metadata;
 
-namespace NP.Avalonia.Visuals.Controls
+namespace NP.Ava.Visuals.Controls
 {
     public class LabeledControl : TemplatedControl
     {

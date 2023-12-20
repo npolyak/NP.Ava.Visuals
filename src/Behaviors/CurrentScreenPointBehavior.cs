@@ -15,14 +15,14 @@ using Avalonia.Input;
 using Avalonia.Input.Raw;
 using Avalonia.Platform;
 using Avalonia.VisualTree;
-using NP.Avalonia.Visuals.Controls;
+using NP.Ava.Visuals.Controls;
 using NP.Utilities;
 using System;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
-namespace NP.Avalonia.Visuals.Behaviors
+namespace NP.Ava.Visuals.Behaviors
 {
     public static class CurrentScreenPointBehavior
     {

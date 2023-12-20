@@ -1,6 +1,6 @@
 ﻿using Avalonia.Controls;
 
-namespace NP.Avalonia.Visuals
+namespace NP.Ava.Visuals
 {
     internal class ControlContainer
     {

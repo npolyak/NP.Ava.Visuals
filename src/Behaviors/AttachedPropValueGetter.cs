@@ -2,7 +2,7 @@
 using NP.Concepts.Behaviors;
 using System;
 
-namespace NP.Avalonia.Visuals.Behaviors
+namespace NP.Ava.Visuals.Behaviors
 {
     public class AttachedPropValueGetter<TProp> : IValueGetter<TProp>
     {
