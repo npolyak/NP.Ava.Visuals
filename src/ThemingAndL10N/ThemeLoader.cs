@@ -66,7 +66,7 @@ namespace NP.Ava.Visuals.ThemingAndL10N
                 return true;
             }
 
-            return Loaded.TryGetResource(key, ThemeVariant.Light, out value);
+            return Loaded.TryGetResource(key, ThemeVariant.Default, out value);
         }
 
         public T GetResource<T>(object key, T defaultValue = default)
