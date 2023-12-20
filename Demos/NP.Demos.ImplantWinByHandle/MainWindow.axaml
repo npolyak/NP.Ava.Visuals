@@ -7,11 +7,11 @@
 		Width="600"
 		Height="400">
 	<Grid ColumnDefinitions="*, *">
-		<!--<np:ImplantedWindowHostContainer x:Name="HostContainer"
+		<np:ImplantedWindowHostContainer x:Name="HostContainer"
 										 np:ProcessControllerBehavior.ProcessExePath="C:\Program Files\Notepad++\notepad++.exe"
 										 ImplantedWindowHandle="{Binding Path=MainWindowHandle,
-																		 RelativeSource={RelativeSource Self}}"/>-->
-		<np:ImplantedWindowHostContainer x:Name="HostContainer"
-										 ImplantedWindowHandle="2886836"/>
+																		 RelativeSource={RelativeSource Self}}"/>
+		<!--<np:ImplantedWindowHostContainer x:Name="HostContainer"
+										 ImplantedWindowHandle="2886836"/>-->
 	</Grid>
 </np:CustomWindow>

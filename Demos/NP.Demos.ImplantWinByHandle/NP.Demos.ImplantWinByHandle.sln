@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NP.Demos.ImplantWinByHandle
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{9421078E-A621-4261-9DC8-71BC54978696}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NP.Avalonia.Visuals", "..\..\src\NP.Avalonia.Visuals.csproj", "{03E42986-0F8D-4BDB-967E-24859FA663CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NP.Ava.Visuals", "..\..\src\NP.Ava.Visuals.csproj", "{03E42986-0F8D-4BDB-967E-24859FA663CD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NP.Concepts.Behaviors", "..\..\SubModules\NP.Concepts.Behaviors\src\NP.Concepts.Behaviors.csproj", "{9459B4E1-45DD-4C13-8A3E-55B6E501740C}"
 EndProject
