@@ -2,9 +2,11 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using NP.Avalonia.Visuals.Behaviors;
-using NP.Avalonia.Visuals.Controls;
-using NP.Avalonia.Visuals.ThemingAndL10N;
+using Avalonia.Styling;
+using NP.Ava.Visuals.Behaviors;
+using NP.Ava.Visuals.Controls;
+using NP.Ava.Visuals.ThemingAndL10N;
+using System.Linq;
 
 namespace NP.AutoGridTest
 {
@@ -45,7 +47,21 @@ namespace NP.AutoGridTest
 
         private void ChangeLocationButton_Click(object? sender, RoutedEventArgs e)
         {
-            Button button3 = this.FindControl<Button>("Button3");
+            #region Getting Resource Provider
+
+            ResourceDictionary resource = (ResourceDictionary) App.Current.Resources;
+
+            var styles = App.Current.Styles;
+
+            Styles simpleThemeStyles = (Styles) styles.FirstOrDefault(s => s.GetType().Name == "SimpleTheme")!;
+
+            ResourceDictionary r = (ResourceDictionary) simpleThemeStyles.Resources;
+
+            var darkDictionary = (IResourceProvider) r.ThemeDictionaries[ThemeVariant.Dark];
+
+            #endregion Getting Resource Provider
+
+            Button button3 = this.FindControl<Button>("Button3")!;
 
             if (AutoGrid.GetRow(button3) == 2)
             {
@@ -55,7 +71,7 @@ namespace NP.AutoGridTest
             else
             {
                 AutoGrid.SetRow(button3, 2);
-                AutoGrid.SetColumn(button3, 2);
+                AutoGrid.SetColumn(button3, 1);
             }
         }
 

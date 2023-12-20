@@ -8,9 +8,9 @@
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
-    <ProjectReference Include="..\..\src\NP.Avalonia.Visuals.csproj" />
+    <ProjectReference Include="..\..\src\NP.Ava.Visuals.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="NP.Avalonia.Visuals" Version="1.0.35"/>
+    <PackageReference Include="NP.Ava.Visuals" Version="1.0.35"/>
   </ItemGroup>
 </Project>

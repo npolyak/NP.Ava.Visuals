@@ -6,7 +6,7 @@
 	<Application.Styles>
 		<!--<FluentTheme Mode="Dark"/>-->
 		<SimpleTheme/>
-		<StyleInclude Source="avares://NP.Avalonia.Visuals/Themes/PieSegmentStyles.axaml"/>
+		<StyleInclude Source="avares://NP.Ava.Visuals/Themes/PieSegmentStyles.axaml"/>
 	</Application.Styles>
 	<Application.Resources>
 		<ResourceDictionary>
@@ -35,5 +35,4 @@
 			</LinearGradientBrush>
 		</ResourceDictionary>
 	</Application.Resources>
-
 </Application>
