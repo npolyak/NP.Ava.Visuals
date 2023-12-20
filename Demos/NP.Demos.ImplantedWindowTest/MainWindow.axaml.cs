@@ -2,9 +2,9 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using NP.Avalonia.Visuals.Behaviors;
-using NP.Avalonia.Visuals.Controls;
-using NP.Avalonia.Visuals.WindowsOnly;
+using NP.Ava.Visuals.Behaviors;
+using NP.Ava.Visuals.Controls;
+using NP.Ava.Visuals.WindowsOnly;
 using System;
 using System.Diagnostics;
 
@@ -44,6 +44,10 @@ namespace NP.Demos.BehaviorPrototypes
             var grid = this.FindControl<Grid>("TheGrid");
 
             grid.Children.Add(_control);
+
+#if DEBUG
+            this.AttachDevTools();
+#endif
         }
 
         private void OnWindowHandleChanged(IntPtr windowHandle)
