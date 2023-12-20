@@ -9,7 +9,7 @@
   <Application.Styles>
 
 	<SimpleTheme/>
-    <StyleInclude Source="avares://NP.Avalonia.Visuals/Themes/CustomWindowStyles.axaml"/>
+    <StyleInclude Source="avares://NP.Ava.Visuals/Themes/CustomWindowStyles.axaml"/>
 
     <Style Selector="local|StartupTestWindow">
 		<Setter Property="HeaderBackground"

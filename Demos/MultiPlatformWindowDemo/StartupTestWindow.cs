@@ -11,7 +11,7 @@
 //
 using Avalonia.Controls;
 using Avalonia.Styling;
-using NP.Avalonia.Visuals.Controls;
+using NP.Ava.Visuals.Controls;
 using System;
 
 namespace NP.Demos.MultiPlatformWindowDemo
