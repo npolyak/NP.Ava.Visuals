@@ -8,7 +8,7 @@
 			<ResourceDictionary.MergedDictionaries>
 				<!--<ResourceInclude Source="/Themes/LightCrystalTheme.axaml"/>-->
 				<np:ThemeLoader Name="ColorThemeLoader"
-								SelectedThemeId="Dark">
+								SelectedThemeId="Light">
 					<np:ThemeInfo Id="Light"
 								  ResourceUrl="/Themes/LightCrystalTheme.axaml"/>
 					<np:ThemeInfo Id="Dark"
@@ -32,8 +32,7 @@
 	</Application.Resources>
   <Application.Styles>
     <!--<FluentTheme Mode="Dark"/>-->
-	  <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseDark.xaml"/>
-	  <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
+	  <StyleInclude Source="avares://Avalonia.Themes.Simple/SimpleTheme.xaml"/>
 	  <StyleInclude Source="avares://NP.Avalonia.Visuals/Themes/ThemeStyles.axaml"/>
   </Application.Styles>
 </Application>

@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace NP.Avalonia.Visuals.ThemingAndL10N
 {
-    public class ThemeLoader : ResourceDictionary, IThemeLoader//, IResourceProvider
+    public class ThemeLoader : ResourceDictionary, IThemeLoader, IResourceProvider
     {
         public string? Name { get; set; }
 
@@ -20,7 +20,10 @@ namespace NP.Avalonia.Visuals.ThemingAndL10N
         private ResourceDictionary _resourceDictionary = new ResourceDictionary();
 
         public IResourceDictionary Loaded => _resourceDictionary;
-        public IResourceHost? Owner => Loaded.Owner;
+        IResourceHost? IResourceProvider.Owner => Loaded.Owner;
+
+        void IResourceProvider.AddOwner(IResourceHost owner) => Loaded.AddOwner(owner);
+        void IResourceProvider.RemoveOwner(IResourceHost owner) => Loaded.RemoveOwner(owner);
 
         public Uri? BaseUri { get; private set; }
 
