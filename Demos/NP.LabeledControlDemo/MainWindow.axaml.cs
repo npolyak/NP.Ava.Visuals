@@ -1,8 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using NP.Avalonia.Visuals.Controls;
-using NP.Avalonia.Visuals.ThemingAndL10N;
+using NP.Ava.Visuals.Controls;
+using NP.Ava.Visuals.ThemingAndL10N;
 
 namespace NP.LabeledControlDemo
 {

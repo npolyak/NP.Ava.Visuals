@@ -8,6 +8,6 @@
 	  <!--<StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>-->
 	  <!--<StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>-->
 	  <SimpleTheme />
-	  <StyleInclude Source="avares://NP.Avalonia.Visuals/Themes/ThemeStyles.axaml"/>
+	  <StyleInclude Source="avares://NP.Ava.Visuals/Themes/ThemeStyles.axaml"/>
   </Application.Styles>
 </Application>
