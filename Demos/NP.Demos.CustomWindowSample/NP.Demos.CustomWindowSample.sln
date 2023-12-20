@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NP.Demos.CustomWindowSample
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{9D2BDF62-608F-48B4-BCFD-AD432AB4521A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NP.Avalonia.Visuals", "..\..\src\NP.Avalonia.Visuals.csproj", "{8C18B0A7-5FDA-44A9-8731-7E1F36865E80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NP.Ava.Visuals", "..\..\src\NP.Ava.Visuals.csproj", "{8C18B0A7-5FDA-44A9-8731-7E1F36865E80}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NP.Utilities", "..\..\SubModules\NP.Utilities\src\NP.Utilities.csproj", "{E2696F6E-4906-497A-8A12-A5CA4B7095E0}"
 EndProject
