@@ -5,11 +5,7 @@
              xmlns:local="clr-namespace:NP.DataGridFilteringDemo">
   <Application.Styles>
 	  <SimpleTheme  />
-    <!--<FluentTheme Mode="Dark"/>-->
-	  <!--<StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseDark.xaml"/>
-	  <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>-->
-	  <!--<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Default.xaml"/>-->
-	  <StyleInclude Source="avares://NP.Avalonia.Visuals/Themes/ButtonStyles.axaml"/>
-	  <StyleInclude Source="avares://NP.Avalonia.Visuals/Themes/ThemeStyles.axaml"/>
+	  <StyleInclude Source="avares://NP.Ava.Visuals/Themes/ButtonStyles.axaml"/>
+	  <StyleInclude Source="avares://NP.Ava.Visuals/Themes/ThemeStyles.axaml"/>
   </Application.Styles>
 </Application>
