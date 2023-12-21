@@ -7,16 +7,15 @@
   <Application.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-        <!--<np:ThemeLoader Name="ColorLoader"
+        <np:ThemeLoader Name="ColorLoader"
                         SelectedThemeId="Light"
                         StyleResourceName="ColorLoaderStyles">
-          <np:ThemeInfo Id="Dark"
-                        ResourceUrl="/ColorDictionaries/DarkResources.axaml"
-                        StyleUrl="avares://Avalonia.Themes.Default/Accents/BaseDark.xaml"/>
+			<np:ThemeInfo Id="Dark"
+						  ResourceUrl="/ColorDictionaries/DarkResources.axaml">
+			</np:ThemeInfo>
           <np:ThemeInfo Id="Light"
-                        ResourceUrl="/ColorDictionaries/LightResources.axaml"
-                        StyleUrl="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
-        </np:ThemeLoader>-->
+                        ResourceUrl="/ColorDictionaries/LightResources.axaml"/>
+        </np:ThemeLoader>
         <np:ThemeLoader Name="LanguageLoader"
                         SelectedThemeId="English">
             <np:ThemeInfo Id="English"
@@ -27,11 +26,16 @@
                              ResourceUrl="/LanguageDictionaries/RussianResources.axaml"/>
         </np:ThemeLoader>
       </ResourceDictionary.MergedDictionaries>
+		
     </ResourceDictionary>
   </Application.Resources>
   <Application.Styles>
 	  <!--<FluentTheme Mode="Dark"/>-->
     <!--<np:StyleReference TheStyle="{StaticResource ColorLoaderStyles}"/>-->
     <StyleInclude Source="/Resources/AppStyles.axaml"/>
+	  <Style Selector=":is(TextBlock)">
+		  <Setter Property="Foreground"
+				  Value="{DynamicResource ForegroundBrush}"/>
+	  </Style>
   </Application.Styles>
 </Application>

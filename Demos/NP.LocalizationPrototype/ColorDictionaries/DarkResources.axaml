@@ -1,7 +1,17 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:np="https://np.com/visuals">
-  <SolidColorBrush x:Key="ForegroundBrush" Color="#FFEDEDED" />
+	<!-- BaseResources for CaptionButtons.xaml -->
+	<SolidColorBrush x:Key="CaptionButtonForeground"
+					 Color="White" />
+	<SolidColorBrush x:Key="CaptionButtonBackground"
+					 Color="#ffe5e5e5" />
+	<SolidColorBrush x:Key="CaptionButtonBorderBrush"
+					 Color="#ffcacaca" />
+
+	<np:ThemeVariantEnum x:Key="TheThemeVariant">Dark</np:ThemeVariantEnum>
+
+	<SolidColorBrush x:Key="ForegroundBrush" Color="#FFEDEDED" />
 
   <LinearGradientBrush x:Key="BorderBrush" EndPoint="6.6%,5.2%" StartPoint="95.6%,66.3%">
     <GradientStop Color="#FF353535" Offset="0"/>

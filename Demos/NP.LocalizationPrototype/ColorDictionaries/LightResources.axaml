@@ -1,7 +1,8 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:np="https://np.com/visuals">
-  
+
+	<np:ThemeVariantEnum x:Key="TheThemeVariant">Light</np:ThemeVariantEnum>
   <SolidColorBrush x:Key="ForegroundBrush" Color="#FF121212" />
 
   <LinearGradientBrush x:Key="BorderBrush" EndPoint="6.6%,5.2%" StartPoint="95.6%,66.3%">

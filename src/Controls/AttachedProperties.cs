@@ -16,6 +16,8 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml.Templates;
 using Avalonia.Media;
+using Avalonia.Styling;
+using NP.Ava.Visuals.ThemingAndL10N;
 using NP.Utilities;
 using System.Collections.Generic;
 

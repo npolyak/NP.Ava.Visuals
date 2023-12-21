@@ -6,8 +6,10 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Layout;
 using System;
 using System.Linq;
-using NP.Avalonia.Visuals.ThemingAndL10N;
-using NP.Avalonia.Visuals.Behaviors;
+using NP.Ava.Visuals.ThemingAndL10N;
+using NP.Ava.Visuals.Behaviors;
+using Avalonia.Styling;
+using Avalonia.Media;
 
 namespace NP.LocalizationPrototype
 {
@@ -15,6 +17,8 @@ namespace NP.LocalizationPrototype
     {
         private ThemeLoader? _languageThemeLoader;
         private ThemeLoader? _colorThemeLoader;
+
+        private ThemeVariantScope _themeScope;
 
         private Data _data = new Data("FirstDataTemplateText");
 
@@ -48,7 +52,9 @@ namespace NP.LocalizationPrototype
             //Button changeUidButton = this.FindControl<Button>("ChangeUidButton");
             //changeUidButton.Click += ChangeUidButton_Click;
 
+            //_themeScope = this.FindControl<ThemeVariantScope>("TheThemeScope");
 
+            //_themeScope.RequestedThemeVariant = ThemeVariant.Dark;
         }
 
         private void OnSelectedLanguageChanged(Language language)
@@ -58,7 +64,7 @@ namespace NP.LocalizationPrototype
 
         private void OnSelectedColorThemeChanged(ColorTheme colorTheme)
         {
-            //_colorThemeLoader!.SelectedThemeId = colorTheme.ToString();
+            _colorThemeLoader!.SelectedThemeId = colorTheme.ToString();
         }
 
         private void ChangeUidButton_Click(object? sender, RoutedEventArgs e)
@@ -128,21 +134,34 @@ namespace NP.LocalizationPrototype
         {
             Button button;
 
+            object backgroundBrushObj;
+            
+            this.TryFindResource("BackgroundBrush", out backgroundBrushObj);
+
+            IBrush backgroundBrush = backgroundBrushObj as IBrush;
+
+
+            button = new Button
+            {
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Foreground = this.Foreground,
+                Content = closeWindowStr
+            };
+
+            button.Classes.Add("LocalizationPrototypeButton");
             var window = new Window
             {
                 Height = 100,
                 Width = 300,
+                Background = backgroundBrush,
+                Foreground = this.Foreground,
                 Content = new StackPanel
                 {
                     Spacing = 4,
                     Children =
                     {
                         new TextBlock { Text = msg, HorizontalAlignment = HorizontalAlignment.Center},
-                        (button = new Button
-                        {
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            Content = closeWindowStr
-                        })
+                        button
                     }
                 },
                 WindowStartupLocation = WindowStartupLocation.CenterOwner

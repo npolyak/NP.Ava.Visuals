@@ -17,13 +17,13 @@ namespace NP.Ava.Visuals.ThemingAndL10N
 
         public event Action<IThemeLoader> SelectedThemeChangedEvent;
 
-        private ResourceDictionary _resourceDictionary = new ResourceDictionary();
+        //private ResourceDictionary _resourceDictionary = new ResourceDictionary();
 
-        public IResourceDictionary Loaded => _resourceDictionary;
+        public IResourceDictionary Loaded => this;
         IResourceHost? IResourceProvider.Owner => Loaded.Owner;
 
-        void IResourceProvider.AddOwner(IResourceHost owner) => Loaded.AddOwner(owner);
-        void IResourceProvider.RemoveOwner(IResourceHost owner) => Loaded.RemoveOwner(owner);
+        //void IResourceProvider.AddOwner(IResourceHost owner) => Loaded.AddOwner(owner);
+        //void IResourceProvider.RemoveOwner(IResourceHost owner) => Loaded.RemoveOwner(owner);
 
         public Uri? BaseUri { get; private set; }
 
@@ -56,7 +56,7 @@ namespace NP.Ava.Visuals.ThemingAndL10N
             }
         }
 
-        public bool HasResources => Loaded.HasResources;
+       // public bool HasResources => Loaded.HasResources;
 
         public bool TryGetResource(object key, out object? value)
         {
@@ -79,11 +79,11 @@ namespace NP.Ava.Visuals.ThemingAndL10N
             return defaultValue;
         }
 
-        public event EventHandler OwnerChanged
-        {
-            add => Loaded.OwnerChanged += value;
-            remove => Loaded.OwnerChanged -= value;
-        }
+        //public event EventHandler OwnerChanged
+        //{
+        //    add => Loaded.OwnerChanged += value;
+        //    remove => Loaded.OwnerChanged -= value;
+        //}
 
         [Content]
         public ObservableCollection<ThemeInfo> Themes { get; } =
@@ -102,7 +102,7 @@ namespace NP.Ava.Visuals.ThemingAndL10N
 
                 if (_selectedTheme?.Resource != null)
                 {
-                    _resourceDictionary.MergedDictionaries.Remove(_selectedTheme.Resource);
+                    this.MergedDictionaries.Remove(_selectedTheme.Resource);
                 }
 
                 if (_selectedTheme?.Style != null)
@@ -122,7 +122,7 @@ namespace NP.Ava.Visuals.ThemingAndL10N
         {
             if (_selectedTheme?.Resource != null)
             {
-                _resourceDictionary.MergedDictionaries.Add(_selectedTheme.Resource);
+                this.MergedDictionaries.Add(_selectedTheme.Resource);
             }
 
             if (_selectedTheme?.Style != null)
@@ -235,9 +235,9 @@ namespace NP.Ava.Visuals.ThemingAndL10N
             this.SelectedThemeId = Themes.ElementAt(nextThemeIdx).Id;
         }
 
-        public bool TryGetResource(object key, ThemeVariant? theme, out object? value)
-        {
-            return Loaded.TryGetResource(key, ThemeVariant.Light, out value);
-        }
+        //public bool TryGetResource(object key, ThemeVariant? theme, out object? value)
+        //{
+        //    return Loaded.TryGetResource(key, ThemeVariant.Default, out value);
+        //}
     }
 }

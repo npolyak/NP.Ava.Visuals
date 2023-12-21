@@ -16,18 +16,19 @@
 					 ShowGridLines="True">
 			<np:AutoGrid.RowsHeights>
 				<np:GridLenDictionary>
+					<!--
 					<GridLength x:Key="-2">Auto</GridLength>
-					<GridLength x:Key="0">Auto</GridLength>
+					<GridLength x:Key="0">Auto</GridLength>-->
 					<GridLength x:Key="1">100</GridLength>
-					<GridLength x:Key="2">Auto</GridLength>
+					<!--<GridLength x:Key="2">Auto</GridLength>-->
 				</np:GridLenDictionary>
 			</np:AutoGrid.RowsHeights>
 			<np:AutoGrid.ColumnsWidths>
 				<np:GridLenDictionary>
-					<GridLength x:Key="-2">Auto</GridLength>
+					<!--<GridLength x:Key="-2">Auto</GridLength>-->
 					<GridLength x:Key="0">*</GridLength>
-					<GridLength x:Key="1">Auto</GridLength>
-					<GridLength x:Key="2">Auto</GridLength>
+					<!--<GridLength x:Key="1">Auto</GridLength>
+					<GridLength x:Key="2">Auto</GridLength>-->
 				</np:GridLenDictionary>
 			</np:AutoGrid.ColumnsWidths>
 			<Border Width="100"
