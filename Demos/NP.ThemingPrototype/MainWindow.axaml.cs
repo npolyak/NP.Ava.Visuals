@@ -1,15 +1,11 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using Avalonia.VisualTree;
-using NP.Avalonia.Visuals.Behaviors;
-using NP.Avalonia.Visuals.Controls;
-using NP.Avalonia.Visuals.ThemingAndL10N;
-using NP.Concepts.Behaviors;
+using NP.Ava.Visuals.Behaviors;
+using NP.Ava.Visuals.Controls;
+using NP.Ava.Visuals.ThemingAndL10N;
 using NP.Utilities;
-using System.Linq;
 
 namespace NP.ThemingPrototype
 {

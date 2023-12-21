@@ -25,11 +25,10 @@
 	</Application.Resources>
 	<Application.Styles>
 		<!--<FluentTheme Mode="Dark"/>-->
-		<StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
-		<StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
-		<StyleInclude Source="avares://NP.Avalonia.Visuals/Themes/TextStyles.axaml"/>
+		<SimpleTheme/>
+		<StyleInclude Source="avares://NP.Ava.Visuals/Themes/TextStyles.axaml"/>
 
-		<StyleInclude Source="avares://NP.Avalonia.Visuals/Themes/ThemeStyles.axaml"/>
-		<StyleInclude Source="avares://NP.Avalonia.Visuals/Themes/CustomWindowStyles.axaml"/>
+		<StyleInclude Source="avares://NP.Ava.Visuals/Themes/ThemeStyles.axaml"/>
+		<StyleInclude Source="avares://NP.Ava.Visuals/Themes/CustomWindowStyles.axaml"/>
 	</Application.Styles>
 </Application>
