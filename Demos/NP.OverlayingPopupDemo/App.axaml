@@ -3,9 +3,6 @@
              x:Class="NP.OverlayingPopupDemo.App"
              xmlns:np="https://np.com/visuals">
   <Application.Styles>
-    <!--<FluentTheme Mode="Dark"/>-->
 	  <SimpleTheme/>
-	  <!--<StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
-	  <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>-->
   </Application.Styles>
 </Application>

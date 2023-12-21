@@ -7,7 +7,7 @@
 		Width="500"
 		Height="400">
 	<Window.Styles>
-		<StyleInclude Source="avares://NP.Avalonia.Visuals/Themes/OverlayingPopupStyles.axaml" />
+		<StyleInclude Source="avares://NP.Ava.Visuals/Themes/OverlayingPopupStyles.axaml" />
 	</Window.Styles>
 	<Grid RowDefinitions="*, Auto"
 		  Margin="10">
