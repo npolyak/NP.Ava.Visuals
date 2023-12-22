@@ -58,7 +58,7 @@ namespace NP.Ava.Visuals.ThemingAndL10N
 
        // public bool HasResources => Loaded.HasResources;
 
-        public bool TryGetResource(object key, out object? value)
+        bool IResourceNode.TryGetResource(object key, ThemeVariant? theme, out object? value)
         {
             if (key.ObjEquals(_styleResourceName))
             {
@@ -66,12 +66,12 @@ namespace NP.Ava.Visuals.ThemingAndL10N
                 return true;
             }
 
-            return Loaded.TryGetResource(key, ThemeVariant.Default, out value);
+            return base.TryGetResource(key, ThemeVariant.Default, out value);
         }
 
         public T GetResource<T>(object key, T defaultValue = default)
         {
-            if (TryGetResource(key, out object result))
+            if (TryGetResource(key, ThemeVariant.Default, out object result))
             {
                 return (T) result;
             }
