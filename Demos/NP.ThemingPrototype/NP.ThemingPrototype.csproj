@@ -5,13 +5,19 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <AvaloniaXaml Remove="Themes\CurveThemes\**" />
+    <AvaloniaXaml Remove="Themes\TextThemes\**" />
+    <Compile Remove="Themes\CurveThemes\**" />
+    <Compile Remove="Themes\TextThemes\**" />
+    <EmbeddedResource Remove="Themes\CurveThemes\**" />
+    <EmbeddedResource Remove="Themes\TextThemes\**" />
+    <None Remove="Themes\CurveThemes\**" />
+    <None Remove="Themes\TextThemes\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\NP.Ava.Visuals.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Themes\CurveThemes\" />
-    <Folder Include="Themes\TextThemes\" />
   </ItemGroup>
 </Project>
