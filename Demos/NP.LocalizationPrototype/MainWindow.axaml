@@ -7,9 +7,9 @@
 		TransparencyLevelHint="Transparent"
 		SystemDecorations="None"
 		Background="Transparent"
-		np:ThemeVariantBehavior.TheThemeVariant="{DynamicResource TheThemeVariant}"
 		Foreground="{DynamicResource ForegroundBrush}"
 		x:Name="Root"
+		np:ThemeVariantBehavior.ThemeReference="{DynamicResource TheThemeVariantRef}"
 		Width="{DynamicResource WindowWidth}"
 		Height="{DynamicResource WindowHeight}">
 	<Window.Resources>
@@ -48,8 +48,8 @@
 							  np:HandleEventBehavior.TheEvent="{x:Static InputElement.PointerPressedEvent}"
 							  ItemsSource="{Binding Source={x:Static local:LanguageHelper.Languages}}"
 							  SelectedItem="{Binding Path=SelectedLanguage, 
-                                           Mode=TwoWay, 
-                                           RelativeSource={RelativeSource AncestorType=local:MainWindow}}"
+													 Mode=TwoWay, 
+													 RelativeSource={RelativeSource AncestorType=local:MainWindow}}"
 							  Margin="0,0,8,0"
 							  Background="Transparent"/>
 					<ComboBox x:Name="ColorThemeChoosingCombo"
@@ -57,8 +57,8 @@
 							  np:HandleEventBehavior.TheEvent="{x:Static InputElement.PointerPressedEvent}"
 							  ItemsSource="{Binding Source={x:Static local:ColorThemesHelper.ColorThemes}}"
 							  SelectedItem="{Binding Path=SelectedColorTheme, 
-                                           Mode=TwoWay, 
-                                           RelativeSource={RelativeSource AncestorType=local:MainWindow}}"
+													 Mode=TwoWay, 
+													 RelativeSource={RelativeSource AncestorType=local:MainWindow}}"
 							  Margin="0,0,8,0"
 							  Background="Transparent"/>
 				</StackPanel>

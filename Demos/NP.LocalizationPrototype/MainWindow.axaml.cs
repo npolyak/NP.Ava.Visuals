@@ -34,6 +34,11 @@ namespace NP.LocalizationPrototype
             _colorThemeLoader =
                 Application.Current.Resources.GetThemeLoader("ColorLoader");
 
+            if (_colorThemeLoader?.SelectedTheme?.Id != null)
+            {
+                this.SelectedColorTheme = Enum.Parse<ColorTheme>(_colorThemeLoader?.SelectedTheme?.Id?.ToString());
+            }
+
             this.GetObservable(SelectedLanguageProperty).Subscribe(OnSelectedLanguageChanged);
             this.GetObservable(SelectedColorThemeProperty).Subscribe(OnSelectedColorThemeChanged);
 

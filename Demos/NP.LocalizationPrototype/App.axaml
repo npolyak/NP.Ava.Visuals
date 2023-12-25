@@ -2,31 +2,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="NP.LocalizationPrototype.App"
              xmlns:np="https://np.com/visuals"
-             xmlns:local="clr-namespace:NP.LocalizationPrototype">
+			 xmlns:local="clr-namespace:NP.LocalizationPrototype">
 
   <Application.Resources>
     <ResourceDictionary>
-      <ResourceDictionary.MergedDictionaries>
-        <np:ThemeLoader Name="ColorLoader"
-                        SelectedThemeId="Light"
-                        StyleResourceName="ColorLoaderStyles">
-			<np:ThemeInfo Id="Dark"
-						  ResourceUrl="/ColorDictionaries/DarkResources.axaml">
-			</np:ThemeInfo>
-          <np:ThemeInfo Id="Light"
-                        ResourceUrl="/ColorDictionaries/LightResources.axaml"/>
-        </np:ThemeLoader>
-        <np:ThemeLoader Name="LanguageLoader"
-                        SelectedThemeId="English">
-            <np:ThemeInfo Id="English"
-                             ResourceUrl="/LanguageDictionaries/EnglishResources.axaml"/>
-            <np:ThemeInfo Id="Hebrew"
-                             ResourceUrl="/LanguageDictionaries/HebrewResources.axaml"/>
-            <np:ThemeInfo Id="Russian"
-                             ResourceUrl="/LanguageDictionaries/RussianResources.axaml"/>
-        </np:ThemeLoader>
-      </ResourceDictionary.MergedDictionaries>
-		
+		<ResourceDictionary.MergedDictionaries>
+			<np:ThemeLoader Name="ColorLoader"
+							SelectedThemeId="Light"
+							StyleResourceName="ColorLoaderStyles">
+				<np:ThemeInfo Id="Dark"
+							  ResourceUrl="/ColorDictionaries/DarkResources.axaml"/>
+				<np:ThemeInfo Id="Light"
+							  ResourceUrl="/ColorDictionaries/LightResources.axaml"/>
+			</np:ThemeLoader>
+			<np:ThemeLoader Name="LanguageLoader"
+							SelectedThemeId="English">
+				<np:ThemeInfo Id="English"
+							  ResourceUrl="/LanguageDictionaries/EnglishResources.axaml"/>
+				<np:ThemeInfo Id="Hebrew"
+							  ResourceUrl="/LanguageDictionaries/HebrewResources.axaml"/>
+				<np:ThemeInfo Id="Russian"
+							  ResourceUrl="/LanguageDictionaries/RussianResources.axaml"/>
+			</np:ThemeLoader>
+		</ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Application.Resources>
   <Application.Styles>
