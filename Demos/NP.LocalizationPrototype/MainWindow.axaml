@@ -9,7 +9,6 @@
 		Background="Transparent"
 		Foreground="{DynamicResource ForegroundBrush}"
 		x:Name="Root"
-		np:ThemeVariantBehavior.ThemeReference="{DynamicResource TheThemeVariantRef}"
 		Width="{DynamicResource WindowWidth}"
 		Height="{DynamicResource WindowHeight}">
 	<Window.Resources>
