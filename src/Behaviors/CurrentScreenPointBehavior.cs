@@ -19,6 +19,7 @@ using NP.Ava.Visuals.Controls;
 using NP.Utilities;
 using System;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
@@ -72,20 +73,31 @@ namespace NP.Ava.Visuals.Behaviors
         {
             get
             {
-                if (_mouseDevice == null)
-                {
-                    _mouseDevice = _capturedWindow?.PlatformImpl?.GetPropValue<IMouseDevice>("MouseDevice", true);
-                }
+                /// Somehow I need to renew the mouse device every time (otherwise it won't work under 
+                /// Avalonia 11
+                //if (_mouseDevice == null)
+                //{
+
+                _mouseDevice = 
+                    _capturedWindow
+                        ?.PlatformImpl
+                        ?.GetPropValue<IMouseDevice>("MouseDevice", true);
+                //}
                 return _mouseDevice;
             }
         }
 
         public static void Capture(Control control)
-        { 
+        {
             _capturedWindow = 
                 control.GetSelfAndVisualAncestors()
                        .OfType<Window>()
                        .FirstOrDefault()!;
+
+            if (_capturedWindow?.Title != "NP.Demos.UniDockWindowsSample")
+            {
+
+            }
 
             var pointer = Mouse?.TryGetPointer(null);
                 
@@ -102,7 +114,6 @@ namespace NP.Ava.Visuals.Behaviors
         {
             if (CapturedControl != null)
             {
-                CapturedControl.PointerReleased -= Control_PointerReleased;
                 CapturedControl.PointerReleased -= Control_PointerReleased;
             }
 
