@@ -87,7 +87,12 @@ namespace NP.Ava.Visuals.Behaviors
                        .OfType<Window>()
                        .FirstOrDefault()!;
 
-            Mouse?.TryGetPointer(null)?.Capture(control);
+            var pointer = Mouse?.TryGetPointer(null);
+                
+            if (pointer != null)
+            {
+                 pointer?.Capture(control);
+            }   
 
             control.PointerReleased -= Control_PointerReleased;
             control.PointerReleased += Control_PointerReleased;
