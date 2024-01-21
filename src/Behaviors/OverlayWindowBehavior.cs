@@ -6,6 +6,7 @@ using NP.Utilities;
 using System;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
+using Avalonia.Controls.Templates;
 
 namespace NP.Ava.Visuals.Behaviors
 {
@@ -68,18 +69,18 @@ namespace NP.Ava.Visuals.Behaviors
 
 
         #region ContentTemplate Attached Avalonia Property
-        public static DataTemplate GetContentTemplate(Control obj)
+        public static IDataTemplate GetContentTemplate(Control obj)
         {
             return obj.GetValue(ContentTemplateProperty);
         }
 
-        public static void SetContentTemplate(Control obj, DataTemplate value)
+        public static void SetContentTemplate(Control obj, IDataTemplate value)
         {
             obj.SetValue(ContentTemplateProperty, value);
         }
 
-        public static readonly AttachedProperty<DataTemplate> ContentTemplateProperty =
-            AvaloniaProperty.RegisterAttached<OverlayWindowBehavior, Control, DataTemplate>
+        public static readonly AttachedProperty<IDataTemplate> ContentTemplateProperty =
+            AvaloniaProperty.RegisterAttached<OverlayWindowBehavior, Control, IDataTemplate>
             (
                 "ContentTemplate"
             );

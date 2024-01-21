@@ -28,6 +28,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Avalonia.Controls.Templates;
 
 namespace NP.Ava.Visuals.Controls
 {
@@ -575,14 +576,14 @@ namespace NP.Ava.Visuals.Controls
         #endregion HeaderContent Styled Avalonia Property
 
         #region HeaderContentTemplate Styled Avalonia Property
-        public DataTemplate HeaderContentTemplate
+        public IDataTemplate HeaderContentTemplate
         {
             get { return GetValue(HeaderContentTemplateProperty); }
             set { SetValue(HeaderContentTemplateProperty, value); }
         }
 
-        public static readonly StyledProperty<DataTemplate> HeaderContentTemplateProperty =
-            AvaloniaProperty.Register<CustomWindow, DataTemplate>
+        public static readonly StyledProperty<IDataTemplate> HeaderContentTemplateProperty =
+            AvaloniaProperty.Register<CustomWindow, IDataTemplate>
             (
                 nameof(HeaderContentTemplate)
             );
@@ -651,14 +652,14 @@ namespace NP.Ava.Visuals.Controls
         #endregion TitleAreaContent Styled Avalonia Property
 
         #region TitleAreaContentTemplate Styled Avalonia Property
-        public DataTemplate TitleAreaContentTemplate
+        public IDataTemplate TitleAreaContentTemplate
         {
             get { return GetValue(TitleAreaContentTemplateProperty); }
             set { SetValue(TitleAreaContentTemplateProperty, value); }
         }
 
-        public static readonly StyledProperty<DataTemplate> TitleAreaContentTemplateProperty =
-            AvaloniaProperty.Register<CustomWindow, DataTemplate>
+        public static readonly StyledProperty<IDataTemplate> TitleAreaContentTemplateProperty =
+            AvaloniaProperty.Register<CustomWindow, IDataTemplate>
             (
                 nameof(TitleAreaContentTemplate)
             );
