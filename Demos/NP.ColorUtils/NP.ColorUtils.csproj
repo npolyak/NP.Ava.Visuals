@@ -1,8 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ApplicationIcon />
     <StartupObject>NP.ThemingPrototype.Program</StartupObject>
   </PropertyGroup>
@@ -10,7 +8,7 @@
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\NP.Avalonia.Visuals.csproj" />
+    <ProjectReference Include="..\..\src\NP.Ava.Visuals.csproj" />
     <ProjectReference Include="..\..\SubModules\NP.Concepts.Behaviors\src\NP.Concepts.Behaviors.csproj" />
     <ProjectReference Include="..\..\SubModules\NP.Utilities\src\NP.Utilities.csproj" />
   </ItemGroup>

@@ -1,6 +1,6 @@
 using Avalonia;
 using Avalonia.Media;
-using NP.Avalonia.Visuals.ColorUtils;
+using NP.Ava.Visuals.ColorUtils;
 using System;
 
 namespace NP.ThemingPrototype
