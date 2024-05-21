@@ -1,14 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
 		<RootNamespace>NP.Ava.Visuals</RootNamespace>
 		<PackageId>NP.Ava.Visuals</PackageId>
-		<Version>1.0.5</Version>
+		<Version>1.0.7</Version>
 		<Authors>Nick Polyak, Ph. D.</Authors>
 		<Company>AWebPros</Company>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Nullable>enable</Nullable>
 		<Authors>Nick Polyak Ph. D.</Authors>
 		<Description>Visual Controls, Utilities and Behaviors for AvaloniaUI</Description>
 		<Copyright>Nick Polyak 2023</Copyright>
@@ -19,20 +16,22 @@
 		<InternalsAssemblyUseEmptyMethodBodies>false</InternalsAssemblyUseEmptyMethodBodies>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLinux|AnyCPU'">
-	  <Optimize>True</Optimize>
-	  <DefineConstants></DefineConstants>
+		<Optimize>True</Optimize>
+		<DefineConstants></DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <DefineConstants></DefineConstants>
+		<DefineConstants></DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <DefineConstants></DefineConstants>
+		<DefineConstants></DefineConstants>
+		<Optimize>True</Optimize>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLinux|AnyCPU'">
-	  <DefineConstants></DefineConstants>
+		<DefineConstants></DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -59,12 +58,18 @@
 		<AvaloniaResource Include="Themes\OverlayingPopupStyles.axaml" />
 		<AvaloniaResource Include="Themes\ThemeStyles.axaml" />
 	</ItemGroup>
-
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="11.0.9" />
-		<PackageReference Include="Avalonia.Desktop" Version="11.0.9" />
-		<PackageReference Include="Avalonia.Diagnostics" Version="11.0.9" />
-		<PackageReference Include="IgnoresAccessChecksToGenerator" Version="0.7.0" PrivateAssets="All" />
+		<PackageReference Include="Avalonia"
+						  Version="11.0.10" />
+		<PackageReference Include="Avalonia.Desktop"
+						  Version="11.0.10" />
+		<PackageReference Include="Avalonia.Diagnostics"
+						  Version="11.0.10" />
+		<PackageReference Include="IgnoresAccessChecksToGenerator"
+						  Version="0.7.0"
+						  PrivateAssets="All" />
+		<PackageReference Include="NP.ViewModelInterfaces"
+						  Version="1.0.5" />
 	</ItemGroup>
 	<ItemGroup>
 		<InternalsAssemblyName Include="Avalonia" />
@@ -76,7 +81,6 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)'=='Release'">
-		<PackageReference Include="NP.Concepts.Behaviors" Version="1.0.15" />
-		<PackageReference Include="NP.ViewModelInterfaces" Version="1.0.4" />
+		<PackageReference Include="NP.Concepts.Behaviors" Version="1.0.16" />
 	</ItemGroup>
 </Project>

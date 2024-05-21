@@ -1,0 +1,15 @@
+<Project>
+    <PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Remove=".gitignore" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(Configuration)'=='Debug'">
+        <ProjectReference Include="..\..\src\NP.Ava.Visuals.csproj" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(Configuration)'=='Release'">
+        <PackageReference Include="NP.Ava.Visuals" Version="1.0.7"/>
+    </ItemGroup>
+</Project>
