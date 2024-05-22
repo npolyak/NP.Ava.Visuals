@@ -17,7 +17,7 @@
 	<Window.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceInclude Source="avares://NP.Avalonia.Visuals/Themes/Geometries.axaml"/>
+				<ResourceInclude Source="avares://NP.Ava.Visuals/Themes/Geometries.axaml"/>
 			</ResourceDictionary.MergedDictionaries>
 
 		</ResourceDictionary>

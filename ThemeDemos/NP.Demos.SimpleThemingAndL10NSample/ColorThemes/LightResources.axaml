@@ -8,5 +8,6 @@
   <SolidColorBrush x:Key="ForegroundBrush"
                  Color="Black"/>
 
-	<np:ThemeVariantEnum x:Key="TheThemeVariant">Light</np:ThemeVariantEnum>
+	<np:ThemeVariantReference x:Key="TheThemeVariantRef"
+							  TheThemeVariant="{x:Static ThemeVariant.Light}"/>
 </ResourceDictionary>
