@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<RootNamespace>NP.Ava.Visuals</RootNamespace>
 		<PackageId>NP.Ava.Visuals</PackageId>
-		<Version>1.0.7</Version>
+		<Version>1.0.10</Version>
 		<Authors>Nick Polyak, Ph. D.</Authors>
 		<Company>AWebPros</Company>
 		<Authors>Nick Polyak Ph. D.</Authors>
@@ -59,17 +59,10 @@
 		<AvaloniaResource Include="Themes\ThemeStyles.axaml" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Avalonia"
-						  Version="11.0.10" />
-		<PackageReference Include="Avalonia.Desktop"
-						  Version="11.0.10" />
-		<PackageReference Include="Avalonia.Diagnostics"
-						  Version="11.0.10" />
-		<PackageReference Include="IgnoresAccessChecksToGenerator"
-						  Version="0.7.0"
-						  PrivateAssets="All" />
-		<PackageReference Include="NP.ViewModelInterfaces"
-						  Version="1.0.5" />
+		<PackageReference Include="Avalonia" Version="11.0.10" />
+		<PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
+		<PackageReference Include="Avalonia.Diagnostics" Version="11.0.10" />
+		<PackageReference Include="IgnoresAccessChecksToGenerator" Version="0.7.0" PrivateAssets="All" />
 	</ItemGroup>
 	<ItemGroup>
 		<InternalsAssemblyName Include="Avalonia" />
@@ -81,6 +74,8 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)'=='Release'">
-		<PackageReference Include="NP.Concepts.Behaviors" Version="1.0.16" />
+		<PackageReference Include="NP.Concepts.Behaviors" Version="1.0.17" />
+		<PackageReference Include="NP.ViewModelInterfaces"
+						  Version="1.0.6" />
 	</ItemGroup>
 </Project>
