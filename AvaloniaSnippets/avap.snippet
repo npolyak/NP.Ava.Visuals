@@ -32,18 +32,18 @@
             <Code Language="csharp">
                 <![CDATA[
 #region $property$ Attached Avalonia Property
-public static $type$ Get$property$(IControl obj)
+public static $type$ Get$property$(Control obj)
 {
     return obj.GetValue($property$Property);
 }
 
-public static void Set$property$(IControl obj, $type$ value)
+public static void Set$property$(Control obj, $type$ value)
 {
     obj.SetValue($property$Property, value);
 }
 
 public static readonly AttachedProperty<$type$> $property$Property =
-    AvaloniaProperty.RegisterAttached<$ownerclass$, IControl, $type$>
+    AvaloniaProperty.RegisterAttached<$ownerclass$, Control, $type$>
     (
         "$property$"
     );
