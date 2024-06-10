@@ -18,11 +18,15 @@
 					Value="White"/>
 		</Style>
 	</Window.Styles>
+	<Window.Resources>
+		
+	</Window.Resources>
 	<Grid RowDefinitions="*,Auto"
 		  Margin="15">
 		<DataGrid Classes="WithColumnFilters"
-				  CanUserReorderColumns="True"
 				  CanUserResizeColumns="True"
+				  x:Name="TheDataGrid"
+				  np:DataGridGroupingBehavior.IsGroupingOn="True"
 				  np:DataGridFilteringBehavior.DataGridFilterTextBoxClasses="DataGridFilterTextBox"
 				  np:DataGridFilteringBehavior.RowDataType="{x:Type local:Person}"
 				  np:DataGridCollectionViewBehavior.ItemsSource="{Binding $parent[Window].ThePeople}">

@@ -67,6 +67,7 @@
 	<ItemGroup>
 		<InternalsAssemblyName Include="Avalonia" />
 		<InternalsAssemblyName Include="Avalonia.Base" />
+		<InternalsAssemblyName Include="Avalonia.Controls.DataGrid" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(Configuration)'=='Debug'">
 		<ProjectReference Include="$(SolutionDir)..\..\SubModules\NP.Concepts.Behaviors\src\NP.Concepts.Behaviors.csproj" />

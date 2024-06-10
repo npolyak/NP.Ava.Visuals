@@ -359,6 +359,8 @@
 	</Style>
 
 	<Style Selector="DataGridColumnHeader.WithFilter">
+		<Setter Property="np:DataGridGroupingBehavior.IsHeaderGroupingOn"
+				Value="{Binding $parent[DataGrid].IsGroupingOn}"/>
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Grid ColumnDefinitions="*,Auto"
@@ -429,54 +431,67 @@
 				Value="WithFilter"/>
 		<Setter Property="np:DataGridColumnManipulationBehavior.IsOn"
 				Value="True"/>
+		<Setter Property="np:DataGridGroupingBehavior.IsGroupingOn"
+				Value="False"/>
+		<Setter Property="CanUserReorderColumns"
+				Value="{Binding !IsGroupingOn, RelativeSource={RelativeSource Self}}"/>
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Border Background="{TemplateBinding Background}"
 						BorderThickness="{TemplateBinding BorderThickness}"
 						BorderBrush="{TemplateBinding BorderBrush}">
-					<Grid RowDefinitions="Auto,*,Auto,Auto" 
+					<Grid RowDefinitions="Auto,*,Auto,Auto"
 						  ColumnDefinitions="Auto,*,Auto">
-						<DataGridColumnHeader Name="PART_TopLeftCornerHeader" 
-											  Width="22" />
-						<DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter" 
-														Grid.Column="1"/>
-						<DataGridColumnHeader Name="PART_TopRightCornerHeader" 
-											  Grid.Column="2"/>
+						<Grid x:Name="PART_GroupingPanel"
+							  Background="LightGray"
+							  Height="50"
+							  IsVisible="{Binding Path=IsGroupingOn, RelativeSource={RelativeSource TemplatedParent}}"/>
+						<DataGridColumnHeader Name="PART_TopLeftCornerHeader"
+											  Width="22" 
+											  Grid.Row="1"/>
+						<DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter"
+														Grid.Column="1"
+														Grid.Row="1"/>
+						<DataGridColumnHeader Name="PART_TopRightCornerHeader"
+											  Grid.Column="2"
+											  Grid.Row="1"/>
 						<Rectangle Name="PART_ColumnHeadersAndRowsSeparator"
 								   Grid.ColumnSpan="3"
 								   VerticalAlignment="Bottom"
 								   StrokeThickness="1"
 								   Height="1"
+								   Grid.Row="1"
 								   Fill="{DynamicResource ThemeControlMidHighBrush}"/>
 
-						<DataGridRowsPresenter Name="PART_RowsPresenter" 
-											   Grid.ColumnSpan="2" 
-											   Grid.Row="1">
+						<DataGridRowsPresenter Name="PART_RowsPresenter"
+											   Grid.ColumnSpan="2"
+											   Grid.Row="2">
 							<DataGridRowsPresenter.GestureRecognizers>
-								<ScrollGestureRecognizer CanHorizontallyScroll="True" 
+								<ScrollGestureRecognizer CanHorizontallyScroll="True"
 														 CanVerticallyScroll="True" />
 							</DataGridRowsPresenter.GestureRecognizers>
 						</DataGridRowsPresenter>
-						<Rectangle Name="PART_BottomRightCorner" 
-								   Fill="{DynamicResource ThemeControlMidHighBrush}" 
-								   Grid.Column="2" 
-								   Grid.Row="2" />
-						<Rectangle Name="BottomLeftCorner" 
-								   Fill="{DynamicResource ThemeControlMidHighBrush}" 
-								   Grid.Row="2" 
+						<Rectangle Name="PART_BottomRightCorner"
+								   Fill="{DynamicResource ThemeControlMidHighBrush}"
+								   Grid.Column="2"
+								   Grid.Row="3" />
+						<Rectangle Name="BottomLeftCorner"
+								   Fill="{DynamicResource ThemeControlMidHighBrush}"
+								   Grid.Row="3"
 								   Grid.ColumnSpan="2" />
-						<ScrollBar Name="PART_VerticalScrollbar" 
-								   Orientation="Vertical" 
-								   Grid.Column="2" 
-								   Grid.Row="1" 
+						<ScrollBar Name="PART_VerticalScrollbar"
+								   Orientation="Vertical"
+								   Grid.Column="2"
+								   Grid.Row="2"
 								   Width="{DynamicResource ScrollBarThickness}"/>
 
-						<Grid Grid.Column="1" Grid.Row="2"
+						<Grid Grid.Column="1"
+							  Grid.Row="3"
 							  ColumnDefinitions="Auto,*">
 							<Rectangle Name="PART_FrozenColumnScrollBarSpacer" />
-							<ScrollBar Name="PART_HorizontalScrollbar" 
-									   Grid.Column="1" 
-									   Orientation="Horizontal" 
+							<ScrollBar Name="PART_HorizontalScrollbar"
+									   Grid.Column="1"
+									   Orientation="Horizontal"
 									   Height="{DynamicResource ScrollBarThickness}"/>
 						</Grid>
 					</Grid>
