@@ -20,6 +20,8 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             public double FrozenColumnsWidth { get; }
             public ScrollBar HorizontalScrollBar { get; }
 
+            public bool IsDraggingHeader { get; private set; } = false;
+
             public MousePositionInfo
             (
                 Point startDragMousePosition, 
@@ -45,6 +47,11 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
                     ScrollBar horizontalScrollBar) Deconstruct()
             {
                 return (StartDragMousePosition, ColumnsInternals, ColumnHeaders, CellsWidth, FrozenColumnsWidth, HorizontalScrollBar);
+            }
+
+            public void SetDragging()
+            {
+                IsDraggingHeader = true;
             }
         }
 
@@ -157,7 +164,7 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
 
             DataGridColumn previousCollumn = columnsInternal.GetPreviousVisibleNonFillerColumn(currentColumn);
 
-            DragMode dragMode = header.GetType().GetStaticFieldValue<DragMode>("_dragMode", true);
+            DragMode dragMode = (DragMode)header.GetType().GetStaticFieldValue("_dragMode", true);
 
             Point mousePosition = e.GetPosition(header);
 
@@ -197,8 +204,8 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
 
             SetDragInfo(header, mousePositionInfo);
 
+            header.AddHandler(Control.PointerReleasedEvent, ClearEvents, Avalonia.Interactivity.RoutingStrategies.Tunnel, true);
             header.PointerMoved += Header_PointerMoved;
-            header.AddHandler(Control.PointerReleasedEvent, Header_PointerReleased, Avalonia.Interactivity.RoutingStrategies.Tunnel, true);
             //header.PointerReleased += Header_PointerReleased;
         }
 
@@ -343,22 +350,39 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
 
         private static void Header_PointerMoved(object? sender, Avalonia.Input.PointerEventArgs e)
         {
-            DataGridColumnHeader header = (DataGridColumnHeader) sender!;
+            DataGridColumnHeader header = (DataGridColumnHeader)sender!;
             DataGrid dataGrid = header.OwningGrid;
             DataGridColumn owningColumn = header.OwningColumn;
+            var dragInfo = header.GetDragInfo();
             (Point startDragPostion, DataGridColumnCollection columnsInternal, DataGridColumnHeadersPresenter columnHeaders, _, _, _) =
-                header.GetDragInfo().Deconstruct();
+                dragInfo.Deconstruct();
 
             if (columnHeaders == null)
                 return;
 
-            if (columnHeaders.DragColumn == null)
-            {
-                header.StartReorder();
-            }
-
             Point mousePosition = e.GetPosition(header);
             Point mousePositionHeaders = e.GetPosition(columnHeaders);
+
+            var distanceFromStart = Math.Abs(mousePositionHeaders.X - startDragPostion.X);
+            var isDistanceFromStartSmall = distanceFromStart < 5;
+
+            if (!dragInfo.IsDraggingHeader)
+            {
+                if (isDistanceFromStartSmall)
+                {
+                    return;
+                }
+                else if (!isDistanceFromStartSmall)
+                {
+                    header.RemoveHandler(Control.PointerReleasedEvent, ClearEvents);
+                    header.AddHandler(Control.PointerReleasedEvent, Header_PointerReleased, Avalonia.Interactivity.RoutingStrategies.Tunnel, true);
+                    if (columnHeaders.DragColumn == null)
+                    {
+                        header.StartReorder();
+                    }
+                    dragInfo.SetDragging();
+                }
+            }
 
             // Find header we're hovering over
             DataGridColumn targetColumn = 
@@ -387,12 +411,18 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             columnHeaders.DropLocationIndicatorOffset = targetPosition.X - scrollAmount;
         }
 
-
-        private static void Header_PointerReleased(object? sender, Avalonia.Input.PointerReleasedEventArgs e)
+        private static void ClearEvents(object? sender, Avalonia.Input.PointerReleasedEventArgs e)
         {
             DataGridColumnHeader header = (DataGridColumnHeader)sender!;
             header.PointerReleased -= Header_PointerReleased;
             header.PointerMoved -= Header_PointerMoved;
+
+        }
+
+        private static void Header_PointerReleased(object? sender, Avalonia.Input.PointerReleasedEventArgs e)
+        {
+            DataGridColumnHeader header = (DataGridColumnHeader)sender!;
+            ClearEvents(sender, e);
 
             (_, _, DataGridColumnHeadersPresenter columnHeaders, _, _, _) =
                 header.GetDragInfo().Deconstruct();

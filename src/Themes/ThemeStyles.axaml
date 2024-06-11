@@ -1,5 +1,5 @@
 <Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:np="https://np.com/visuals">
 	<Styles.Resources>
 		<ResourceDictionary>
@@ -64,8 +64,10 @@
 		</ResourceDictionary>
 	</Styles.Resources>
 	<Style Selector="PopupRoot">
-		<Setter Property="Background" Value="{x:Null}"/>
-		<Setter Property="TransparencyLevelHint" Value="Transparent" />
+		<Setter Property="Background"
+				Value="{x:Null}"/>
+		<Setter Property="TransparencyLevelHint"
+				Value="Transparent" />
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Panel>
@@ -103,11 +105,11 @@
 							</Border.BorderBrush>
 						</Border>
 
-						<TemplatedControl x:Name="PlaceHolder" 
+						<TemplatedControl x:Name="PlaceHolder"
 										  Template="{TemplateBinding (np:AttachedProperties.MainPartTemplate)}"
 										  Margin="{TemplateBinding Padding}"
 										  Focusable="False"/>
-						
+
 						<Border x:Name="OpacityBorder"
 								Background="{StaticResource MostProminentInvertedBrush}"
 								Focusable="False"
@@ -239,10 +241,14 @@
 	<StyleInclude Source="resm:Avalonia.Themes.Default.ScrollViewer.xaml?assembly=Avalonia.Themes.Default"/>-->
 
 	<Style Selector="ComboBoxItem">
-		<Setter Property="Background" Value="Transparent"/>
-		<Setter Property="Padding" Value="2"/>
-		<Setter Property="HorizontalAlignment" Value="Stretch"/>
-		<Setter Property="HorizontalContentAlignment" Value="Left"/>
+		<Setter Property="Background"
+				Value="Transparent"/>
+		<Setter Property="Padding"
+				Value="2"/>
+		<Setter Property="HorizontalAlignment"
+				Value="Stretch"/>
+		<Setter Property="HorizontalContentAlignment"
+				Value="Left"/>
 		<Setter Property="Template">
 			<ControlTemplate>
 				<ContentPresenter Name="PART_ContentPresenter"
@@ -265,7 +271,8 @@
 	</Style>
 
 	<Style Selector="ComboBoxItem:selected">
-		<Setter Property="Background" Value="{DynamicResource AccentBrush}"/>
+		<Setter Property="Background"
+				Value="{DynamicResource AccentBrush}"/>
 	</Style>
 
 	<Style Selector="np|NpComboBox.Theme">
@@ -305,7 +312,7 @@
 								<ScrollViewer HorizontalScrollBarVisibility="{Binding $parent[ComboBox].HorizontalScrollBarVisibility}"
 											  VerticalScrollBarVisibility="{Binding $parent[ComboBox].VerticalScrollBarVisibility}">
 									<ItemsPresenter x:Name="ComboItemsPresenter"
-														ItemsPanel="{Binding $parent[ComboBox].ItemsPanel}">
+													ItemsPanel="{Binding $parent[ComboBox].ItemsPanel}">
 									</ItemsPresenter>
 								</ScrollViewer>
 							</Border>
@@ -442,30 +449,36 @@
 						BorderBrush="{TemplateBinding BorderBrush}">
 					<Grid RowDefinitions="Auto,*,Auto,Auto"
 						  ColumnDefinitions="Auto,*,Auto">
-						<Grid x:Name="PART_GroupingPanel"
-							  Background="LightGray"
-							  Height="50"
-							  IsVisible="{Binding Path=IsGroupingOn, RelativeSource={RelativeSource TemplatedParent}}"/>
-						<DataGridColumnHeader Name="PART_TopLeftCornerHeader"
-											  Width="22" 
-											  Grid.Row="1"/>
-						<DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter"
-														Grid.Column="1"
-														Grid.Row="1"/>
-						<DataGridColumnHeader Name="PART_TopRightCornerHeader"
-											  Grid.Column="2"
-											  Grid.Row="1"/>
-						<Rectangle Name="PART_ColumnHeadersAndRowsSeparator"
-								   Grid.ColumnSpan="3"
-								   VerticalAlignment="Bottom"
-								   StrokeThickness="1"
-								   Height="1"
-								   Grid.Row="1"
-								   Fill="{DynamicResource ThemeControlMidHighBrush}"/>
-
+						<Grid x:Name="GroupingAndColumnHeadersContainer"
+							  RowDefinitions="Auto, Auto"
+							  ColumnDefinitions="Auto,*,Auto"
+							  Grid.ColumnSpan="3"
+							  VerticalAlignment="Top"
+							  Background="Red">
+							<Grid x:Name="PART_GroupingPanel"
+								  Background="LightGray"
+								  Height="50"
+								  IsVisible="{Binding Path=IsGroupingOn, RelativeSource={RelativeSource TemplatedParent}}"/>
+							<DataGridColumnHeader Name="PART_TopLeftCornerHeader"
+												  Width="22"
+												  Grid.Row="1"/>
+							<DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter"
+															Grid.Column="1"
+															Grid.Row="1"/>
+							<DataGridColumnHeader Name="PART_TopRightCornerHeader"
+												  Grid.Column="2"
+												  Grid.Row="1"/>
+							<Rectangle Name="PART_ColumnHeadersAndRowsSeparator"
+									   Grid.ColumnSpan="3"
+									   VerticalAlignment="Bottom"
+									   StrokeThickness="1"
+									   Height="1"
+									   Grid.Row="1"
+									   Fill="{DynamicResource ThemeControlMidHighBrush}"/>
+						</Grid>
 						<DataGridRowsPresenter Name="PART_RowsPresenter"
 											   Grid.ColumnSpan="2"
-											   Grid.Row="2">
+											   Grid.Row="1">
 							<DataGridRowsPresenter.GestureRecognizers>
 								<ScrollGestureRecognizer CanHorizontallyScroll="True"
 														 CanVerticallyScroll="True" />
@@ -474,19 +487,19 @@
 						<Rectangle Name="PART_BottomRightCorner"
 								   Fill="{DynamicResource ThemeControlMidHighBrush}"
 								   Grid.Column="2"
-								   Grid.Row="3" />
+								   Grid.Row="2" />
 						<Rectangle Name="BottomLeftCorner"
 								   Fill="{DynamicResource ThemeControlMidHighBrush}"
-								   Grid.Row="3"
+								   Grid.Row="2"
 								   Grid.ColumnSpan="2" />
 						<ScrollBar Name="PART_VerticalScrollbar"
 								   Orientation="Vertical"
 								   Grid.Column="2"
-								   Grid.Row="2"
+								   Grid.Row="1"
 								   Width="{DynamicResource ScrollBarThickness}"/>
 
 						<Grid Grid.Column="1"
-							  Grid.Row="3"
+							  Grid.Row="2"
 							  ColumnDefinitions="Auto,*">
 							<Rectangle Name="PART_FrozenColumnScrollBarSpacer" />
 							<ScrollBar Name="PART_HorizontalScrollbar"
