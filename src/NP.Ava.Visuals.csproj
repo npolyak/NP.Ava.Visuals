@@ -60,7 +60,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Avalonia" Version="11.0.10" />
-		<PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
 		<PackageReference Include="Avalonia.Diagnostics" Version="11.0.10" />
 		<PackageReference Include="IgnoresAccessChecksToGenerator" Version="0.7.0" PrivateAssets="All" />
 	</ItemGroup>
@@ -75,7 +74,6 @@
 
 	<ItemGroup Condition="'$(Configuration)'=='Release'">
 		<PackageReference Include="NP.Concepts.Behaviors" Version="1.0.17" />
-		<PackageReference Include="NP.ViewModelInterfaces"
-						  Version="1.0.6" />
+		<PackageReference Include="NP.ViewModelInterfaces" Version="1.0.6" />
 	</ItemGroup>
 </Project>
