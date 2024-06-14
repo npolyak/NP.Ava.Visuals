@@ -206,7 +206,6 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
 
             header.AddHandler(Control.PointerReleasedEvent, ClearEvents, Avalonia.Interactivity.RoutingStrategies.Tunnel, true);
             header.PointerMoved += Header_PointerMoved;
-            //header.PointerReleased += Header_PointerReleased;
         }
 
         private static void StartReorder(this DataGridColumnHeader header)
@@ -372,7 +371,7 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
                 {
                     return;
                 }
-                else if (!isDistanceFromStartSmall)
+                else //(!isDistanceFromStartSmall)
                 {
                     header.RemoveHandler(Control.PointerReleasedEvent, ClearEvents);
                     header.AddHandler(Control.PointerReleasedEvent, Header_PointerReleased, Avalonia.Interactivity.RoutingStrategies.Tunnel, true);
