@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Avalonia;
+using Avalonia.Automation.Provider;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
@@ -30,6 +31,8 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
 
             public Grid DragIndicatorContainer { get; private set; }
 
+            public Control DropLocationIndicator { get; set; }
+
             public MousePositionInfo
             (
                 Point startDragMousePosition, 
@@ -58,7 +61,9 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
                     double cellsWidth,
                     double frozenCellsWidth,
                     ScrollBar horizontalScrollBar,
-                    Grid dragIndicatorContainer) Deconstruct()
+                    Grid dragIndicatorContainer,
+                    Control dropLocationIndicator
+                ) Deconstruct()
             {
                 return 
                     (StartDragMousePosition, 
@@ -68,7 +73,8 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
                      CellsWidth, 
                      FrozenColumnsWidth, 
                      HorizontalScrollBar,
-                     DragIndicatorContainer);
+                     DragIndicatorContainer,
+                     DropLocationIndicator);
             }
 
             public void SetDragging()
@@ -254,6 +260,7 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             {
                 IsEnabled = false,
                 Content = header.Content,
+                OwningColumn = header.OwningColumn, 
                 Background = new SolidColorBrush(Colors.LightGray),
                 ContentTemplate = header.ContentTemplate,
                 HorizontalAlignment = HorizontalAlignment.Left,
@@ -290,8 +297,10 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
                 return;
             }
 
-            (Point startDragMousePosition, Point startDragHeaderPosition, DataGridColumnCollection columnInternal, DataGridColumnHeadersPresenter columnHeaders, _, _, _, Grid dragContainer) =
-                header.GetDragInfo().Deconstruct();
+            var dragInfo = header.GetDragInfo();
+
+            (Point startDragMousePosition, Point startDragHeaderPosition, DataGridColumnCollection columnInternal, DataGridColumnHeadersPresenter columnHeaders, _, _, _, Grid dragContainer, _) =
+                dragInfo.Deconstruct();
 
             dragIndicator.Width = header.Bounds.Width;
 
@@ -303,7 +312,11 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
 
             header.SetShift(e);
 
+            dragInfo.DropLocationIndicator = columnReorderingEventArgs.DropLocationIndicator!;
+
             columnHeaders.DropLocationIndicator = columnReorderingEventArgs.DropLocationIndicator;
+
+            columnHeaders.DragColumn = header.OwningColumn;
 
             // If the user didn't style the dragIndicator's Width, default it to the column header's width
             if (double.IsNaN(dragIndicator.Width))
@@ -312,9 +325,21 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             }
         }
 
+        public static Point GetShift(this DataGridColumnHeader header)
+        {
+            (Point startDragMousePosition, Point startDragHeaderPosition, _, _, _, _, _, Grid dragContainer, _) =
+                header.GetDragInfo().Deconstruct();
+
+            DataGridColumnHeader dragIndicator = (DataGridColumnHeader)dragContainer.Children.FirstOrDefault()!;
+
+            var transform = (TranslateTransform)dragIndicator.RenderTransform!;
+
+            return new Point(transform.X, transform.Y);
+        }
+
         private static void SetShift(this DataGridColumnHeader header, PointerEventArgs e)
         {
-            (Point startDragMousePosition, Point startDragHeaderPosition, _, _, _, _, _, Grid dragContainer) =
+            (Point startDragMousePosition, Point startDragHeaderPosition, _, _, _, _, _, Grid dragContainer, _) =
                 header.GetDragInfo().Deconstruct();
 
             Point currentMousePosition = e.GetPosition(dragContainer);
@@ -373,7 +398,8 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
                 double cellsWidth, 
                 double frozenColumnsWidth, 
                 ScrollBar horizontalScrollBar,
-                Grid dragIndicatorContainer) =
+                Grid dragIndicatorContainer,
+                Control dropLocationIndicator) =
                 header.GetDragInfo().Deconstruct();
 
             scrollAmount = 0;
@@ -438,7 +464,7 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             DataGrid dataGrid = header.OwningGrid;
             DataGridColumn owningColumn = header.OwningColumn;
             var dragInfo = header.GetDragInfo();
-            (Point startDragPostion, Point startDragHeaderPosition, DataGridColumnCollection columnsInternal, DataGridColumnHeadersPresenter columnHeaders, _, _, _, Grid dragIndicatorContainer) =
+            (Point startDragPostion, Point startDragHeaderPosition, DataGridColumnCollection columnsInternal, DataGridColumnHeadersPresenter columnHeaders, _, _, _, Grid dragIndicatorContainer, Control dropLocationIndicator) =
                 dragInfo.Deconstruct();
 
             if (columnHeaders == null)
@@ -469,33 +495,61 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
 
             header.SetShift(e);
 
-            // Find header we're hovering over
-            DataGridColumn targetColumn = 
-                header.GetReorderingTargetColumn(mousePositionHeaders, !header.OwningColumn.IsFrozen, out double scrollAmount);
-            columnHeaders.DragIndicatorOffset = mousePositionHeaders.X - startDragPostion.X + scrollAmount;
+            Point shift = header.GetShift();
 
-            columnHeaders.InvalidateArrange();
-            //columnHeaders.DragIndicatorOffset = mousePositionHeaders.X - startDragPostion.X + scrollAmount;
+            Rect groupArea = dragIndicatorContainer.GetGroupArea();
 
-            //columnHeaders.InvalidateArrange();
-
-            Point targetPosition = new Point(0, 0);
-            if (targetColumn == null || targetColumn == columnsInternal.FillerColumn || targetColumn.IsFrozen != owningColumn.IsFrozen)
+            if (groupArea.Contains(shift))
             {
-                targetColumn =
-                    columnsInternal.GetLastColumn(
-                        isVisible: true,
-                        isFrozen: owningColumn.IsFrozen,
-                        isReadOnly: null);
-                targetPosition = targetColumn.HeaderCell.Translate(columnHeaders, targetPosition);
-
-                targetPosition = targetPosition.WithX(targetPosition.X + targetColumn.ActualWidth);
+                columnHeaders.DragColumn = null;
+                columnHeaders.DropLocationIndicator = null;
+                columnHeaders.DropLocationIndicatorOffset = -1000;
             }
             else
             {
-                targetPosition = targetColumn.HeaderCell.Translate(columnHeaders, targetPosition);
+                columnHeaders.DragColumn = header.OwningColumn;
+                columnHeaders.DropLocationIndicator = dropLocationIndicator;
+                // Find header we're hovering over
+                DataGridColumn targetColumn =
+                    header.GetReorderingTargetColumn(mousePositionHeaders, !header.OwningColumn.IsFrozen, out double scrollAmount);
+
+                columnHeaders.DragIndicatorOffset = mousePositionHeaders.X - startDragPostion.X + scrollAmount;
+
+                columnHeaders.InvalidateArrange();
+
+                Point targetPosition = new Point(0, 0);
+                if (targetColumn == null || targetColumn == columnsInternal.FillerColumn || targetColumn.IsFrozen != owningColumn.IsFrozen)
+                {
+                    targetColumn =
+                        columnsInternal.GetLastColumn(
+                            isVisible: true,
+                            isFrozen: owningColumn.IsFrozen,
+                            isReadOnly: null);
+                    targetPosition = targetColumn.HeaderCell.Translate(columnHeaders, targetPosition);
+
+                    targetPosition = targetPosition.WithX(targetPosition.X + targetColumn.ActualWidth);
+                }
+                else
+                {
+                    targetPosition = targetColumn.HeaderCell.Translate(columnHeaders, targetPosition);
+                }
+                columnHeaders.DropLocationIndicatorOffset = targetPosition.X - scrollAmount;
             }
-            columnHeaders.DropLocationIndicatorOffset = targetPosition.X - scrollAmount;
+        }
+
+        private static Rect GetGroupArea(this Grid dragContainer)
+        {
+            Grid groupingAndColumnHeadersContainer =
+                (Grid)dragContainer.VisualParent!;
+
+            Grid groupingPanel =
+                (Grid)groupingAndColumnHeadersContainer
+                            .VisualChildren
+                            .FirstOrDefault(c => c.Name == "PART_GroupingPanel")!;
+
+            Rect groupArea = groupingPanel.ToRect();
+
+            return groupArea;
         }
 
         private static void ClearEvents(object? sender, Avalonia.Input.PointerReleasedEventArgs e)
@@ -510,30 +564,47 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             DataGridColumnHeader header = (DataGridColumnHeader)sender!;
             ClearEvents(sender, e);
 
-            (_, _, _, DataGridColumnHeadersPresenter columnHeaders, _, _, _, Grid dragContainer) =
+            (_, _, _, DataGridColumnHeadersPresenter columnHeaders, _, _, _, Grid dragContainer,_) =
                 header.GetDragInfo().Deconstruct();
 
             DataGridColumn owningColumn = header.OwningColumn;
             DataGrid owningGrid = header.OwningGrid;
 
-            Point mousePosition = e.GetPosition(header);
+            header.SetShift(e);
 
-            Point mousePositionHeaders = header.Translate(columnHeaders, mousePosition);
+            Point shift = header.GetShift();
 
-            int targetIndex = header.GetReorderingTargetDisplayIndex(mousePositionHeaders);
+            Rect groupArea = dragContainer.GetGroupArea();
 
-            if ( (!owningColumn.IsFrozen && targetIndex >= owningGrid.FrozenColumnCount)
-                   || (owningColumn.IsFrozen && targetIndex < owningGrid.FrozenColumnCount))
+            if (groupArea.Contains(shift))
             {
-                owningColumn.DisplayIndex = targetIndex;
-
-                DataGridColumnEventArgs ea = new DataGridColumnEventArgs(owningColumn);
-                owningGrid.CallMethodExtras("OnColumnReordered", true, false, ea);
+                columnHeaders.DragColumn = null;
+                columnHeaders.DropLocationIndicatorOffset = -1000;
             }
+            else
+            {
+                columnHeaders.DragColumn = owningColumn;
+                Point mousePosition = e.GetPosition(header);
+
+                Point mousePositionHeaders = header.Translate(columnHeaders, mousePosition);
+
+                int targetIndex = header.GetReorderingTargetDisplayIndex(mousePositionHeaders);
+
+                if ((!owningColumn.IsFrozen && targetIndex >= owningGrid.FrozenColumnCount)
+                       || (owningColumn.IsFrozen && targetIndex < owningGrid.FrozenColumnCount))
+                {
+                    owningColumn.DisplayIndex = targetIndex;
+
+                    DataGridColumnEventArgs ea = new DataGridColumnEventArgs(owningColumn);
+                    owningGrid.CallMethodExtras("OnColumnReordered", true, false, ea);
+                }
+            }
+
 
             dragContainer.Children.Clear();
 
             e.Pointer.Capture(null);
+            columnHeaders.DragColumn = null;
             columnHeaders.DropLocationIndicator = null;
 
             header.ClearValue(DragInfoProperty);

@@ -459,7 +459,11 @@
 							<Grid x:Name="PART_GroupingPanel"
 								  Background="LightGray"
 								  Height="50"
-								  IsVisible="{Binding Path=IsGroupingOn, RelativeSource={RelativeSource TemplatedParent}}"/>
+								  HorizontalAlignment="Stretch"
+								  Grid.ColumnSpan="3"
+								  IsVisible="{Binding Path=IsGroupingOn, RelativeSource={RelativeSource TemplatedParent}}">
+								
+							</Grid>
 							<DataGridColumnHeader Name="PART_TopLeftCornerHeader"
 												  Width="22"
 												  Grid.Row="1"/>

@@ -105,5 +105,15 @@ namespace NP.Ava.Visuals
         {
             return new Point(rect.Width, rect.Height);
         }
+
+        public static Point ToPoint(this Control c)
+        {
+            return new Point(c.Bounds.Width, c.Bounds.Height);
+        }
+
+        public static Rect ToRect(this Control c)
+        {
+            return new Rect(new Point(), c.ToPoint());
+        }
     }
 }
