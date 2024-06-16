@@ -90,5 +90,20 @@ namespace NP.Ava.Visuals
 
             return props.PointerUpdateKind == PointerUpdateKind.LeftButtonPressed;
         }
+
+        public static Point Add(this Point point1,  Point point2)
+        {
+            return new Point(point1.X + point2.X, point1.Y + point2.Y);
+        }
+
+        public static Point Subtract(this Point point1, Point point2)
+        {
+            return new Point(point1.X - point2.X, point1.Y - point2.Y);
+        }
+
+        public static Point ToPoint(this Rect rect)
+        {
+            return new Point(rect.Width, rect.Height);
+        }
     }
 }

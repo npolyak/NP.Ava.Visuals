@@ -397,7 +397,8 @@
 								</MenuItem>
 							</MenuFlyout>
 						</Grid.ContextFlyout>
-						<ContentPresenter Content="{TemplateBinding Content}"
+						<ContentPresenter x:Name="PART_Header" 
+										  Content="{TemplateBinding Content}"
 										  ContentTemplate="{TemplateBinding ContentTemplate}"
 										  VerticalAlignment="Center"/>
 
@@ -449,7 +450,7 @@
 						BorderBrush="{TemplateBinding BorderBrush}">
 					<Grid RowDefinitions="Auto,*,Auto,Auto"
 						  ColumnDefinitions="Auto,*,Auto">
-						<Grid x:Name="GroupingAndColumnHeadersContainer"
+						<Grid x:Name="PART_GroupingAndColumnHeadersContainer"
 							  RowDefinitions="Auto, Auto"
 							  ColumnDefinitions="Auto,*,Auto"
 							  Grid.ColumnSpan="3"
@@ -475,6 +476,10 @@
 									   Height="1"
 									   Grid.Row="1"
 									   Fill="{DynamicResource ThemeControlMidHighBrush}"/>
+							<Grid x:Name="PART_DragIndicatorContainer"
+								  Grid.RowSpan="2"
+								  Grid.ColumnSpan="3">
+							</Grid>
 						</Grid>
 						<DataGridRowsPresenter Name="PART_RowsPresenter"
 											   Grid.ColumnSpan="2"
