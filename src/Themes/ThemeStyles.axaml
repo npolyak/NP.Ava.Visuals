@@ -454,15 +454,17 @@
 							  RowDefinitions="Auto, Auto"
 							  ColumnDefinitions="Auto,*,Auto"
 							  Grid.ColumnSpan="3"
-							  VerticalAlignment="Top"
-							  Background="Red">
+							  VerticalAlignment="Top">
 							<Grid x:Name="PART_GroupingPanel"
-								  Background="LightGray"
+
 								  Height="50"
 								  HorizontalAlignment="Stretch"
 								  Grid.ColumnSpan="3"
+								  Opacity="0.6"
 								  IsVisible="{Binding Path=IsGroupingOn, RelativeSource={RelativeSource TemplatedParent}}">
-								
+								<ItemsControl x:Name="PART_GroupHeaders">
+									
+								</ItemsControl>
 							</Grid>
 							<DataGridColumnHeader Name="PART_TopLeftCornerHeader"
 												  Width="22"

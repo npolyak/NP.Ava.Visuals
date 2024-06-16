@@ -1,9 +1,8 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Avalonia;
-using Avalonia.Automation.Provider;
 using Avalonia.Controls;
-using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Input;
@@ -32,6 +31,8 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             public Grid DragIndicatorContainer { get; private set; }
 
             public Control DropLocationIndicator { get; set; }
+
+
 
             public MousePositionInfo
             (
@@ -85,12 +86,12 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
 
 
         #region DragInfo Attached Avalonia Property
-        private static MousePositionInfo GetDragInfo(this Control obj)
+        private static MousePositionInfo GetDragInfo(this DataGridColumnHeader obj)
         {
             return obj.GetValue(DragInfoProperty);
         }
 
-        private static void SetDragInfo(Control obj, MousePositionInfo value)
+        private static void SetDragInfo(DataGridColumnHeader obj, MousePositionInfo value)
         {
             obj.SetValue(DragInfoProperty, value);
         }
@@ -101,6 +102,44 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
                 "DragInfo"
             );
         #endregion DragInfo Attached Avalonia Property
+
+
+        #region GroupingPropName Attached Avalonia Property
+        public static string GetGroupingPropName(DataGridColumn obj)
+        {
+            return obj.GetValue(GroupingPropNameProperty);
+        }
+
+        public static void SetGroupingPropName(DataGridColumn obj, string value)
+        {
+            obj.SetValue(GroupingPropNameProperty, value);
+        }
+
+        public static readonly AttachedProperty<string> GroupingPropNameProperty =
+            AvaloniaProperty.RegisterAttached<DataGridColumn, DataGridColumn, string>
+            (
+                "GroupingPropName"
+            );
+        #endregion GroupingPropName Attached Avalonia Property
+
+
+        #region GroupPaths Attached Avalonia Property
+        public static ObservableCollection<string> GetGroupPaths(Control obj)
+        {
+            return obj.GetValue(GroupPathsProperty);
+        }
+
+        public static void SetGroupPaths(Control obj, ObservableCollection<string> value)
+        {
+            obj.SetValue(GroupPathsProperty, value);
+        }
+
+        public static readonly AttachedProperty<ObservableCollection<string>> GroupPathsProperty =
+            AvaloniaProperty.RegisterAttached<DataGrid, DataGrid, ObservableCollection<string>>
+            (
+                "GroupPaths"
+            );
+        #endregion GroupPaths Attached Avalonia Property
 
 
         private enum DragMode
@@ -337,7 +376,8 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             return new Point(transform.X, transform.Y);
         }
 
-        private static void SetShift(this DataGridColumnHeader header, PointerEventArgs e)
+        // returns isGrouping flag
+        private static bool SetShift(this DataGridColumnHeader header, PointerEventArgs e)
         {
             (Point startDragMousePosition, Point startDragHeaderPosition, _, _, _, _, _, Grid dragContainer, _) =
                 header.GetDragInfo().Deconstruct();
@@ -371,6 +411,10 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
 
             ((TranslateTransform)dragIndicator.RenderTransform!).X = shift.X;
             ((TranslateTransform)dragIndicator.RenderTransform!).Y = shift.Y;
+
+            Rect groupArea = dragContainer.GetGroupArea();
+
+            return groupArea.Contains(shift);
         }
 
         /// <summary>
@@ -493,13 +537,9 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
                 }
             }
 
-            header.SetShift(e);
+            bool isGrouping = header.SetShift(e);
 
-            Point shift = header.GetShift();
-
-            Rect groupArea = dragIndicatorContainer.GetGroupArea();
-
-            if (groupArea.Contains(shift))
+            if (isGrouping)
             {
                 columnHeaders.DragColumn = null;
                 columnHeaders.DropLocationIndicator = null;
@@ -570,13 +610,9 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             DataGridColumn owningColumn = header.OwningColumn;
             DataGrid owningGrid = header.OwningGrid;
 
-            header.SetShift(e);
+            bool isGrouping = header.SetShift(e);
 
-            Point shift = header.GetShift();
-
-            Rect groupArea = dragContainer.GetGroupArea();
-
-            if (groupArea.Contains(shift))
+            if (isGrouping)
             {
                 columnHeaders.DragColumn = null;
                 columnHeaders.DropLocationIndicatorOffset = -1000;

@@ -32,11 +32,13 @@
 				  np:DataGridCollectionViewBehavior.ItemsSource="{Binding $parent[Window].ThePeople}">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="FirstName"
+									np:DataGridGroupingBehavior.GroupingPropName="FirstName"
 									np:DataGridFilteringBehavior.FilterPropName="FirstName"
 									Binding="{Binding Path=FirstName}"/>
 				<DataGridTextColumn Header="FirstName (Disabled Filtering)"
 									Binding="{Binding Path=FirstName}"/>
 				<DataGridTextColumn Header="LastName"
+									np:DataGridGroupingBehavior.GroupingPropName="LastName"
 									np:DataGridFilteringBehavior.FilterPropName="LastName"
 									Binding="{Binding Path=LastName}"/>
 			</DataGrid.Columns>
