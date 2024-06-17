@@ -464,6 +464,7 @@
 									np:CallAction.MethodName="RemoveGroupingColumn"
 									np:CallAction.TheEvent="{x:Static Button.ClickEvent}"
 									np:CallAction.Arg1="{Binding}"
+									np:CallAction.HasArg="True"
 									HorizontalAlignment="Center"
 									VerticalAlignment="Center"/>
 						</Grid>
@@ -516,6 +517,18 @@
 										<TranslateTransform X="0" Y="0"/>
 									</Grid.RenderTransform>
 								</Grid>
+
+								<Button x:Name="DeleteAllButton"
+										HorizontalAlignment="Right"
+										Content="Delete All"
+										Margin="5,0"
+										np:ClassesBehavior.TheClasses="{Binding Path=RemoveAllGroupsButtonClasses, RelativeSource={RelativeSource TemplatedParent}}"
+										np:CallAction.StaticType="np:DataGridGroupingBehavior"
+										np:CallAction.MethodName="RemoveAllGroupingColumns"
+										np:CallAction.TheEvent="{x:Static Button.ClickEvent}"
+										np:CallAction.Arg1="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+										np:CallAction.HasArg="True"
+										VerticalAlignment="Center"/>
 							</Grid>
 							<DataGridColumnHeader Name="PART_TopLeftCornerHeader"
 												  Width="22"

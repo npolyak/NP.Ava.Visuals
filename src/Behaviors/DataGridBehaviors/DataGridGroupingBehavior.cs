@@ -115,6 +115,13 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             groupColumns.Remove(groupingColumn);
         }
 
+        public static void RemoveAllGroupingColumns(DataGrid dataGrid)
+        {
+            var groupColumns = GetGroupColumns(dataGrid);
+
+            groupColumns.RemoveAllOneByOne();
+        }
+
         #region GroupingPropName Attached Avalonia Property
         public static string GetGroupingPropName(DataGridColumn obj)
         {
@@ -151,6 +158,25 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
                 "GroupColumns"
             );
         #endregion GroupColumns Attached Avalonia Property
+
+
+        #region RemoveAllGroupsButtonClasses Attached Avalonia Property
+        public static string GetRemoveAllGroupsButtonClasses(Control obj)
+        {
+            return obj.GetValue(RemoveAllGroupsButtonClassesProperty);
+        }
+
+        public static void SetRemoveAllGroupsButtonClasses(Control obj, string value)
+        {
+            obj.SetValue(RemoveAllGroupsButtonClassesProperty, value);
+        }
+
+        public static readonly AttachedProperty<string> RemoveAllGroupsButtonClassesProperty =
+            AvaloniaProperty.RegisterAttached<DataGrid, DataGrid, string>
+            (
+                "RemoveAllGroupsButtonClasses"
+            );
+        #endregion RemoveAllGroupsButtonClasses Attached Avalonia Property
 
 
         private enum DragMode
