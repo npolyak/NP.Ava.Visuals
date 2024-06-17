@@ -494,6 +494,16 @@
 										</DataTemplate>
 									</ItemsControl.ItemTemplate>
 								</ItemsControl>
+								<Grid x:Name="PART_GroupingDropIndicator"
+									  Width="2"
+									  HorizontalAlignment="Left"
+									  Margin="0,10"
+									  Background="Black"
+									  IsVisible="False">
+									<Grid.RenderTransform>
+										<TranslateTransform X="0" Y="0"/>
+									</Grid.RenderTransform>
+								</Grid>
 							</Grid>
 							<DataGridColumnHeader Name="PART_TopLeftCornerHeader"
 												  Width="22"

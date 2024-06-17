@@ -608,13 +608,30 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             return null;
         }
 
+        private static Grid GetGroupingDropIndicator(this Grid dragContainer)
+        {
+            Grid groupingPanel = (Grid)dragContainer.GetGroupingPanel();
+            Grid groupingIndicator = (Grid)groupingPanel.Children.FirstOrDefault(c => c.Name == "PART_GroupingDropIndicator")!;
+
+            return groupingIndicator;
+        }
+
         private static void Header_PointerMoved(object? sender, PointerEventArgs e)
         {
             DataGridColumnHeader header = (DataGridColumnHeader)sender!;
             DataGrid dataGrid = header.OwningGrid;
             DataGridColumn owningColumn = header.OwningColumn;
             var dragInfo = header.GetDragInfo();
-            (Point startDragPostion, Point startDragHeaderPosition, DataGridColumnCollection columnsInternal, DataGridColumnHeadersPresenter columnHeaders, _, _, _, Grid dragIndicatorContainer, Control dropLocationIndicator) =
+            (
+                Point startDragPostion, 
+                Point startDragHeaderPosition, 
+                DataGridColumnCollection columnsInternal, 
+                DataGridColumnHeadersPresenter columnHeaders, 
+                _, 
+                _, 
+                _, 
+                Grid dragContainer, 
+                Control dropLocationIndicator) =
                 dragInfo.Deconstruct();
 
             if (columnHeaders == null)
@@ -643,15 +660,27 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
                 }
             }
 
+            Grid groupingIndicator = dragContainer.GetGroupingDropIndicator();
+
             bool isGrouping = header.SetShift(e);
 
             if (isGrouping)
             {
                 columnHeaders.DragColumn = null;
                 columnHeaders.DropLocationIndicator = null;
+
+                (int idxToInsertAt, double middleShift) =
+                    header.GetGroupingDropInfo(e);
+
+                var shiftX = middleShift - 1d;
+
+                (groupingIndicator.RenderTransform as TranslateTransform)!.X = shiftX;
+
+                groupingIndicator.IsVisible = true;
             }
             else
             {
+                groupingIndicator.IsVisible = false;
                 columnHeaders.DragColumn = header.OwningColumn;
                 columnHeaders.DropLocationIndicator = dropLocationIndicator;
                 // Find header we're hovering over
@@ -709,6 +738,12 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             DataGridColumnHeader header = (DataGridColumnHeader)sender!;
             header.PointerReleased -= Header_PointerReleased;
             header.PointerMoved -= Header_PointerMoved;
+            var dragInfo = header.GetDragInfo();
+            Grid dragContainer = dragInfo.DragIndicatorContainer;
+
+            Grid groupingDropIndicator = dragContainer.GetGroupingDropIndicator();
+
+            groupingDropIndicator.IsVisible = false;
         }
 
         private static (int idxToInsertAt, double middleShift) 
@@ -732,11 +767,13 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             double middleShift = 0;
             double minDistance = 99999;
             Visual lastVisualItem = null;
+            double rightShift = 0;
+            double resultMiddleShift = 0;
             for (int i = 0; i < visualItems.Count; i++)
             {
                 lastVisualItem = visualItems[i];
 
-                double rightShift = lastVisualItem.Translate(groupingPanel, new Point()).X;
+                rightShift = lastVisualItem.Translate(groupingPanel, new Point()).X;
 
                 middleShift = (leftShift + rightShift) / 2d;
 
@@ -745,7 +782,8 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
                 if (newDistance < minDistance)
                 {
                     minDistance = newDistance;
-                    idxToInsertAt = i;
+                    idxToInsertAt = i; 
+                    resultMiddleShift = middleShift;
                 }
 
                 leftShift = lastVisualItem.Translate(groupingPanel, lastVisualItem.Bounds.ToPoint()).X;
@@ -760,10 +798,11 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
                 {
                     minDistance = newDistance;
                     idxToInsertAt = visualItems.Count;
+                    resultMiddleShift = middleShift;
                 }
             }
 
-            return (idxToInsertAt, middleShift);
+            return (idxToInsertAt, resultMiddleShift);
         }
 
         private static void Header_PointerReleased(object? sender, PointerReleasedEventArgs e)
