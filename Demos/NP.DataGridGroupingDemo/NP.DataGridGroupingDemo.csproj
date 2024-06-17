@@ -2,4 +2,7 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 	</PropertyGroup>
+	<ItemGroup Condition="'$(Configuration)'=='Release'">
+	  <PackageReference Update="NP.Ava.Visuals" Version="1.0.13" />
+	</ItemGroup>
 </Project>
