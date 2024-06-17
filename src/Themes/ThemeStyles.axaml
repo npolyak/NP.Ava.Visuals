@@ -451,11 +451,21 @@
 							Tag="Header"
 							BorderBrush="Black"
 							BorderThickness="1"
-							Margin="5">
+							Margin="5, 0">
 						<Grid ColumnDefinitions="*, Auto">
 							<TextBlock Text="{Binding Header}"
 									   VerticalAlignment="Center"
 									   HorizontalAlignment="Center"/>
+							<Button x:Name="DeleteButton"
+									Grid.Column="1"
+									Content="Delete"
+									Margin="5,0"
+									np:CallAction.StaticType="np:DataGridGroupingBehavior"
+									np:CallAction.MethodName="RemoveGroupingColumn"
+									np:CallAction.TheEvent="{x:Static Button.ClickEvent}"
+									np:CallAction.Arg1="{Binding}"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"/>
 						</Grid>
 					</Border>
 				</DataTemplate>

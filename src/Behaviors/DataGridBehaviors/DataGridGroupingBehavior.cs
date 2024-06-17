@@ -106,6 +106,14 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             );
         #endregion DragInfo Attached Avalonia Property
 
+        public static void RemoveGroupingColumn(DataGridColumn groupingColumn)
+        {
+            DataGrid dataGrid = groupingColumn.OwningGrid;
+
+            var groupColumns = GetGroupColumns(dataGrid);
+
+            groupColumns.Remove(groupingColumn);
+        }
 
         #region GroupingPropName Attached Avalonia Property
         public static string GetGroupingPropName(DataGridColumn obj)
