@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using Avalonia;
+using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
@@ -84,7 +86,6 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             }
         }
 
-
         #region DragInfo Attached Avalonia Property
         private static MousePositionInfo GetDragInfo(this DataGridColumnHeader obj)
         {
@@ -123,23 +124,23 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
         #endregion GroupingPropName Attached Avalonia Property
 
 
-        #region GroupPaths Attached Avalonia Property
-        public static ObservableCollection<string> GetGroupPaths(Control obj)
+        #region GroupColumns Attached Avalonia Property
+        public static ObservableCollection<DataGridColumn> GetGroupColumns(DataGrid obj)
         {
-            return obj.GetValue(GroupPathsProperty);
+            return obj.GetValue(GroupColumnsProperty);
         }
 
-        public static void SetGroupPaths(Control obj, ObservableCollection<string> value)
+        public static void SetGroupColumns(DataGrid obj, ObservableCollection<DataGridColumn> value)
         {
-            obj.SetValue(GroupPathsProperty, value);
+            obj.SetValue(GroupColumnsProperty, value);
         }
 
-        public static readonly AttachedProperty<ObservableCollection<string>> GroupPathsProperty =
-            AvaloniaProperty.RegisterAttached<DataGrid, DataGrid, ObservableCollection<string>>
+        public static readonly AttachedProperty<ObservableCollection<DataGridColumn>> GroupColumnsProperty =
+            AvaloniaProperty.RegisterAttached<DataGrid, DataGrid, ObservableCollection<DataGridColumn>>
             (
-                "GroupPaths"
+                "GroupColumns"
             );
-        #endregion GroupPaths Attached Avalonia Property
+        #endregion GroupColumns Attached Avalonia Property
 
 
         private enum DragMode
@@ -194,7 +195,89 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
 
         static DataGridGroupingBehavior()
         {
+            IsGroupingOnProperty.Changed.Subscribe(OnIsGroupingOnChanged);
             IsHeaderGroupingOnProperty.Changed.Subscribe(IsHeaderGroupingChanged);
+        }
+
+        private static void OnIsGroupingOnChanged(AvaloniaPropertyChangedEventArgs<bool> args)
+        {
+            DataGrid dataGrid = (DataGrid) args.Sender!;
+
+            if (args.GetNewValue<bool>())
+            {
+                var groupColumns = new ObservableCollection<DataGridColumn>();
+
+                groupColumns.CollectionChanged += GroupColumns_CollectionChanged;
+
+                SetGroupColumns(dataGrid, groupColumns);
+            }
+            else
+            {
+                var groupColumns = GetGroupColumns(dataGrid);
+
+                groupColumns.CollectionChanged -= GroupColumns_CollectionChanged;
+                dataGrid.ClearValue(GroupColumnsProperty);
+            }
+        }
+
+        private static void GroupColumns_CollectionChanged
+        (
+            object? sender, 
+            NotifyCollectionChangedEventArgs e)
+        {
+            DataGrid? dataGrid = null;
+            if (e.OldItems != null)
+            {
+                DataGridColumn col = e.OldItems.Cast<DataGridColumn>().FirstOrDefault()!;
+
+                dataGrid = col.OwningGrid;
+            }
+            else if (e.NewItems != null)
+            {
+                DataGridColumn col = e.NewItems.Cast<DataGridColumn>().FirstOrDefault()!;
+
+                dataGrid = col.OwningGrid;
+            }
+            else
+            {
+                return;
+            }
+
+            DataGridCollectionView collectionView = (DataGridCollectionView)dataGrid.ItemsSource;
+
+            if (e.OldItems != null)
+            {
+                foreach (DataGridColumn col in e.OldItems)
+                {
+                    var groupDesc = collectionView.GroupDescriptions.FirstOrDefault(gd => gd.PropertyName == GetGroupingPropName(col));
+
+                    collectionView.GroupDescriptions.Remove(groupDesc);
+                }
+            }
+            if (e.NewItems != null)
+            {
+                int newIdx = e.NewStartingIndex;
+                foreach (DataGridColumn col in e.NewItems)
+                {
+                    var groupDesc = collectionView.GroupDescriptions.FirstOrDefault(gd => gd.PropertyName == GetGroupingPropName(col));
+
+                    int groupDescIdx = collectionView.GroupDescriptions.IndexOf(groupDesc);
+
+                    if (groupDescIdx < newIdx && groupDescIdx >= 0)
+                    {
+                        newIdx--;
+                    }
+
+                    if (groupDesc != null)
+                    {
+                        collectionView.GroupDescriptions.Remove(groupDesc);
+                    }
+
+                    collectionView.GroupDescriptions.Insert(newIdx, new DataGridPathGroupDescription(GetGroupingPropName(col)));
+
+                    newIdx++;
+                }
+            }
         }
 
         private static void IsHeaderGroupingChanged(AvaloniaPropertyChangedEventArgs<bool> args)
@@ -414,7 +497,20 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
 
             Rect groupArea = dragContainer.GetGroupArea();
 
-            return groupArea.Contains(shift);
+            Panel groupingPanel = dragContainer.GetGroupingPanel();
+
+            bool isGrouping = groupArea.Contains(shift);
+
+            if (isGrouping)
+            {
+                groupingPanel.Opacity = 1;
+            }
+            else
+            {
+                groupingPanel.Opacity = 0.6;
+            }
+
+            return isGrouping;
         }
 
         /// <summary>
@@ -577,15 +673,22 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             }
         }
 
-        private static Rect GetGroupArea(this Grid dragContainer)
+        private static Panel GetGroupingPanel(this Grid dragContainer)
         {
             Grid groupingAndColumnHeadersContainer =
-                (Grid)dragContainer.VisualParent!;
+                 (Grid)dragContainer.VisualParent!;
 
             Grid groupingPanel =
                 (Grid)groupingAndColumnHeadersContainer
                             .VisualChildren
                             .FirstOrDefault(c => c.Name == "PART_GroupingPanel")!;
+
+            return groupingPanel;
+        }
+
+        private static Rect GetGroupArea(this Grid dragContainer)
+        {
+            Panel groupingPanel = dragContainer.GetGroupingPanel();
 
             Rect groupArea = groupingPanel.ToRect();
 
@@ -615,7 +718,70 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             if (isGrouping)
             {
                 columnHeaders.DragColumn = null;
-                columnHeaders.DropLocationIndicatorOffset = -1000;
+                columnHeaders.DropLocationIndicator = null;
+
+                var groupColumns = GetGroupColumns(owningGrid);
+                
+                Grid groupingPanel = (Grid) dragContainer.GetGroupingPanel();
+
+                double mouseXPositionInGroupingPanel = e.GetPosition(groupingPanel).X;
+
+                ItemsControl itemsControl = 
+                    (ItemsControl) groupingPanel.Children.FirstOrDefault(c => c.Name == "PART_GroupHeaders")!;
+
+                var visualItems =
+                    itemsControl.GetVisualDescendants().OfType<Border>().Where(b => "Header".Equals(b.Tag)).ToList();
+
+                int idxToInsertAt = 0;
+                double leftShift = 0;
+                double middleShift = 0;
+                double minDistance = 99999;
+                Visual lastVisualItem = null;
+                for(int i = 0; i < visualItems.Count; i++)
+                {
+                    lastVisualItem = visualItems[i];
+
+                    double rightShift = lastVisualItem.Translate(groupingPanel, new Point()).X;
+
+                    middleShift = (leftShift + rightShift) / 2d;
+
+                    double newDistance = Math.Abs(mouseXPositionInGroupingPanel - middleShift);
+
+                    if (newDistance < minDistance)
+                    {
+                        minDistance = newDistance;
+                        idxToInsertAt = i;
+                    }
+
+                    leftShift = lastVisualItem.Translate(groupingPanel, lastVisualItem.Bounds.ToPoint()).X;
+                }
+
+                if (lastVisualItem != null)
+                {
+                    middleShift = leftShift + 5;
+                    double newDistance = Math.Abs(mouseXPositionInGroupingPanel - middleShift);
+
+                    if (newDistance < minDistance)
+                    {
+                        minDistance = newDistance;
+                        idxToInsertAt = visualItems.Count;
+                    }    
+                }
+
+                var columnToRemove = groupColumns.FirstOrDefault(c => GetGroupingPropName(c) == GetGroupingPropName(owningColumn));
+
+                if (columnToRemove != null)
+                {
+                    int columnToRemoveIdx = groupColumns.IndexOf(columnToRemove);
+
+                    if (columnToRemoveIdx < idxToInsertAt)
+                    {
+                        idxToInsertAt--;
+                    }
+                    groupColumns.Remove(columnToRemove);
+                }
+
+                groupColumns.Insert(idxToInsertAt, owningColumn);
             }
             else
             {

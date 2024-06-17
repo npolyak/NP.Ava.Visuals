@@ -456,14 +456,43 @@
 							  Grid.ColumnSpan="3"
 							  VerticalAlignment="Top">
 							<Grid x:Name="PART_GroupingPanel"
-
 								  Height="50"
+								  Background="LightGray"
 								  HorizontalAlignment="Stretch"
 								  Grid.ColumnSpan="3"
 								  Opacity="0.6"
+								  ToolTip.Tip="Group Panel"
+								  ToolTip.Placement="Pointer"
 								  IsVisible="{Binding Path=IsGroupingOn, RelativeSource={RelativeSource TemplatedParent}}">
-								<ItemsControl x:Name="PART_GroupHeaders">
-									
+								<TextBlock HorizontalAlignment="Left"
+										   Margin="10,5"
+										   VerticalAlignment="Center"
+										   Text="Group Panel"/>
+								<ItemsControl x:Name="PART_GroupHeaders"
+											  Margin="5"
+											  ItemsSource="{Binding Path=GroupColumns, RelativeSource={RelativeSource TemplatedParent}}">
+									<ItemsControl.ItemsPanel>
+										<ItemsPanelTemplate>
+											<StackPanel Orientation="Horizontal"/>
+										</ItemsPanelTemplate>
+									</ItemsControl.ItemsPanel>
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<Border Background="LightGray"
+													Padding="10,5"
+													Tag="Header"
+													BorderBrush="Black"
+													BorderThickness="1"
+													Margin="5">
+												<Grid ColumnDefinitions="*, Auto">
+													<TextBlock Text="{Binding Header}"
+															   VerticalAlignment="Center"
+															   HorizontalAlignment="Center"/>
+													
+												</Grid>
+											</Border>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
 								</ItemsControl>
 							</Grid>
 							<DataGridColumnHeader Name="PART_TopLeftCornerHeader"
