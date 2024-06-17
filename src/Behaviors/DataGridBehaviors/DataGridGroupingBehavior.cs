@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Data.Common;
 using System.Linq;
 using Avalonia;
 using Avalonia.Collections;
@@ -459,9 +460,18 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             return new Point(transform.X, transform.Y);
         }
 
+        private static bool CanGroup(this DataGridColumnHeader header)
+        {
+            DataGridColumn column = header.OwningColumn;
+
+            return (header.IsEnabled) && (!GetGroupingPropName(column).IsStrNullOrWhiteSpace());
+        }
+
         // returns isGrouping flag
         private static bool SetShift(this DataGridColumnHeader header, PointerEventArgs e)
         {
+            DataGridColumn column = header.OwningColumn;
+
             (Point startDragMousePosition, Point startDragHeaderPosition, _, _, _, _, _, Grid dragContainer, _) =
                 header.GetDragInfo().Deconstruct();
 
@@ -499,7 +509,7 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
 
             Panel groupingPanel = dragContainer.GetGroupingPanel();
 
-            bool isGrouping = groupArea.Contains(shift);
+            bool isGrouping = groupArea.Contains(shift) && header.CanGroup();
 
             if (isGrouping)
             {
