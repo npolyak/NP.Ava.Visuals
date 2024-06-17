@@ -649,7 +649,6 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             {
                 columnHeaders.DragColumn = null;
                 columnHeaders.DropLocationIndicator = null;
-                columnHeaders.DropLocationIndicatorOffset = -1000;
             }
             else
             {
@@ -712,7 +711,62 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             header.PointerMoved -= Header_PointerMoved;
         }
 
-        private static void Header_PointerReleased(object? sender, Avalonia.Input.PointerReleasedEventArgs e)
+        private static (int idxToInsertAt, double middleShift) 
+            GetGroupingDropInfo(this DataGridColumnHeader header, PointerEventArgs e)
+        {
+            (_, _, _, DataGridColumnHeadersPresenter columnHeaders, _, _, _, Grid dragContainer, _) =
+                header.GetDragInfo().Deconstruct();
+
+            DataGrid owningGrid = header.OwningGrid;
+            Grid groupingPanel = (Grid)dragContainer.GetGroupingPanel();
+            ItemsControl itemsControl =
+                (ItemsControl)groupingPanel.Children.FirstOrDefault(c => c.Name == "PART_GroupHeaders")!;
+
+            var visualItems =
+                itemsControl.GetVisualDescendants().OfType<Border>().Where(b => "Header".Equals(b.Tag)).ToList();
+
+            double mouseXPositionInGroupingPanel = e.GetPosition(groupingPanel).X;
+
+            int idxToInsertAt = 0;
+            double leftShift = 0;
+            double middleShift = 0;
+            double minDistance = 99999;
+            Visual lastVisualItem = null;
+            for (int i = 0; i < visualItems.Count; i++)
+            {
+                lastVisualItem = visualItems[i];
+
+                double rightShift = lastVisualItem.Translate(groupingPanel, new Point()).X;
+
+                middleShift = (leftShift + rightShift) / 2d;
+
+                double newDistance = Math.Abs(mouseXPositionInGroupingPanel - middleShift);
+
+                if (newDistance < minDistance)
+                {
+                    minDistance = newDistance;
+                    idxToInsertAt = i;
+                }
+
+                leftShift = lastVisualItem.Translate(groupingPanel, lastVisualItem.Bounds.ToPoint()).X;
+            }
+
+            if (lastVisualItem != null)
+            {
+                middleShift = leftShift + 5;
+                double newDistance = Math.Abs(mouseXPositionInGroupingPanel - middleShift);
+
+                if (newDistance < minDistance)
+                {
+                    minDistance = newDistance;
+                    idxToInsertAt = visualItems.Count;
+                }
+            }
+
+            return (idxToInsertAt, middleShift);
+        }
+
+        private static void Header_PointerReleased(object? sender, PointerReleasedEventArgs e)
         {
             DataGridColumnHeader header = (DataGridColumnHeader)sender!;
             ClearEvents(sender, e);
@@ -731,53 +785,10 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
                 columnHeaders.DropLocationIndicator = null;
 
                 var groupColumns = GetGroupColumns(owningGrid);
+
+                (int idxToInsertAt, double middleShift) =
+                    header.GetGroupingDropInfo(e);
                 
-                Grid groupingPanel = (Grid) dragContainer.GetGroupingPanel();
-
-                double mouseXPositionInGroupingPanel = e.GetPosition(groupingPanel).X;
-
-                ItemsControl itemsControl = 
-                    (ItemsControl) groupingPanel.Children.FirstOrDefault(c => c.Name == "PART_GroupHeaders")!;
-
-                var visualItems =
-                    itemsControl.GetVisualDescendants().OfType<Border>().Where(b => "Header".Equals(b.Tag)).ToList();
-
-                int idxToInsertAt = 0;
-                double leftShift = 0;
-                double middleShift = 0;
-                double minDistance = 99999;
-                Visual lastVisualItem = null;
-                for(int i = 0; i < visualItems.Count; i++)
-                {
-                    lastVisualItem = visualItems[i];
-
-                    double rightShift = lastVisualItem.Translate(groupingPanel, new Point()).X;
-
-                    middleShift = (leftShift + rightShift) / 2d;
-
-                    double newDistance = Math.Abs(mouseXPositionInGroupingPanel - middleShift);
-
-                    if (newDistance < minDistance)
-                    {
-                        minDistance = newDistance;
-                        idxToInsertAt = i;
-                    }
-
-                    leftShift = lastVisualItem.Translate(groupingPanel, lastVisualItem.Bounds.ToPoint()).X;
-                }
-
-                if (lastVisualItem != null)
-                {
-                    middleShift = leftShift + 5;
-                    double newDistance = Math.Abs(mouseXPositionInGroupingPanel - middleShift);
-
-                    if (newDistance < minDistance)
-                    {
-                        minDistance = newDistance;
-                        idxToInsertAt = visualItems.Count;
-                    }    
-                }
-
                 var columnToRemove = groupColumns.FirstOrDefault(c => GetGroupingPropName(c) == GetGroupingPropName(owningColumn));
 
                 if (columnToRemove != null)
