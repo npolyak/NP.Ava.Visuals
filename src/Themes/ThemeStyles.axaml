@@ -443,6 +443,24 @@
 				Value="False"/>
 		<Setter Property="CanUserReorderColumns"
 				Value="{Binding !IsGroupingOn, RelativeSource={RelativeSource Self}}"/>
+		<Setter Property="np:DataGridGroupingBehavior.GroupColumnDataTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<Border Background="LightGray"
+							Padding="10,5"
+							Tag="Header"
+							BorderBrush="Black"
+							BorderThickness="1"
+							Margin="5">
+						<Grid ColumnDefinitions="*, Auto">
+							<TextBlock Text="{Binding Header}"
+									   VerticalAlignment="Center"
+									   HorizontalAlignment="Center"/>
+						</Grid>
+					</Border>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Border Background="{TemplateBinding Background}"
@@ -470,29 +488,13 @@
 										   Text="Group Panel"/>
 								<ItemsControl x:Name="PART_GroupHeaders"
 											  Margin="5"
+											  ItemTemplate="{Binding Path=GroupColumnDataTemplate, RelativeSource={RelativeSource TemplatedParent}}"
 											  ItemsSource="{Binding Path=GroupColumns, RelativeSource={RelativeSource TemplatedParent}}">
 									<ItemsControl.ItemsPanel>
 										<ItemsPanelTemplate>
 											<StackPanel Orientation="Horizontal"/>
 										</ItemsPanelTemplate>
 									</ItemsControl.ItemsPanel>
-									<ItemsControl.ItemTemplate>
-										<DataTemplate>
-											<Border Background="LightGray"
-													Padding="10,5"
-													Tag="Header"
-													BorderBrush="Black"
-													BorderThickness="1"
-													Margin="5">
-												<Grid ColumnDefinitions="*, Auto">
-													<TextBlock Text="{Binding Header}"
-															   VerticalAlignment="Center"
-															   HorizontalAlignment="Center"/>
-													
-												</Grid>
-											</Border>
-										</DataTemplate>
-									</ItemsControl.ItemTemplate>
 								</ItemsControl>
 								<Grid x:Name="PART_GroupingDropIndicator"
 									  Width="2"

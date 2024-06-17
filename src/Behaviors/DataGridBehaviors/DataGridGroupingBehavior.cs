@@ -10,6 +10,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Layout;
+using Avalonia.Markup.Xaml.Templates;
 using Avalonia.Media;
 using Avalonia.VisualTree;
 using NP.Utilities;
@@ -193,6 +194,26 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
                 "IsHeaderGroupingOn"
             );
         #endregion IsHeaderGroupingOn Attached Avalonia Property
+
+
+        #region GroupColumnDataTemplate Attached Avalonia Property
+        public static DataTemplate GetGroupColumnDataTemplate(DataGrid obj)
+        {
+            return obj.GetValue(GroupColumnDataTemplateProperty);
+        }
+
+        public static void SetGroupColumnDataTemplate(DataGrid obj, DataTemplate value)
+        {
+            obj.SetValue(GroupColumnDataTemplateProperty, value);
+        }
+
+        public static readonly AttachedProperty<DataTemplate> GroupColumnDataTemplateProperty =
+            AvaloniaProperty.RegisterAttached<DataGrid, DataGrid, DataTemplate>
+            (
+                "GroupColumnDataTemplate"
+            );
+        #endregion GroupColumnDataTemplate Attached Avalonia Property
+
 
         static DataGridGroupingBehavior()
         {
