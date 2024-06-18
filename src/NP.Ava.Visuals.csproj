@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<RootNamespace>NP.Ava.Visuals</RootNamespace>
 		<PackageId>NP.Ava.Visuals</PackageId>
-		<Version>1.0.16</Version>
+		<Version>1.0.18</Version>
 		<Authors>Nick Polyak, Ph. D.</Authors>
 		<Company>AWebPros</Company>
 		<Authors>Nick Polyak Ph. D.</Authors>
