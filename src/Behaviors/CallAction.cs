@@ -191,11 +191,6 @@ namespace NP.Ava.Visuals.Behaviors
 
             IEnumerable<object> args = Enumerable.Empty<object>();
 
-            if (isStatic && targetObject != null)
-            {
-                args = args.Union(new object[] { targetObject });
-            }
-
             if (GetHasArg(avaloniaObject))
             {
                 args = args.Union(new []{ GetArg1(avaloniaObject) });

@@ -2,9 +2,6 @@
 using NP.Ava.Visuals.ThemingAndL10N;
 using System;
 using Avalonia.Styling;
-using Avalonia.Metadata;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using NP.Utilities;
 using System.ComponentModel;
 
 namespace NP.Ava.Visuals.Behaviors

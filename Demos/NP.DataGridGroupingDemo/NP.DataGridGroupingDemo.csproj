@@ -3,6 +3,9 @@
 		<OutputType>WinExe</OutputType>
 	</PropertyGroup>
 	<ItemGroup Condition="'$(Configuration)'=='Release'">
-	  <PackageReference Update="NP.Ava.Visuals" Version="1.0.13" />
+		<PackageReference Update="NP.Ava.Visuals" Version="1.0.15" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
 	</ItemGroup>
 </Project>

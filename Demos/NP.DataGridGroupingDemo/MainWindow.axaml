@@ -17,14 +17,7 @@
 			<Setter Property="CaretBrush"
 					Value="White"/>
 		</Style>
-		<Style Selector="Button.DeleteAllGroups">
-			<Setter Property="Background"
-					Value="Aqua"/>
-		</Style>
 	</Window.Styles>
-	<Window.Resources>
-		
-	</Window.Resources>
 	<Grid RowDefinitions="*,Auto"
 		  Margin="15">
 		<DataGrid Classes="WithColumnFilters"
@@ -33,8 +26,7 @@
 				  np:DataGridGroupingBehavior.IsGroupingOn="True"
 				  np:DataGridFilteringBehavior.DataGridFilterTextBoxClasses="DataGridFilterTextBox"
 				  np:DataGridFilteringBehavior.RowDataType="{x:Type local:Person}"
-				  np:DataGridCollectionViewBehavior.ItemsSource="{Binding $parent[Window].ThePeople}"
-			      np:DataGridGroupingBehavior.RemoveAllGroupsButtonClasses="DeleteAllGroups">
+				  np:DataGridCollectionViewBehavior.ItemsSource="{Binding $parent[Window].ThePeople}">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="FirstName"
 									np:DataGridGroupingBehavior.GroupingPropName="FirstName"

@@ -6,6 +6,7 @@
 	<Application.Styles>
 		<SimpleTheme/>
 		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Simple.xaml" />
+		<StyleInclude Source="avares://NP.Ava.Visuals/Themes/ButtonStyles.axaml"/>
 		<StyleInclude Source="avares://NP.Ava.Visuals/Themes/ThemeStyles.axaml"/>
 	</Application.Styles>
 </Application>

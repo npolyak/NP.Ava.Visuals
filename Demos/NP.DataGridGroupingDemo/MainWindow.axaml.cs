@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Themes.Simple;
 
 namespace NP.DataGridGroupingDemo
 {
@@ -14,7 +15,7 @@ namespace NP.DataGridGroupingDemo
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
-#endif
+#endif 
         }
 
         private void InitializeComponent()
