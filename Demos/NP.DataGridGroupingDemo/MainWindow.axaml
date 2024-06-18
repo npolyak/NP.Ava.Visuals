@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:NP.DataGridGroupingDemo"
         xmlns:np="https://np.com/visuals"
+		xmlns:collections="using:Avalonia.Collections"
         x:Class="NP.DataGridGroupingDemo.MainWindow"
         Title="NP.DataGridGroupingDemo"
         x:Name="Root" 
@@ -17,12 +18,142 @@
 			<Setter Property="CaretBrush"
 					Value="White"/>
 		</Style>
+
+		<Style Selector="DataGrid.RowModifications">
+			<Setter Property="RowTheme">
+				<Setter.Value>
+					<ControlTheme TargetType="DataGridRow">
+						<Setter Property="Background"
+								Value="{Binding $parent[DataGrid].RowBackground}"/>
+						<Setter Property="Template">
+							<ControlTemplate>
+								<Border x:Name="RowBorder"
+										Background="{TemplateBinding Background}"
+										BorderBrush="{TemplateBinding BorderBrush}"
+										BorderThickness="{TemplateBinding BorderThickness}"
+										CornerRadius="{TemplateBinding CornerRadius}">
+									<DataGridFrozenGrid Name="PART_Root"
+														ColumnDefinitions="Auto,*"
+														RowDefinitions="*,Auto,Auto">
+
+										<Rectangle Name="BackgroundRectangle"
+												   Grid.RowSpan="2"
+												   Grid.ColumnSpan="2"
+												   Margin="{Binding Path=GroupLevel,
+																	RelativeSource={RelativeSource AncestorType=DataGrid},
+																	ConverterParameter=20,
+																	Converter={x:Static np:BorderThicknessConverter.LeftMarginConverter}}"/>
+
+										<DataGridRowHeader Name="PART_RowHeader"
+														   Grid.RowSpan="3"
+														   DataGridFrozenGrid.IsFrozen="True" />
+										<DataGridCellsPresenter Name="PART_CellsPresenter"
+																Grid.Column="1"
+																DataGridFrozenGrid.IsFrozen="True" />
+										<DataGridDetailsPresenter Name="PART_DetailsPresenter"
+																  Grid.Row="1"
+																  Grid.Column="1" />
+										<Rectangle Name="PART_BottomGridLine"
+												   Grid.Row="2"
+												   Grid.Column="1"
+												   Height="1"
+												   HorizontalAlignment="Stretch" />
+
+									</DataGridFrozenGrid>
+								</Border>
+							</ControlTemplate>
+						</Setter>
+
+						<Style Selector="^ /template/ Rectangle#BackgroundRectangle">
+							<Setter Property="IsVisible"
+									Value="False" />
+							<Setter Property="Fill"
+									Value="{DynamicResource HighlightBrush2}" />
+						</Style>
+
+						<Style Selector="^:pointerover /template/ Rectangle#BackgroundRectangle">
+							<Setter Property="IsVisible"
+									Value="True" />
+							<Setter Property="Opacity"
+									Value="0.5" />
+						</Style>
+
+						<Style Selector="^:selected /template/ Rectangle#BackgroundRectangle">
+							<Setter Property="IsVisible"
+									Value="True" />
+							<Setter Property="Opacity"
+									Value="1" />
+						</Style>
+
+						<Style Selector="^:selected">
+							<Setter Property="Foreground"
+									Value="{DynamicResource HighlightForegroundBrush}" />
+						</Style>
+					</ControlTheme>
+				</Setter.Value>
+			</Setter>
+
+			<Setter Property="RowGroupTheme">
+				<Setter.Value>
+					<ControlTheme TargetType="DataGridRowGroupHeader">
+						<Setter Property="Background"
+								Value="{DynamicResource ThemeControlMidHighBrush}" />
+						<Setter Property="Height"
+								Value="20" />
+						<Setter Property="Template">
+							<ControlTemplate x:DataType="collections:DataGridCollectionViewGroup">
+								<DataGridFrozenGrid Name="Root"
+													ColumnDefinitions="Auto,Auto,Auto,Auto"
+													RowDefinitions="Auto,*,Auto">
+
+									<Rectangle Name="PART_IndentSpacer"
+											   Grid.Row="1"
+											   Grid.Column="1" />
+									<ToggleButton Name="PART_ExpanderButton"
+												  Grid.Row="1"
+												  Grid.Column="2"
+												  Margin="2,0,0,0"
+												  Background="{TemplateBinding Background}"
+												  BorderBrush="{TemplateBinding BorderBrush}"
+												  BorderThickness="{TemplateBinding BorderThickness}"
+												  CornerRadius="{TemplateBinding CornerRadius}"
+												  Foreground="{TemplateBinding Foreground}"
+												  Theme="{StaticResource SimpleDataGridRowGroupExpanderButtonTheme}" />
+
+									<StackPanel Grid.Row="1"
+												Grid.Column="3"
+												Margin="0,1,0,1"
+												VerticalAlignment="Center"
+												Orientation="Horizontal">
+										<TextBlock Name="PART_PropertyNameElement"
+												   Margin="4,0,0,0"
+												   IsVisible="{TemplateBinding IsPropertyNameVisible}" />
+										<TextBlock Margin="4,0,0,0"
+												   Text="{Binding Key}" />
+										<TextBlock Name="PART_ItemCountElement"
+												   Margin="4,0,0,0"
+												   IsVisible="{TemplateBinding IsItemCountVisible}" />
+									</StackPanel>
+
+									<DataGridRowHeader Name="RowHeader"
+													   Grid.RowSpan="3"
+													   DataGridFrozenGrid.IsFrozen="True" />
+
+								</DataGridFrozenGrid>
+							</ControlTemplate>
+						</Setter>
+					</ControlTheme>
+				</Setter.Value>
+			</Setter>
+		</Style>
 	</Window.Styles>
+	
 	<Grid RowDefinitions="*,Auto"
 		  Margin="15">
-		<DataGrid Classes="WithColumnFilters"
+		<DataGrid Classes="WithColumnFilters RowModifications"
 				  CanUserResizeColumns="True"
 				  x:Name="TheDataGrid"
+				  RowBackground="White" 
 				  np:DataGridGroupingBehavior.IsGroupingOn="True"
 				  np:DataGridFilteringBehavior.DataGridFilterTextBoxClasses="DataGridFilterTextBox"
 				  np:DataGridFilteringBehavior.RowDataType="{x:Type local:Person}"
@@ -40,5 +171,10 @@
 									Binding="{Binding Path=LastName}"/>
 			</DataGrid.Columns>
 		</DataGrid>
+		
+		<Button x:Name="DoButton"
+				Content="Do Smth"
+				Grid.Row="1"
+				HorizontalAlignment="Right"/>
 	</Grid>
 </Window>

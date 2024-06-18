@@ -106,6 +106,26 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             );
         #endregion DragInfo Attached Avalonia Property
 
+
+        #region GroupLevel Attached Avalonia Property
+        public static int GetGroupLevel(Control obj)
+        {
+            return obj.GetValue(GroupLevelProperty);
+        }
+
+        private static void SetGroupLevel(Control obj, int value)
+        {
+            obj.SetValue(GroupLevelProperty, value);
+        }
+
+        public static readonly AttachedProperty<int> GroupLevelProperty =
+            AvaloniaProperty.RegisterAttached<DataGrid, DataGrid, int>
+            (
+                "GroupLevel"
+            );
+        #endregion GroupLevel Attached Avalonia Property
+
+
         public static void RemoveGroupingColumn(DataGridColumn groupingColumn)
         {
             DataGrid dataGrid = groupingColumn.OwningGrid;
@@ -282,56 +302,67 @@ namespace NP.Ava.Visuals.Behaviors.DataGridBehaviors
             NotifyCollectionChangedEventArgs e)
         {
             DataGrid? dataGrid = null;
-            if (e.OldItems != null)
+            DataGridCollectionView? collectionView = null;
+            try
             {
-                DataGridColumn col = e.OldItems.Cast<DataGridColumn>().FirstOrDefault()!;
-
-                dataGrid = col.OwningGrid;
-            }
-            else if (e.NewItems != null)
-            {
-                DataGridColumn col = e.NewItems.Cast<DataGridColumn>().FirstOrDefault()!;
-
-                dataGrid = col.OwningGrid;
-            }
-            else
-            {
-                return;
-            }
-
-            DataGridCollectionView collectionView = (DataGridCollectionView)dataGrid.ItemsSource;
-
-            if (e.OldItems != null)
-            {
-                foreach (DataGridColumn col in e.OldItems)
+                if (e.OldItems != null)
                 {
-                    var groupDesc = collectionView.GroupDescriptions.FirstOrDefault(gd => gd.PropertyName == GetGroupingPropName(col));
+                    DataGridColumn col = e.OldItems.Cast<DataGridColumn>().FirstOrDefault()!;
 
-                    collectionView.GroupDescriptions.Remove(groupDesc);
+                    dataGrid = col.OwningGrid;
                 }
-            }
-            if (e.NewItems != null)
-            {
-                int newIdx = e.NewStartingIndex;
-                foreach (DataGridColumn col in e.NewItems)
+                else if (e.NewItems != null)
                 {
-                    var groupDesc = collectionView.GroupDescriptions.FirstOrDefault(gd => gd.PropertyName == GetGroupingPropName(col));
+                    DataGridColumn col = e.NewItems.Cast<DataGridColumn>().FirstOrDefault()!;
 
-                    int groupDescIdx = collectionView.GroupDescriptions.IndexOf(groupDesc);
+                    dataGrid = col.OwningGrid;
+                }
+                else
+                {
+                    return;
+                }
 
-                    if (groupDescIdx < newIdx && groupDescIdx >= 0)
+                collectionView = (DataGridCollectionView)dataGrid.ItemsSource;
+
+                if (e.OldItems != null)
+                {
+                    foreach (DataGridColumn col in e.OldItems)
                     {
-                        newIdx--;
-                    }
+                        var groupDesc = collectionView.GroupDescriptions.FirstOrDefault(gd => gd.PropertyName == GetGroupingPropName(col));
 
-                    if (groupDesc != null)
-                    {
                         collectionView.GroupDescriptions.Remove(groupDesc);
                     }
+                }
+                if (e.NewItems != null)
+                {
+                    int newIdx = e.NewStartingIndex;
+                    foreach (DataGridColumn col in e.NewItems)
+                    {
+                        var groupDesc = collectionView.GroupDescriptions.FirstOrDefault(gd => gd.PropertyName == GetGroupingPropName(col));
 
-                    collectionView.GroupDescriptions.Insert(newIdx, new DataGridPathGroupDescription(GetGroupingPropName(col)));
+                        int groupDescIdx = collectionView.GroupDescriptions.IndexOf(groupDesc);
 
-                    newIdx++;
+                        if (groupDescIdx < newIdx && groupDescIdx >= 0)
+                        {
+                            newIdx--;
+                        }
+
+                        if (groupDesc != null)
+                        {
+                            collectionView.GroupDescriptions.Remove(groupDesc);
+                        }
+
+                        collectionView.GroupDescriptions.Insert(newIdx, new DataGridPathGroupDescription(GetGroupingPropName(col)));
+
+                        newIdx++;
+                    }
+                }
+            }
+            finally
+            {
+                if (dataGrid != null && collectionView != null)
+                {
+                    SetGroupLevel(dataGrid, collectionView.GroupDescriptions.Count);
                 }
             }
         }
