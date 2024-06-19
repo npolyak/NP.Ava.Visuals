@@ -127,7 +127,7 @@
 					</ControlTheme>
 				</Setter.Value>
 			</Setter>
-
+			
 			<Setter Property="RowGroupTheme">
 				<Setter.Value>
 					<ControlTheme TargetType="DataGridRowGroupHeader">
@@ -163,10 +163,22 @@
 												   Margin="4,0,0,0"
 												   IsVisible="{TemplateBinding IsPropertyNameVisible}" />
 										<TextBlock Margin="4,0,0,0"
-												   Text="{Binding Key}" />
+												   Text="{Binding Key}"
+												   IsVisible="{Binding Path=GroupingColumn.GroupCellTemplate, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNull}}"/>
+										<ContentControl Content="{Binding Key}"
+														ContentTemplate="{Binding Path=GroupingColumn.GroupCellTemplate, RelativeSource={RelativeSource TemplatedParent}}"
+														IsVisible="{Binding Path=GroupingColumn.GroupCellTemplate, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static ObjectConverters.IsNotNull}}"/>
 										<TextBlock Name="PART_ItemCountElement"
 												   Margin="4,0,0,0"
 												   IsVisible="{TemplateBinding IsItemCountVisible}" />
+										<Border HorizontalAlignment="Left"
+												VerticalAlignment="Top"
+												Padding="10,1"
+												Margin="5,0,0,0"
+												CornerRadius="2"
+												Background="LightGray">
+											<TextBlock Text="{Binding Path=ItemCount}"/>
+										</Border>
 									</StackPanel>
 
 									<Rectangle Name="LeftGroupGridLine"
@@ -211,10 +223,25 @@
 				  np:DataGridFilteringBehavior.RowDataType="{x:Type local:Person}"
 				  np:DataGridCollectionViewBehavior.ItemsSource="{Binding $parent[Window].ThePeople}">
 			<DataGrid.Columns>
-				<DataGridTextColumn Header="LastName"
-									np:DataGridGroupingBehavior.GroupingPropName="LastName"
-									np:DataGridFilteringBehavior.FilterPropName="LastName"
-									Binding="{Binding Path=LastName}"/>
+				<DataGridTemplateColumn Header="LastName"
+										np:DataGridGroupingBehavior.GroupingPropName="LastName"
+										np:DataGridFilteringBehavior.FilterPropName="LastName"
+										>
+					<local:GroupColumnFinderBehavior.GroupCellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}"
+									   VerticalAlignment="Center"
+									   Margin="25,0,0,0"/>
+						</DataTemplate>
+					</local:GroupColumnFinderBehavior.GroupCellTemplate>
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Path=LastName}"
+									   VerticalAlignment="Center"
+									   Margin="25,0,0,0"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
 				<DataGridTextColumn Header="FirstName"
 									np:DataGridGroupingBehavior.GroupingPropName="FirstName"
 									np:DataGridFilteringBehavior.FilterPropName="FirstName"
