@@ -53,12 +53,26 @@
 										<DataGridDetailsPresenter Name="PART_DetailsPresenter"
 																  Grid.Row="1"
 																  Grid.Column="1" />
+										<Rectangle Name="LeftGridLine"
+												   Grid.Column="1"
+												   Grid.RowSpan="3"
+												   Margin="{Binding Path=GroupLevel,
+																	RelativeSource={RelativeSource AncestorType=DataGrid},
+																	ConverterParameter=20,
+																	Converter={x:Static np:BorderThicknessConverter.LeftMarginConverter}}"
+												   Width="1"
+												   Fill="{Binding $parent[DataGrid].HorizontalGridLinesBrush}"
+												   HorizontalAlignment="Left"
+												   VerticalAlignment="Stretch"/>
 										<Rectangle Name="PART_BottomGridLine"
 												   Grid.Row="2"
 												   Grid.Column="1"
 												   Height="1"
-												   HorizontalAlignment="Stretch" />
-
+												   HorizontalAlignment="Stretch"
+												   Margin="{Binding Path=GroupLevel,
+																	RelativeSource={RelativeSource AncestorType=DataGrid},
+																	ConverterParameter=20,
+																	Converter={x:Static np:BorderThicknessConverter.LeftMarginConverter}}"/>
 									</DataGridFrozenGrid>
 								</Border>
 							</ControlTemplate>
@@ -68,7 +82,7 @@
 							<Setter Property="IsVisible"
 									Value="False" />
 							<Setter Property="Fill"
-									Value="{DynamicResource HighlightBrush2}" />
+									Value="LightBlue" />
 						</Style>
 
 						<Style Selector="^:pointerover /template/ Rectangle#BackgroundRectangle">
@@ -103,7 +117,7 @@
 						<Setter Property="Template">
 							<ControlTemplate x:DataType="collections:DataGridCollectionViewGroup">
 								<DataGridFrozenGrid Name="Root"
-													ColumnDefinitions="Auto,Auto,Auto,Auto"
+													ColumnDefinitions="Auto,Auto,Auto,Auto,*"
 													RowDefinitions="Auto,*,Auto">
 
 									<Rectangle Name="PART_IndentSpacer"
@@ -135,6 +149,14 @@
 												   IsVisible="{TemplateBinding IsItemCountVisible}" />
 									</StackPanel>
 
+									<Rectangle Name="GroupRowBottomLine"
+											   Grid.Row="2"
+											   Grid.Column="3"
+											   Grid.ColumnSpan="2"
+											   Height="1"
+											   Margin="-3,0,0,0"
+											   Fill="{Binding $parent[DataGrid].HorizontalGridLinesBrush}"
+											   HorizontalAlignment="Stretch" />
 									<DataGridRowHeader Name="RowHeader"
 													   Grid.RowSpan="3"
 													   DataGridFrozenGrid.IsFrozen="True" />
@@ -153,7 +175,9 @@
 		<DataGrid Classes="WithColumnFilters RowModifications"
 				  CanUserResizeColumns="True"
 				  x:Name="TheDataGrid"
-				  RowBackground="White" 
+				  RowBackground="White"
+				  HorizontalGridLinesBrush="LightGray"
+				  GridLinesVisibility="Horizontal"
 				  np:DataGridGroupingBehavior.IsGroupingOn="True"
 				  np:DataGridFilteringBehavior.DataGridFilterTextBoxClasses="DataGridFilterTextBox"
 				  np:DataGridFilteringBehavior.RowDataType="{x:Type local:Person}"
