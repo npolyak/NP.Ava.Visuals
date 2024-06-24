@@ -13,7 +13,7 @@
 			<ResourceDictionary.MergedDictionaries>
 				<!--<ResourceInclude Source="/Themes/LightCrystalTheme.axaml"/>-->
 				<np:ThemeLoader Name="ColorThemeLoader"
-								SelectedThemeId="Dark">
+								SelectedThemeId="Light">
 					<np:ThemeInfo Id="Light"
 								  ResourceUrl="/Themes/LightCrystalTheme.axaml"/>
 					<np:ThemeInfo Id="Dark"

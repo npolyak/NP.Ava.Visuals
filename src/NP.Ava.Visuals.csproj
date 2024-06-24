@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<RootNamespace>NP.Ava.Visuals</RootNamespace>
 		<PackageId>NP.Ava.Visuals</PackageId>
-		<Version>1.0.20</Version>
+		<Version>1.0.21</Version>
 		<Authors>Nick Polyak, Ph. D.</Authors>
 		<Company>AWebPros</Company>
 		<Authors>Nick Polyak Ph. D.</Authors>
@@ -75,8 +75,6 @@
 	<ItemGroup Condition="'$(Configuration)'=='Release'">
 
 		<PackageReference Include="Avalonia.Controls.DataGrid"
-						  Version="11.0.10" />
-		<PackageReference Include="Avalonia.Themes.Simple"
 						  Version="11.0.10" />
 		<PackageReference Include="NP.Concepts.Behaviors" Version="1.0.18" />
 		<PackageReference Include="NP.ViewModelInterfaces" Version="1.0.7" />
