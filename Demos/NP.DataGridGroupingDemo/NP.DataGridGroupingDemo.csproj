@@ -1,5 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+	</PropertyGroup>
+	<ItemGroup Condition="'$(Configuration)'=='Release'">
+		<PackageReference Update="NP.Ava.Visuals" Version="1.0.19" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
+	</ItemGroup>
 </Project>

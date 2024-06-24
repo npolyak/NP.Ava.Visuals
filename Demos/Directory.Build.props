@@ -10,6 +10,6 @@
         <ProjectReference Include="..\..\src\NP.Ava.Visuals.csproj" />
     </ItemGroup>
     <ItemGroup Condition="'$(Configuration)'=='Release'">
-        <PackageReference Include="NP.Ava.Visuals" Version="1.0.7"/>
+        <PackageReference Include="NP.Ava.Visuals" Version="1.0.21"/>
     </ItemGroup>
 </Project>

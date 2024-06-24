@@ -11,26 +11,50 @@
 //
 using Avalonia;
 using Avalonia.Data.Converters;
+using NP.Utilities;
 using System;
 using System.Globalization;
+using System.Numerics;
 
 namespace NP.Ava.Visuals.Converters
 {
     public class BorderThicknessConverter : IValueConverter
     {
-        public static BorderThicknessConverter Instance { get; } = new BorderThicknessConverter();
+        public static BorderThicknessConverter Instance { get; } = 
+            new BorderThicknessConverter(new Thickness(1,1,1,1));
+
+        public static BorderThicknessConverter LeftMarginConverter { get; } = 
+            new BorderThicknessConverter(new Thickness(1,0,0,0));
+
+        private Thickness ThicknessShape { get; }
+
+        public BorderThicknessConverter(Thickness thicknessShape)
+        {
+            ThicknessShape = thicknessShape;
+        }
 
         public Thickness Convert(object value)
         {
             if (value is double d)
-                return new Thickness(d);
+                return new Thickness(ThicknessShape.Left * d, ThicknessShape.Top * d, ThicknessShape.Right * d, ThicknessShape.Bottom * d);
+            if (value is int i)
+                return new Thickness(ThicknessShape.Left * i, ThicknessShape.Top * i, ThicknessShape.Right * i, ThicknessShape.Bottom * i);
 
             return new Thickness();
         }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Convert(value);
+            Thickness result = Convert(value);
+
+            if (parameter is string s)
+            {
+                if (double.TryParse(s, out double d))
+                {
+                    return new Thickness(result.Left * d, result.Top * d, result.Right * d, result.Bottom * d);
+                }
+            }
+            return result;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

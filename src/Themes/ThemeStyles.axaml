@@ -1,5 +1,5 @@
 <Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:np="https://np.com/visuals">
 	<Styles.Resources>
 		<ResourceDictionary>
@@ -63,9 +63,34 @@
 			</ControlTemplate>
 		</ResourceDictionary>
 	</Styles.Resources>
+
+	<Style Selector="Button.StandardIconButton">
+		<Setter Property="Foreground"
+				Value="#5F000000"/>
+		<Setter Property="Background"
+				Value="Transparent"/>
+		<Setter Property="np:AttachedProperties.MouseOverBrush"
+				Value="#A3A3A3"/>
+		<Setter Property="np:AttachedProperties.IconWidth"
+				Value="15"/>
+		<Setter Property="np:AttachedProperties.IconHeight"
+				Value="15"/>
+		<Setter Property="np:AttachedProperties.IconMargin"
+				Value="5"/>
+	</Style>
+
+	<Style Selector="Button.DeleteButton">
+		<Setter Property="np:AttachedProperties.IconData"
+				Value="{StaticResource CloseIcon}"/>
+	</Style>
+	
+	
+	
 	<Style Selector="PopupRoot">
-		<Setter Property="Background" Value="{x:Null}"/>
-		<Setter Property="TransparencyLevelHint" Value="Transparent" />
+		<Setter Property="Background"
+				Value="{x:Null}"/>
+		<Setter Property="TransparencyLevelHint"
+				Value="Transparent" />
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Panel>
@@ -103,11 +128,11 @@
 							</Border.BorderBrush>
 						</Border>
 
-						<TemplatedControl x:Name="PlaceHolder" 
+						<TemplatedControl x:Name="PlaceHolder"
 										  Template="{TemplateBinding (np:AttachedProperties.MainPartTemplate)}"
 										  Margin="{TemplateBinding Padding}"
 										  Focusable="False"/>
-						
+
 						<Border x:Name="OpacityBorder"
 								Background="{StaticResource MostProminentInvertedBrush}"
 								Focusable="False"
@@ -239,10 +264,14 @@
 	<StyleInclude Source="resm:Avalonia.Themes.Default.ScrollViewer.xaml?assembly=Avalonia.Themes.Default"/>-->
 
 	<Style Selector="ComboBoxItem">
-		<Setter Property="Background" Value="Transparent"/>
-		<Setter Property="Padding" Value="2"/>
-		<Setter Property="HorizontalAlignment" Value="Stretch"/>
-		<Setter Property="HorizontalContentAlignment" Value="Left"/>
+		<Setter Property="Background"
+				Value="Transparent"/>
+		<Setter Property="Padding"
+				Value="2"/>
+		<Setter Property="HorizontalAlignment"
+				Value="Stretch"/>
+		<Setter Property="HorizontalContentAlignment"
+				Value="Left"/>
 		<Setter Property="Template">
 			<ControlTemplate>
 				<ContentPresenter Name="PART_ContentPresenter"
@@ -265,7 +294,8 @@
 	</Style>
 
 	<Style Selector="ComboBoxItem:selected">
-		<Setter Property="Background" Value="{DynamicResource AccentBrush}"/>
+		<Setter Property="Background"
+				Value="{DynamicResource AccentBrush}"/>
 	</Style>
 
 	<Style Selector="np|NpComboBox.Theme">
@@ -305,7 +335,7 @@
 								<ScrollViewer HorizontalScrollBarVisibility="{Binding $parent[ComboBox].HorizontalScrollBarVisibility}"
 											  VerticalScrollBarVisibility="{Binding $parent[ComboBox].VerticalScrollBarVisibility}">
 									<ItemsPresenter x:Name="ComboItemsPresenter"
-														ItemsPanel="{Binding $parent[ComboBox].ItemsPanel}">
+													ItemsPanel="{Binding $parent[ComboBox].ItemsPanel}">
 									</ItemsPresenter>
 								</ScrollViewer>
 							</Border>
@@ -359,6 +389,8 @@
 	</Style>
 
 	<Style Selector="DataGridColumnHeader.WithFilter">
+		<Setter Property="np:DataGridGroupingBehavior.IsHeaderGroupingOn"
+				Value="{Binding $parent[DataGrid].IsGroupingOn}"/>
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Grid ColumnDefinitions="*,Auto"
@@ -375,7 +407,8 @@
 										  IsEnabled="{Binding $parent[DataGridColumnHeader].Column.CanRemoveColumn}"
 										  np:CallAction.TheEvent="{x:Static MenuItem.ClickEvent}"
 										  np:CallAction.StaticType="{x:Type np:DataGridColumnManipulationBehavior}"
-										  np:CallAction.TargetObject="{Binding $parent[DataGridColumnHeader].Column}"
+										  np:CallAction.Arg1="{Binding $parent[DataGridColumnHeader].Column}"
+										  np:CallAction.HasArg="True"
 										  np:CallAction.MethodName="RemoveColumn">
 									<MenuItem.Icon>
 										<Path Data="{StaticResource CloseIcon}"
@@ -388,7 +421,8 @@
 								</MenuItem>
 							</MenuFlyout>
 						</Grid.ContextFlyout>
-						<ContentPresenter Content="{TemplateBinding Content}"
+						<ContentPresenter x:Name="PART_Header" 
+										  Content="{TemplateBinding Content}"
 										  ContentTemplate="{TemplateBinding ContentTemplate}"
 										  VerticalAlignment="Center"/>
 
@@ -429,54 +463,149 @@
 				Value="WithFilter"/>
 		<Setter Property="np:DataGridColumnManipulationBehavior.IsOn"
 				Value="True"/>
+		<Setter Property="np:DataGridGroupingBehavior.IsGroupingOn"
+				Value="False"/>
+		<Setter Property="CanUserReorderColumns"
+				Value="{Binding !IsGroupingOn, RelativeSource={RelativeSource Self}}"/>
+		<Setter Property="np:DataGridGroupingBehavior.RemoveAllGroupsButtonClasses"
+				Value="IconButton StandardIconButton DeleteButton"/>
+		<Setter Property="np:DataGridGroupingBehavior.GroupColumnDataTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<Border Background="LightGray"
+							Padding="10,5,7,5"
+							Tag="Header"
+							BorderBrush="Black"
+							BorderThickness="1"
+							Margin="5, 0">
+						<Grid ColumnDefinitions="*, Auto">
+							<TextBlock Text="{Binding Header}"
+									   VerticalAlignment="Center"
+									   HorizontalAlignment="Center"/>
+							<Button x:Name="DeleteButton"
+									Classes="IconButton StandardIconButton DeleteButton"
+									Grid.Column="1"
+									Margin="5,0,0,0"
+									np:CallAction.StaticType="np:DataGridGroupingBehavior"
+									np:CallAction.MethodName="RemoveGroupingColumn"
+									np:CallAction.TheEvent="{x:Static Button.ClickEvent}"
+									np:CallAction.Arg1="{Binding}"
+									np:CallAction.HasArg="True"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"/>
+						</Grid>
+					</Border>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Border Background="{TemplateBinding Background}"
 						BorderThickness="{TemplateBinding BorderThickness}"
 						BorderBrush="{TemplateBinding BorderBrush}">
-					<Grid RowDefinitions="Auto,*,Auto,Auto" 
+					<Grid RowDefinitions="Auto,*,Auto,Auto"
 						  ColumnDefinitions="Auto,*,Auto">
-						<DataGridColumnHeader Name="PART_TopLeftCornerHeader" 
-											  Width="22" />
-						<DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter" 
-														Grid.Column="1"/>
-						<DataGridColumnHeader Name="PART_TopRightCornerHeader" 
-											  Grid.Column="2"/>
-						<Rectangle Name="PART_ColumnHeadersAndRowsSeparator"
-								   Grid.ColumnSpan="3"
-								   VerticalAlignment="Bottom"
-								   StrokeThickness="1"
-								   Height="1"
-								   Fill="{DynamicResource ThemeControlMidHighBrush}"/>
+						<Grid x:Name="PART_GroupingAndColumnHeadersContainer"
+							  RowDefinitions="Auto, Auto"
+							  ColumnDefinitions="Auto,*,Auto"
+							  Grid.ColumnSpan="3"
+							  VerticalAlignment="Top">
+							<Grid x:Name="PART_GroupingPanel"
+								  Height="50"
+								  Background="LightGray"
+								  HorizontalAlignment="Stretch"
+								  Grid.ColumnSpan="3"
+								  Opacity="0.6"
+								  ToolTip.Tip="Group Panel"
+								  ToolTip.Placement="Pointer"
+								  IsVisible="{Binding Path=IsGroupingOn, RelativeSource={RelativeSource TemplatedParent}}">
+								<TextBlock HorizontalAlignment="Left"
+										   Margin="10,5"
+										   VerticalAlignment="Center"
+										   Text="Group Panel"/>
+								<ItemsControl x:Name="PART_GroupHeaders"
+											  Margin="5"
+											  ItemTemplate="{Binding Path=GroupColumnDataTemplate, RelativeSource={RelativeSource TemplatedParent}}"
+											  ItemsSource="{Binding Path=GroupColumns, RelativeSource={RelativeSource TemplatedParent}}">
+									<ItemsControl.ItemsPanel>
+										<ItemsPanelTemplate>
+											<StackPanel Orientation="Horizontal"/>
+										</ItemsPanelTemplate>
+									</ItemsControl.ItemsPanel>
+								</ItemsControl>
+								<Grid x:Name="PART_GroupingDropIndicator"
+									  Width="2"
+									  HorizontalAlignment="Left"
+									  Margin="0,10"
+									  Background="Black"
+									  IsVisible="False">
+									<Grid.RenderTransform>
+										<TranslateTransform X="0" Y="0"/>
+									</Grid.RenderTransform>
+								</Grid>
 
-						<DataGridRowsPresenter Name="PART_RowsPresenter" 
-											   Grid.ColumnSpan="2" 
+								<Button x:Name="DeleteAllButton"
+										HorizontalAlignment="Right"
+										Content="Delete All"
+										Margin="5,0"
+										np:ClassesBehavior.TheClasses="{Binding Path=RemoveAllGroupsButtonClasses, RelativeSource={RelativeSource TemplatedParent}}"
+										np:CallAction.StaticType="np:DataGridGroupingBehavior"
+										np:CallAction.MethodName="RemoveAllGroupingColumns"
+										np:CallAction.TheEvent="{x:Static Button.ClickEvent}"
+										np:CallAction.Arg1="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+										np:CallAction.HasArg="True"
+										VerticalAlignment="Center"/>
+							</Grid>
+							<DataGridColumnHeader Name="PART_TopLeftCornerHeader"
+												  Width="22"
+												  Grid.Row="1"/>
+							<DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter"
+															Grid.Column="1"
+															Grid.Row="1"/>
+							<DataGridColumnHeader Name="PART_TopRightCornerHeader"
+												  Grid.Column="2"
+												  Grid.Row="1"/>
+							<Rectangle Name="PART_ColumnHeadersAndRowsSeparator"
+									   Grid.ColumnSpan="3"
+									   VerticalAlignment="Bottom"
+									   StrokeThickness="1"
+									   Height="1"
+									   Grid.Row="1"
+									   Fill="{DynamicResource ThemeControlMidHighBrush}"/>
+							<Grid x:Name="PART_DragIndicatorContainer"
+								  Grid.RowSpan="2"
+								  Grid.ColumnSpan="3">
+							</Grid>
+						</Grid>
+						<DataGridRowsPresenter Name="PART_RowsPresenter"
+											   Grid.ColumnSpan="2"
 											   Grid.Row="1">
 							<DataGridRowsPresenter.GestureRecognizers>
-								<ScrollGestureRecognizer CanHorizontallyScroll="True" 
+								<ScrollGestureRecognizer CanHorizontallyScroll="True"
 														 CanVerticallyScroll="True" />
 							</DataGridRowsPresenter.GestureRecognizers>
 						</DataGridRowsPresenter>
-						<Rectangle Name="PART_BottomRightCorner" 
-								   Fill="{DynamicResource ThemeControlMidHighBrush}" 
-								   Grid.Column="2" 
+						<Rectangle Name="PART_BottomRightCorner"
+								   Fill="{DynamicResource ThemeControlMidHighBrush}"
+								   Grid.Column="2"
 								   Grid.Row="2" />
-						<Rectangle Name="BottomLeftCorner" 
-								   Fill="{DynamicResource ThemeControlMidHighBrush}" 
-								   Grid.Row="2" 
+						<Rectangle Name="BottomLeftCorner"
+								   Fill="{DynamicResource ThemeControlMidHighBrush}"
+								   Grid.Row="2"
 								   Grid.ColumnSpan="2" />
-						<ScrollBar Name="PART_VerticalScrollbar" 
-								   Orientation="Vertical" 
-								   Grid.Column="2" 
-								   Grid.Row="1" 
+						<ScrollBar Name="PART_VerticalScrollbar"
+								   Orientation="Vertical"
+								   Grid.Column="2"
+								   Grid.Row="1"
 								   Width="{DynamicResource ScrollBarThickness}"/>
 
-						<Grid Grid.Column="1" Grid.Row="2"
+						<Grid Grid.Column="1"
+							  Grid.Row="2"
 							  ColumnDefinitions="Auto,*">
 							<Rectangle Name="PART_FrozenColumnScrollBarSpacer" />
-							<ScrollBar Name="PART_HorizontalScrollbar" 
-									   Grid.Column="1" 
-									   Orientation="Horizontal" 
+							<ScrollBar Name="PART_HorizontalScrollbar"
+									   Grid.Column="1"
+									   Orientation="Horizontal"
 									   Height="{DynamicResource ScrollBarThickness}"/>
 						</Grid>
 					</Grid>

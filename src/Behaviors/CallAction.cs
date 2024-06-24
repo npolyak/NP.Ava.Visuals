@@ -179,22 +179,17 @@ namespace NP.Ava.Visuals.Behaviors
             if (methodName == null)
                 return;
 
-            object? targetObject = 
-                avaloniaObject.GetValue(TargetObjectProperty) ?? avaloniaObject.DataContext;
-
-            if (targetObject == null)
-                return;
-
             Type staticType = GetStaticType(avaloniaObject);
 
             bool isStatic = staticType != null;
 
-            IEnumerable<object> args = Enumerable.Empty<object>();
+            object? targetObject = 
+                avaloniaObject.GetValue(TargetObjectProperty) ?? avaloniaObject.DataContext;
 
-            if (isStatic)
-            {
-                args = args.Union(new object[] { targetObject });
-            }
+            if ((targetObject == null) && (!isStatic))
+                return;
+
+            IEnumerable<object> args = Enumerable.Empty<object>();
 
             if (GetHasArg(avaloniaObject))
             {

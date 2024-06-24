@@ -1,0 +1,40 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:NP.ElementImageTest"
+        xmlns:np="https://np.com/visuals"
+        x:Class="NP.ElementImageTest.MainWindow"
+        Title="NP.ElementImageTest"
+        x:Name="Root" 
+		Width="800"
+		Height="600"
+		Background="{StaticResource PrimaryBrush}">
+	<Grid Margin="10"
+		  RowDefinitions="*, Auto">
+		<Grid ColumnDefinitions="*, *">
+			<Grid x:Name="ButtonPanel"
+				  Background="LightBlue">
+				<Button HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						x:Name="TheButton"
+						Content="Do Smth"/>
+			</Grid>
+			<Image x:Name="TheImage"
+				   HorizontalAlignment="Stretch"
+				   VerticalAlignment="Stretch"
+				   Stretch="Fill"
+				   Grid.Column="1"/>
+			<!--<Grid Grid.Column="1"
+				  x:Name="CopyGrid">
+
+			</Grid>-->
+		</Grid>
+		<StackPanel Orientation="Horizontal"
+					VerticalAlignment="Bottom"
+					HorizontalAlignment="Right"
+					Grid.Row="1">
+			
+			<Button x:Name="TakeElementImageButton"
+					Content="Element Image"/>
+		</StackPanel>
+	</Grid>
+</Window>
