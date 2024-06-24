@@ -153,6 +153,13 @@
 												  CornerRadius="{TemplateBinding CornerRadius}"
 												  Foreground="{TemplateBinding Foreground}"
 												  Theme="{StaticResource SimpleDataGridRowGroupExpanderButtonTheme}" />
+									<DataGridRow Grid.Row="1"
+												 Grid.Column="3"
+												 Grid.ColumnSpan="3"/>
+									<!--<DataGridCellsPresenter Name="PART_CellsPresenter"
+															Grid.Row="1"
+															Grid.Column="4"
+															DataGridFrozenGrid.IsFrozen="True" />-->
 
 									<StackPanel Grid.Row="1"
 												Grid.Column="3"
