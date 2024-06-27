@@ -11,6 +11,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\NP.Ava.Visuals.csproj" />
-    <ProjectReference Include="..\..\SubModules\NP.NLogAdapter\src\NP.NLogAdapter.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
   </ItemGroup>
 </Project>
