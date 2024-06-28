@@ -15,6 +15,7 @@ using Avalonia.Controls.Presenters;
 using Avalonia.Input;
 using Avalonia.VisualTree;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace NP.Ava.Visuals.Behaviors
 {

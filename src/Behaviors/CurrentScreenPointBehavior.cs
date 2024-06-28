@@ -87,19 +87,14 @@ namespace NP.Ava.Visuals.Behaviors
             }
         }
 
-        public static void Capture(Control control)
+        public static void Capture(Control control, PointerEventArgs e)
         {
             _capturedWindow = 
                 control.GetSelfAndVisualAncestors()
                        .OfType<Window>()
                        .FirstOrDefault()!;
 
-            if (_capturedWindow?.Title != "NP.Demos.UniDockWindowsSample")
-            {
-
-            }
-
-            var pointer = Mouse?.TryGetPointer(null);
+            var pointer = e?.Pointer ?? Mouse?.TryGetPointer(null);
                 
             if (pointer != null)
             {
@@ -110,20 +105,27 @@ namespace NP.Ava.Visuals.Behaviors
             control.PointerReleased += Control_PointerReleased;
         }
 
-        public static void ReleaseCapture()
+        public static void ReleaseCapture(PointerEventArgs e)
         {
             if (CapturedControl != null)
             {
                 CapturedControl.PointerReleased -= Control_PointerReleased;
             }
 
-            Mouse?.TryGetPointer(null)?.Capture(null);
+            if (e?.Pointer != null)
+            {
+                e.Pointer.Capture(null);
+            }
+            else
+            {
+                Mouse?.TryGetPointer(null)?.Capture(null);
+            }
             _capturedWindow = null;
         }
 
         private static void Control_PointerReleased(object sender, PointerReleasedEventArgs e)
         {
-            ReleaseCapture();
+            ReleaseCapture(e);
 
             PointerReleasedEvent?.Invoke();
         }

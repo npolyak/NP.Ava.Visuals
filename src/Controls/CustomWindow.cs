@@ -286,7 +286,7 @@ namespace NP.Ava.Visuals.Controls
         #endregion PointerShift Styled Avalonia Property
 
         bool _startMoving = false;
-        protected virtual void SetDragWindowOnMovePointer(PointerEventArgs e)
+        public virtual void SetDragWindowOnMovePointer(PointerEventArgs e)
         {
             if (!e.GetCurrentPoint(_headerControl).Properties.IsLeftButtonPressed)
             {
@@ -297,10 +297,10 @@ namespace NP.Ava.Visuals.Controls
             StartPointerPosition = GetCurrentPointInScreen(e);
             StartWindowPosition = this.Position;
             PointerShift = new PixelPoint();
-            SetDragOnMovePointer();
+            SetDragOnMovePointer(e);
         }
 
-        protected virtual void SetDragOnMovePointer()
+        protected virtual void SetDragOnMovePointer(PointerEventArgs e)
         {
             if (HeaderControl != null)
             {
@@ -328,6 +328,20 @@ namespace NP.Ava.Visuals.Controls
             UpdatePosition(e);
         }
 
+        const double DefaultMinDistance = 0;
+
+        private double MinDistance { get; set; } = DefaultMinDistance;
+
+        protected void MinDistanceToZero()
+        {
+            MinDistance = 0;
+        }
+
+        protected void MinDistanceToDefault()
+        {
+            MinDistance = DefaultMinDistance;
+        }
+
         protected void UpdatePosition(PointerEventArgs e)
         {
             try
@@ -340,7 +354,7 @@ namespace NP.Ava.Visuals.Controls
             }
             Point2D pointerShift = PointerShift.ToPoint2D();
 
-            if (!_startMoving && pointerShift.AbsSquared() > 9)
+            if (!_startMoving && pointerShift.AbsSquared() >= MinDistance)
             {
                 _startMoving = true;
             }
