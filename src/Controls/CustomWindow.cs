@@ -212,7 +212,7 @@ namespace NP.Ava.Visuals.Controls
             ctl.PointerPressed += handler;
         }
 
-        private void SetIsHitVisibleOnResizeControls(bool isHitVisible)
+        protected void SetIsHitVisibleOnResizeControls(bool isHitVisible)
         {
             foreach (var resizeCursorInfo in ResizeCursorInfos)
             {
@@ -286,7 +286,7 @@ namespace NP.Ava.Visuals.Controls
         #endregion PointerShift Styled Avalonia Property
 
         bool _startMoving = false;
-        public virtual void SetDragWindowOnMovePointer(PointerEventArgs e)
+        protected virtual void SetDragWindowOnMovePointer(PointerEventArgs e)
         {
             if (!e.GetCurrentPoint(_headerControl).Properties.IsLeftButtonPressed)
             {
