@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{7C66664B-4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NP.Ava.Visuals", "..\..\src\NP.Ava.Visuals.csproj", "{D1594D3F-6B0F-45F8-8A4A-8906DE05B08C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NP.Concepts.Behaviors", "..\..\..\..\..\NP.Ava.Visuals\SubModules\NP.Concepts.Behaviors\src\NP.Concepts.Behaviors.csproj", "{B30D2EDE-EC2B-4E62-9D72-E1CADDC29B7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NP.Concepts.Behaviors", "..\..\SubModules\NP.Concepts.Behaviors\src\NP.Concepts.Behaviors.csproj", "{B30D2EDE-EC2B-4E62-9D72-E1CADDC29B7A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NP.ViewModelInterfaces", "..\..\..\..\..\NP.Ava.Visuals\SubModules\NP.ViewModelInterfaces\src\NP.ViewModelInterfaces.csproj", "{CF1449ED-96CD-4786-A71E-35DB11F150E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NP.ViewModelInterfaces", "..\..\SubModules\NP.ViewModelInterfaces\src\NP.ViewModelInterfaces.csproj", "{CF1449ED-96CD-4786-A71E-35DB11F150E8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NP.Utilities", "..\..\..\..\..\NP.Ava.Visuals\SubModules\NP.Utilities\src\NP.Utilities.csproj", "{9E2DD7BC-6F04-496B-AB53-92B8EBF1D6E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NP.Utilities", "..\..\SubModules\NP.Utilities\src\NP.Utilities.csproj", "{9E2DD7BC-6F04-496B-AB53-92B8EBF1D6E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
