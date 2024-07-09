@@ -61,9 +61,6 @@ namespace NP.Ava.Visuals.Controls
 
         public CustomWindow()
         {
-#if DEBUG
-            this.AttachDevTools();
-#endif
             (this as INotifyPropertyChanged).PropertyChanged += CustomWindow_PropertyChanged;
 
             _windowStateChangeDisposer =
