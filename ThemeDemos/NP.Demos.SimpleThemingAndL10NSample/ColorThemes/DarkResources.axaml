@@ -1,14 +1,16 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:np="https://np.com/visuals">
-  
-  <!-- Defing Background and Foreground brushes for dark theme -->
-  <SolidColorBrush x:Key="BackgroundBrush"
-                   Color="Black"/>
-  <SolidColorBrush x:Key="ForegroundBrush"
-                 Color="White"/>
+                    xmlns:np="https://np.com/visuals">
 
-	<np:ThemeVariantReference x:Key="TheThemeVariantRef"
-							  TheThemeVariant="{x:Static ThemeVariant.Dark}"/>
+    <!-- Defing Background and Foreground brushes for dark theme -->
+    <SolidColorBrush x:Key="BackgroundBrush"
+                     Color="Black"/>
+    <SolidColorBrush x:Key="ForegroundBrush"
+                     Color="White"/>
+    <SolidColorBrush x:Key="BorderBrush"
+                     Color="LightGreen"/>
+
+    <np:ThemeVariantReference x:Key="TheThemeVariantRef"
+                              TheThemeVariant="{x:Static ThemeVariant.Dark}"/>
 
 </ResourceDictionary>

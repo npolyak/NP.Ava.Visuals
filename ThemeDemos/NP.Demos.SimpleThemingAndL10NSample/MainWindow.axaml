@@ -5,9 +5,20 @@
 		Title="{DynamicResource WindowTitle}"
 		Background="{DynamicResource BackgroundBrush}"
 		Width="400"
-		Height="200">
+		Height="300">
 	<Grid RowDefinitions="Auto, *"
 		  Margin="10">
+        <Grid.Resources>
+            <DataTemplate x:Key="MyDataTemplate">
+                <Border Background="{DynamicResource BackgroundBrush}"
+                        BorderBrush="{DynamicResource BorderBrush}"
+                        BorderThickness="3"
+                        Width="200"
+                        Height="40">
+                    
+                </Border>
+            </DataTemplate>
+        </Grid.Resources>
 		<StackPanel Orientation="Horizontal">
 
 			<!-- this button switches to light theme -->
@@ -57,6 +68,8 @@
 					</MultiBinding>
 				</TextBlock.Text>
 			</TextBlock>
+            <ContentControl ContentTemplate="{StaticResource MyDataTemplate}"
+                            Margin="0,20"/>
 		</StackPanel>
 	</Grid>
 </Window>
