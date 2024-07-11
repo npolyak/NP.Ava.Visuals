@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<RootNamespace>NP.Ava.Visuals</RootNamespace>
 		<PackageId>NP.Ava.Visuals</PackageId>
-		<Version>1.0.23</Version>
+		<Version>1.0.24</Version>
 		<Authors>Nick Polyak, Ph. D.</Authors>
 		<Company>AWebPros</Company>
 		<Authors>Nick Polyak Ph. D.</Authors>
@@ -59,6 +59,8 @@
 		<AvaloniaResource Include="Themes\ThemeStyles.axaml" />
 	</ItemGroup>
 	<ItemGroup>
+        <PackageReference Include="Avalonia"
+                          Version="$(AvaloniaVersion)" />
 		<PackageReference Include="IgnoresAccessChecksToGenerator" Version="0.7.0" PrivateAssets="All" />
 	</ItemGroup>
 	<ItemGroup>
@@ -67,13 +69,11 @@
 		<InternalsAssemblyName Include="Avalonia.Controls.DataGrid" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(Configuration)'=='Debug'">
-		<PackageReference Include="Avalonia.Diagnostics" Version="11.0.10" />
 		<ProjectReference Include="$(SolutionDir)..\..\SubModules\NP.Concepts.Behaviors\src\NP.Concepts.Behaviors.csproj" />
 		<ProjectReference Include="$(SolutionDir)..\..\SubModules\NP.ViewModelInterfaces\src\NP.ViewModelInterfaces.csproj" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)'=='Release'">
-		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.10" />
 		<PackageReference Include="NP.Concepts.Behaviors" Version="1.0.19" />
 		<PackageReference Include="NP.ViewModelInterfaces" Version="1.0.7" />
 	</ItemGroup>

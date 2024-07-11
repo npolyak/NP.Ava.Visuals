@@ -22,18 +22,18 @@ namespace NP.Ava.Visuals.Behaviors
     public static class CallAction
     {
         #region TheEvent Attached Avalonia Property
-        public static RoutedEvent GetTheEvent(AvaloniaObject obj)
+        public static RoutedEvent GetTheEvent(Visual obj)
         {
             return obj.GetValue(TheEventProperty);
         }
 
-        public static void SetTheEvent(AvaloniaObject obj, RoutedEvent value)
+        public static void SetTheEvent(Visual obj, RoutedEvent value)
         {
             obj.SetValue(TheEventProperty, value);
         }
 
         public static readonly AttachedProperty<RoutedEvent> TheEventProperty =
-            AvaloniaProperty.RegisterAttached<object, Control, RoutedEvent>
+            AvaloniaProperty.RegisterAttached<Visual, Visual, RoutedEvent>
             (
                 "TheEvent"
             );
@@ -41,18 +41,18 @@ namespace NP.Ava.Visuals.Behaviors
 
 
         #region TargetObject Attached Avalonia Property
-        public static object GetTargetObject(AvaloniaObject obj)
+        public static object GetTargetObject(Visual obj)
         {
             return obj.GetValue(TargetObjectProperty);
         }
 
-        public static void SetTargetObject(AvaloniaObject obj, object value)
+        public static void SetTargetObject(Visual obj, object value)
         {
             obj.SetValue(TargetObjectProperty, value);
         }
 
         public static readonly AttachedProperty<object> TargetObjectProperty =
-            AvaloniaProperty.RegisterAttached<object, Control, object>
+            AvaloniaProperty.RegisterAttached<Visual, Visual, object>
             (
                 "TargetObject"
             );
@@ -60,18 +60,18 @@ namespace NP.Ava.Visuals.Behaviors
 
 
         #region MethodName Attached Avalonia Property
-        public static string GetMethodName(AvaloniaObject obj)
+        public static string GetMethodName(Visual obj)
         {
             return obj.GetValue(MethodNameProperty);
         }
 
-        public static void SetMethodName(AvaloniaObject obj, string value)
+        public static void SetMethodName(Visual obj, string value)
         {
             obj.SetValue(MethodNameProperty, value);
         }
 
         public static readonly AttachedProperty<string> MethodNameProperty =
-            AvaloniaProperty.RegisterAttached<object, Control, string>
+            AvaloniaProperty.RegisterAttached<Visual, Visual, string>
             (
                 "MethodName"
             );
@@ -129,18 +129,18 @@ namespace NP.Ava.Visuals.Behaviors
 
 
         #region TheRoutingStrategy Attached Avalonia Property
-        public static RoutingStrategies? GetTheRoutingStrategy(AvaloniaObject obj)
+        public static RoutingStrategies? GetTheRoutingStrategy(Visual obj)
         {
             return obj.GetValue(TheRoutingStrategyProperty);
         }
 
-        public static void SetTheRoutingStrategy(AvaloniaObject obj, RoutingStrategies? value)
+        public static void SetTheRoutingStrategy(Visual obj, RoutingStrategies? value)
         {
             obj.SetValue(TheRoutingStrategyProperty, value);
         }
 
         public static readonly AttachedProperty<RoutingStrategies?> TheRoutingStrategyProperty =
-            AvaloniaProperty.RegisterAttached<object, Control, RoutingStrategies?>
+            AvaloniaProperty.RegisterAttached<Visual, Visual, RoutingStrategies?>
             (
                 "TheRoutingStrategy",
                 RoutingStrategies.Bubble
@@ -149,18 +149,18 @@ namespace NP.Ava.Visuals.Behaviors
 
 
         #region StaticType Attached Avalonia Property
-        public static Type GetStaticType(AvaloniaObject obj)
+        public static Type GetStaticType(Visual obj)
         {
             return obj.GetValue(StaticTypeProperty);
         }
 
-        public static void SetStaticType(AvaloniaObject obj, Type value)
+        public static void SetStaticType(Visual obj, Type value)
         {
             obj.SetValue(StaticTypeProperty, value);
         }
 
         public static readonly AttachedProperty<Type> StaticTypeProperty =
-            AvaloniaProperty.RegisterAttached<object, Control, Type>
+            AvaloniaProperty.RegisterAttached<Visual, Visual, Type>
             (
                 "StaticType"
             );
@@ -183,7 +183,7 @@ namespace NP.Ava.Visuals.Behaviors
 
             bool isStatic = staticType != null;
 
-            object? targetObject = 
+            object? targetObject =
                 avaloniaObject.GetValue(TargetObjectProperty) ?? avaloniaObject.DataContext;
 
             if ((targetObject == null) && (!isStatic))
@@ -191,9 +191,14 @@ namespace NP.Ava.Visuals.Behaviors
 
             IEnumerable<object> args = Enumerable.Empty<object>();
 
+            if (GetUseTargetObjAsFirstArg(avaloniaObject))
+            {
+                args = [targetObject];
+            }
+
             if (GetHasArg(avaloniaObject))
             {
-                args = args.Union(new []{ GetArg1(avaloniaObject) });
+                args = args.Union([GetArg1(avaloniaObject)]);
             }
             else
             {
@@ -210,18 +215,18 @@ namespace NP.Ava.Visuals.Behaviors
 
 
         #region HasArg Attached Avalonia Property
-        public static bool GetHasArg(AvaloniaObject obj)
+        public static bool GetHasArg(Visual obj)
         {
             return obj.GetValue(HasArgProperty);
         }
 
-        public static void SetHasArg(AvaloniaObject obj, bool value)
+        public static void SetHasArg(Visual obj, bool value)
         {
             obj.SetValue(HasArgProperty, value);
         }
 
         public static readonly AttachedProperty<bool> HasArgProperty =
-            AvaloniaProperty.RegisterAttached<object, Control, bool>
+            AvaloniaProperty.RegisterAttached<Visual, Visual, bool>
             (
                 "HasArg"
             );
@@ -272,6 +277,26 @@ namespace NP.Ava.Visuals.Behaviors
             _eventSubscription?.Dispose();
             _eventSubscription = TheEventProperty.Changed.Subscribe(ResetEvent);
         }
+
+
+        #region UseTargetObjAsFirstArg Attached Avalonia Property
+        public static bool GetUseTargetObjAsFirstArg(Visual obj)
+        {
+            return obj.GetValue(UseTargetObjAsFirstArgProperty);
+        }
+
+        public static void SetUseTargetObjAsFirstArg(Visual obj, bool value)
+        {
+            obj.SetValue(UseTargetObjAsFirstArgProperty, value);
+        }
+
+        public static readonly AttachedProperty<bool> UseTargetObjAsFirstArgProperty =
+            AvaloniaProperty.RegisterAttached<Visual, Visual, bool>
+            (
+                "UseTargetObjAsFirstArg"
+            );
+        #endregion UseTargetObjAsFirstArg Attached Avalonia Property
+
 
         private static void ResetRoutingStrategy(AvaloniaPropertyChangedEventArgs<RoutingStrategies?> e)
         {
