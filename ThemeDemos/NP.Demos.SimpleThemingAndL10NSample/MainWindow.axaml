@@ -15,7 +15,10 @@
                         BorderThickness="3"
                         Width="200"
                         Height="40">
-                    
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Foreground="{DynamicResource ForegroundBrush}"
+                               Text="{DynamicResource WindowTitle}"/>
                 </Border>
             </DataTemplate>
         </Grid.Resources>
