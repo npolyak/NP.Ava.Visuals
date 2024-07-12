@@ -17,7 +17,11 @@ namespace NP.Ava.Visuals.Converters
                 return null;
             Uri uri = new Uri(value.ToString(), UriKind.Absolute);
 
-            return new Bitmap(AssetLoader.Open(uri));
+            if (AssetLoader.Exists(uri))
+            {
+                return new Bitmap(AssetLoader.Open(uri));
+            }
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
