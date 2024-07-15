@@ -126,5 +126,15 @@ namespace NP.Ava.Visuals
         {
             return new Rect(new Point(), c.ToPoint());
         }
+
+        public static double ActualWidth(this Control c)
+        {
+            return c.Bounds.Width;
+        }
+
+        public static double ActualHeight(this Control c)
+        {
+            return c.Bounds.Height;
+        }
     }
 }
