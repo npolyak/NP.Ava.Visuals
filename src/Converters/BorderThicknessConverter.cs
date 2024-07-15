@@ -26,6 +26,9 @@ namespace NP.Ava.Visuals.Converters
         public static BorderThicknessConverter LeftMarginConverter { get; } = 
             new BorderThicknessConverter(new Thickness(1,0,0,0));
 
+        public static BorderThicknessConverter TopMarginConverter { get; } =
+            new BorderThicknessConverter(new Thickness(0,1,0,0));
+
         private Thickness ThicknessShape { get; }
 
         public BorderThicknessConverter(Thickness thicknessShape)
