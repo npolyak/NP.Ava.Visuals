@@ -34,4 +34,11 @@ namespace NP.Ava.Visuals.WindowsOnly
                 return new IntPtr(SetWindowLong32(hWnd, (int)flag, ((IntPtr)dwNewLong).ToInt32()));
         }
     }
+
+    internal unsafe static class UnmanagedWinApi
+    {
+        [DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetKeyboardState(byte* lpKeyState);
+    }
 }

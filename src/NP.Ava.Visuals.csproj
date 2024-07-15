@@ -3,12 +3,13 @@
 	<PropertyGroup>
 		<RootNamespace>NP.Ava.Visuals</RootNamespace>
 		<PackageId>NP.Ava.Visuals</PackageId>
-		<Version>1.0.25</Version>
+		<Version>1.0.26</Version>
 		<Authors>Nick Polyak, Ph. D.</Authors>
 		<Company>AWebPros</Company>
 		<Authors>Nick Polyak Ph. D.</Authors>
 		<Description>Visual Controls, Utilities and Behaviors for AvaloniaUI</Description>
 		<Copyright>Nick Polyak 2023</Copyright>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<PackageTags>Avalonia Converters, Behaviors, CustomWindow</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>

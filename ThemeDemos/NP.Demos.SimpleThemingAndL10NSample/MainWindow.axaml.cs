@@ -4,6 +4,7 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using NP.Ava.Visuals.ThemingAndL10N;
 using NP.Ava.Visuals.Behaviors;
+using Avalonia.Input;
 
 namespace NP.Demos.SimpleThemingAndL10NSample
 {

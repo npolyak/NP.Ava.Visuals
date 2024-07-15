@@ -18,7 +18,6 @@ namespace NP.Ava.Visuals.WindowsOnly
                 WindowStyles windowToImplantStyle =
                     (WindowStyles)WinApi.GetWindowLongPtr(windowToImplantHandle, (int)WindowLongFlags.GWL_STYLE);
 
-
                 windowToImplantStyle &= ~WindowStyles.WS_BORDER;
                 windowToImplantStyle &= ~WindowStyles.WS_HSCROLL;
                 windowToImplantStyle &= ~WindowStyles.WS_VSCROLL;
