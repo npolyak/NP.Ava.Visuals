@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using NP.Utilities;
+using System;
 
 namespace NP.Ava.Visuals
 {
@@ -99,6 +100,16 @@ namespace NP.Ava.Visuals
         public static Point Subtract(this Point point1, Point point2)
         {
             return new Point(point1.X - point2.X, point1.Y - point2.Y);
+        }
+
+        public static double SquareDist(this Point p1, Point p2)
+        {
+            return p1.Subtract(p2).ToPoint2D().AbsSquared();
+        }
+
+        public static double Dist(this Point p1, Point p2)
+        {
+            return Math.Sqrt(p1.SquareDist(p2));
         }
 
         public static Point ToPoint(this Rect rect)
