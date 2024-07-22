@@ -205,7 +205,7 @@ namespace NP.Ava.Visuals.Behaviors
 
             IRoutedEventArgsMatcher eventArgsMatcher = avaloniaObject.GetEventArgsMatcher();
 
-            if (!eventArgsMatcher.Matches(eventArgs))
+            if ((eventArgsMatcher != null) && (!eventArgsMatcher.Matches(eventArgs)))
             {
                 return;
             }
