@@ -73,6 +73,7 @@
 			</TextBlock>
             <ContentControl ContentTemplate="{StaticResource MyDataTemplate}"
                             Margin="0,20"/>
+            <Separator/>
 		</StackPanel>
 	</Grid>
 </Window>

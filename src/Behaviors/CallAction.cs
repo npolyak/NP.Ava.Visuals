@@ -16,6 +16,7 @@ using NP.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace NP.Ava.Visuals.Behaviors
 {
@@ -167,18 +168,48 @@ namespace NP.Ava.Visuals.Behaviors
         #endregion StaticType Attached Avalonia Property
 
 
-        private static void OnEvent(object? sender, RoutedEventArgs e)
+        #region EventArgsMatcher Attached Avalonia Property
+        public static IRoutedEventArgsMatcher GetEventArgsMatcher(this Interactive obj)
+        {
+            return obj.GetValue(EventArgsMatcherProperty);
+        }
+
+        public static void SetEventArgsMatcher(this Interactive obj, IRoutedEventArgsMatcher value)
+        {
+            obj.SetValue(EventArgsMatcherProperty, value);
+        }
+
+        public static readonly AttachedProperty<IRoutedEventArgsMatcher> EventArgsMatcherProperty =
+            AvaloniaProperty.RegisterAttached<Interactive, Interactive, IRoutedEventArgsMatcher>
+            (
+                "EventArgsMatcher"
+            );
+        #endregion EventArgsMatcher Attached Avalonia Property
+
+
+        private static void OnEvent(object? sender, RoutedEventArgs eventArgs)
         {
             Interactive? avaloniaObject = sender as Interactive;
 
             if (avaloniaObject == null)
+            {
                 return;
+            }
 
             string methodName = avaloniaObject.GetValue(MethodNameProperty);
 
             if (methodName == null)
+            {
                 return;
+            }
 
+            IRoutedEventArgsMatcher eventArgsMatcher = avaloniaObject.GetEventArgsMatcher();
+
+            if (!eventArgsMatcher.Matches(eventArgs))
+            {
+                return;
+            }
+            
             Type staticType = GetStaticType(avaloniaObject);
 
             bool isStatic = staticType != null;
