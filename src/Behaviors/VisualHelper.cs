@@ -110,5 +110,14 @@ namespace NP.Ava.Visuals.Behaviors
 
             return GridResizeDirection.Rows;
         }
+
+        public static T? GetSubVisualByName<T>(this Visual v, string name)
+            where T : Visual
+        {
+            return v.GetVisualDescendants().OfType<T>().FirstOrDefault(b => b.Name == name);
+        }
+
+        public static Control? GetSubControlByName(this Visual v, string name) =>
+            GetSubVisualByName<Control>(v, name);
     }
 }

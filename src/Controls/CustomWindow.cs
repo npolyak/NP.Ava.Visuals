@@ -120,14 +120,9 @@ namespace NP.Ava.Visuals.Controls
             }
         }
 
-        private Control GetControlByName(string name)
-        {
-            return this.GetVisualDescendants().OfType<Control>().First(b => b.Name == name);
-        }
-
         private Control SetCursorGetControl(string name, StandardCursorType cursorType)
         {
-            var ctl = GetControlByName(name);
+            var ctl = this.GetSubControlByName(name);
             ctl.Cursor = new Cursor(cursorType);
 
             return ctl;
@@ -213,7 +208,7 @@ namespace NP.Ava.Visuals.Controls
         {
             foreach (var resizeCursorInfo in ResizeCursorInfos)
             {
-                var ctl = GetControlByName(resizeCursorInfo.ControlName);
+                var ctl = this.GetSubControlByName(resizeCursorInfo.ControlName);
                 ctl.IsHitTestVisible = isHitVisible;
             }
         }
@@ -237,7 +232,7 @@ namespace NP.Ava.Visuals.Controls
                 SetupSide(resizeCursorInfo.ControlName, resizeCursorInfo.CursorType, resizeCursorInfo.TheWindowEdge);
             }
 
-            _headerControl = this.GetControlByName("PART_HeaderControl");
+            _headerControl = this.GetSubControlByName("PART_HeaderControl");
 
             _headerControl.PointerPressed += OnHeaderPointerPressed;
 
