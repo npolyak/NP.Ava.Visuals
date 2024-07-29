@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup Label="1">
+        <OutputType>WinExe</OutputType>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Remove=".gitignore" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
+        <PackageReference Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
+        <PackageReference Include="Avalonia.Themes.Simple" Version="$(AvaloniaVersion)" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\NP.Ava.Visuals.csproj" />
+    </ItemGroup>
+</Project>
