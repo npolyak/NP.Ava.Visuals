@@ -1,0 +1,46 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:NP.OverlayingTransitionsDemo"
+        xmlns:np="https://np.com/visuals"
+        x:Class="NP.OverlayingTransitionsDemo.MainWindow"
+        Title="NP.OverlayingTransitionsDemo"
+        x:Name="Root"
+		Width="500"
+		Height="400">
+	<Grid x:Name="RootGrid"
+          RowDefinitions="*, Auto"
+		  Margin="10">
+		<Grid ColumnDefinitions="*,*"
+              RowDefinitions="*,*">
+            <Grid x:Name="GridWithOverlay" 
+                  Grid.Row="1"
+                  Grid.Column="1"
+                  np:OverlayBehavior.OverlayContainingPanel="{Binding #OverlayPanel}"
+                  np:OverlayBehavior.OverlayedControl="{Binding RelativeSource={RelativeSource Self}}">
+                <np:OverlayBehavior.ContentTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Border HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    BorderThickness="4"
+                                    BorderBrush="Violet"
+                                    CornerRadius="5"/>
+                            <Grid Width="100"
+                                  Height="100"
+                                  Background="Red"/>
+                        </Grid>
+                    </DataTemplate>
+                </np:OverlayBehavior.ContentTemplate>
+            </Grid>
+            <Grid x:Name="OverlayPanel"
+                  Grid.RowSpan="2"
+                  Grid.ColumnSpan="2"/>
+		</Grid>
+		<ToggleButton IsChecked="{Binding Path=#GridWithOverlay.(np:OverlayBehavior.IsOpen)}"
+					  Grid.Row="1"
+					  HorizontalAlignment="Right"
+					  VerticalAlignment="Center"
+                      Margin="20,40,0,20"/>
+	</Grid>
+</Window>
+
