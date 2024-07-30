@@ -8,36 +8,51 @@
 		Width="500"
 		Height="400">
 	<Grid x:Name="RootGrid"
-          RowDefinitions="*, Auto"
+          RowDefinitions="Auto, *, Auto"
 		  Margin="10">
-		<Grid ColumnDefinitions="*,*"
-              RowDefinitions="*,*">
-            <Grid x:Name="GridWithOverlay" 
+		<Grid x:Name="GridContainingOverlayPanel"
+              Grid.Row="1"
+              ColumnDefinitions="*,*"
+              RowDefinitions="*,*"
+              Background="LightGray"
+              np:OverlayBehavior.OverlayContainingPanel="{Binding #OverlayPanel}"
+              np:OverlayBehavior.OverlayedControl="{Binding #OverlayedControl4}">
+            <np:OverlayBehavior.ContentTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Border HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                BorderThickness="4"
+                                BorderBrush="Violet"
+                                CornerRadius="5"/>
+                        <Grid Width="100"
+                              Height="100"
+                              Background="Red"/>
+                    </Grid>
+                </DataTemplate>
+            </np:OverlayBehavior.ContentTemplate>
+            <Grid x:Name="OverlayedControl1"
+                  Grid.Row="0"
+                  Grid.Column="0"
+                  />
+            <Grid x:Name="OverlayedControl2"
+                  Grid.Row="0"
+                  Grid.Column="1"
+                  />
+            <Grid x:Name="OverlayedControl3"
+                  Grid.Row="1"
+                  Grid.Column="0"
+                  />
+            <Grid x:Name="OverlayedControl4" 
                   Grid.Row="1"
                   Grid.Column="1"
-                  np:OverlayBehavior.OverlayContainingPanel="{Binding #OverlayPanel}"
-                  np:OverlayBehavior.OverlayedControl="{Binding RelativeSource={RelativeSource Self}}">
-                <np:OverlayBehavior.ContentTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Border HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    BorderThickness="4"
-                                    BorderBrush="Violet"
-                                    CornerRadius="5"/>
-                            <Grid Width="100"
-                                  Height="100"
-                                  Background="Red"/>
-                        </Grid>
-                    </DataTemplate>
-                </np:OverlayBehavior.ContentTemplate>
-            </Grid>
+                  />
             <Grid x:Name="OverlayPanel"
-                  Grid.RowSpan="2"
-                  Grid.ColumnSpan="2"/>
+                  Grid.ColumnSpan="2"
+                  Grid.RowSpan="2"/>
 		</Grid>
-		<ToggleButton IsChecked="{Binding Path=#GridWithOverlay.(np:OverlayBehavior.IsOpen)}"
-					  Grid.Row="1"
+		<ToggleButton IsChecked="{Binding Path=#GridContainingOverlayPanel.(np:OverlayBehavior.IsOpen)}"
+					  Grid.Row="2"
 					  HorizontalAlignment="Right"
 					  VerticalAlignment="Center"
                       Margin="20,40,0,20"/>

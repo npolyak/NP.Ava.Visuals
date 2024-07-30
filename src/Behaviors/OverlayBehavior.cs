@@ -213,7 +213,7 @@ namespace NP.Ava.Visuals.Behaviors
             Control control = (Control) args.Sender;
             Control overlayedControl = GetOverlayedControl(control) ?? control;
 
-            Panel panel = GetOverlayContainingPanel(overlayedControl);
+            Panel panel = GetOverlayContainingPanel(control);
 
             bool shouldOpen = args.NewValue.Value;
 
