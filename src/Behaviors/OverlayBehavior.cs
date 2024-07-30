@@ -12,6 +12,7 @@ using Avalonia.VisualTree;
 using Avalonia.Media;
 using System.Net;
 using System.Runtime.CompilerServices;
+using Avalonia.Animation;
 
 namespace NP.Ava.Visuals.Behaviors
 {
@@ -251,6 +252,10 @@ namespace NP.Ava.Visuals.Behaviors
                 };
 
                 overlayPanel.Children.Add(contentControl);
+
+                Transitions transitions = [new ThicknessTransition { Property = Control.MarginProperty, Duration = TimeSpan.FromSeconds(0.2) }];
+
+                contentControl.Transitions = transitions;
             }
 
             Thickness margin = overlayedControl.ToMargin(overlayPanel);

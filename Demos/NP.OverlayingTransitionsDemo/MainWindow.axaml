@@ -50,7 +50,6 @@
                   Grid.ColumnSpan="2"
                   Grid.RowSpan="2"/>
         </Grid>
-
         <StackPanel Grid.Row="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center"
@@ -70,11 +69,6 @@
                     Command="{Binding SelectBottomRightQuarter}"
                     Margin="5,0"/>
         </StackPanel>
-		<!--<ToggleButton IsChecked="{Binding Path=#GridContainingOverlayPanel.(np:OverlayBehavior.IsOpen)}"
-					  Grid.Row="2"
-					  HorizontalAlignment="Right"
-					  VerticalAlignment="Center"
-                      Margin="20,40,0,20"/>-->
 	</Grid>
 </Window>
 
