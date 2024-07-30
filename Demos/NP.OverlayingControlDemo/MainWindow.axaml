@@ -15,9 +15,9 @@
             <Grid x:Name="GridWithOverlay" 
                   Grid.Row="1"
                   Grid.Column="1"
-                  np:OverlayWindowBehavior.OverlayContainingPanel="{Binding #OverlayPanel}"
-                  np:OverlayWindowBehavior.OverlayedControl="{Binding RelativeSource={RelativeSource Self}}">
-                <np:OverlayWindowBehavior.ContentTemplate>
+                  np:OverlayBehavior.OverlayContainingPanel="{Binding #OverlayPanel}"
+                  np:OverlayBehavior.OverlayedControl="{Binding RelativeSource={RelativeSource Self}}">
+                <np:OverlayBehavior.ContentTemplate>
                     <DataTemplate>
                         <Grid>
                             <Border HorizontalAlignment="Stretch"
@@ -30,13 +30,13 @@
                                   Background="Red"/>
                         </Grid>
                     </DataTemplate>
-                </np:OverlayWindowBehavior.ContentTemplate>
+                </np:OverlayBehavior.ContentTemplate>
             </Grid>
             <Grid x:Name="OverlayPanel"
                   Grid.RowSpan="2"
                   Grid.ColumnSpan="2"/>
 		</Grid>
-		<ToggleButton IsChecked="{Binding Path=#GridWithOverlay.(np:OverlayWindowBehavior.IsOpen)}"
+		<ToggleButton IsChecked="{Binding Path=#GridWithOverlay.(np:OverlayBehavior.IsOpen)}"
 					  Grid.Row="1"
 					  HorizontalAlignment="Right"
 					  VerticalAlignment="Center"

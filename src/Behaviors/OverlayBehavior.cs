@@ -13,7 +13,7 @@ using Avalonia.Media;
 
 namespace NP.Ava.Visuals.Behaviors
 {
-    public class OverlayWindowBehavior
+    public class OverlayBehavior
     {
         #region IsOpen Attached Avalonia Property
         public static bool GetIsOpen(Control obj)
@@ -27,7 +27,7 @@ namespace NP.Ava.Visuals.Behaviors
         }
 
         public static readonly AttachedProperty<bool> IsOpenProperty =
-            AvaloniaProperty.RegisterAttached<OverlayWindowBehavior, Control, bool>
+            AvaloniaProperty.RegisterAttached<OverlayBehavior, Control, bool>
             (
                 "IsOpen"
             );
@@ -45,7 +45,7 @@ namespace NP.Ava.Visuals.Behaviors
         }
 
         public static readonly AttachedProperty<Thickness> PaddingProperty =
-            AvaloniaProperty.RegisterAttached<OverlayWindowBehavior, Control, Thickness>
+            AvaloniaProperty.RegisterAttached<OverlayBehavior, Control, Thickness>
             (
                 "Padding"
             );
@@ -64,7 +64,7 @@ namespace NP.Ava.Visuals.Behaviors
         }
 
         public static readonly AttachedProperty<object> ContentProperty =
-            AvaloniaProperty.RegisterAttached<OverlayWindowBehavior, Control, object>
+            AvaloniaProperty.RegisterAttached<OverlayBehavior, Control, object>
             (
                 "Content"
             );
@@ -83,7 +83,7 @@ namespace NP.Ava.Visuals.Behaviors
         }
 
         public static readonly AttachedProperty<IDataTemplate> ContentTemplateProperty =
-            AvaloniaProperty.RegisterAttached<OverlayWindowBehavior, Control, IDataTemplate>
+            AvaloniaProperty.RegisterAttached<OverlayBehavior, Control, IDataTemplate>
             (
                 "ContentTemplate"
             );
@@ -102,7 +102,7 @@ namespace NP.Ava.Visuals.Behaviors
         }
 
         private static readonly AttachedProperty<Window> OverlayWindowProperty =
-            AvaloniaProperty.RegisterAttached<OverlayWindowBehavior, Control, Window>
+            AvaloniaProperty.RegisterAttached<OverlayBehavior, Control, Window>
             (
                 "OverlayWindow"
             );
@@ -121,7 +121,7 @@ namespace NP.Ava.Visuals.Behaviors
         }
 
         public static readonly AttachedProperty<bool> IsTopmostProperty =
-            AvaloniaProperty.RegisterAttached<OverlayWindowBehavior, Control, bool>
+            AvaloniaProperty.RegisterAttached<OverlayBehavior, Control, bool>
             (
                 "IsTopmost",
                 true
@@ -141,11 +141,31 @@ namespace NP.Ava.Visuals.Behaviors
         }
 
         public static readonly AttachedProperty<Control> OverlayedControlProperty =
-            AvaloniaProperty.RegisterAttached<OverlayWindowBehavior, Control, Control>
+            AvaloniaProperty.RegisterAttached<OverlayBehavior, Control, Control>
             (
                 "OverlayedControl"
             );
         #endregion OverlayedControl Attached Avalonia Property
+
+
+        #region IsWindowOverlay Attached Avalonia Property
+        public static bool GetIsWindowOverlay(Control obj)
+        {
+            return obj.GetValue(IsWindowOverlayProperty);
+        }
+
+        private static void SetIsWindowOverlay(Control obj, bool value)
+        {
+            obj.SetValue(IsWindowOverlayProperty, value);
+        }
+
+        public static readonly AttachedProperty<bool> IsWindowOverlayProperty =
+            AvaloniaProperty.RegisterAttached<Control, Control, bool>
+            (
+                "IsWindowOverlay"
+            );
+        #endregion IsWindowOverlay Attached Avalonia Property
+
 
 
         #region OverlayContainingPanel Attached Avalonia Property
@@ -168,9 +188,20 @@ namespace NP.Ava.Visuals.Behaviors
         #endregion OverlayContainingPanel Attached Avalonia Property
 
 
-        static OverlayWindowBehavior()
+        static OverlayBehavior()
         {
             IsOpenProperty.Changed.Subscribe(OnIsOpenChanged);
+            OverlayContainingPanelProperty.Changed.Subscribe(OnOverlayContainingPanelChanged);
+        }
+
+        private static void OnOverlayContainingPanelChanged(AvaloniaPropertyChangedEventArgs<Panel> args)
+        {
+            Control control = (Control) args.Sender;
+
+            // it is a window overlay only if OverlayContainingPanel is not set (null)
+            bool isWindowOverlay = (!args.NewValue.HasValue) || (args.NewValue.Value == null);
+
+            SetIsWindowOverlay(control, isWindowOverlay);
         }
 
         private static string ChildContentControlName = "ChildContentControl";
