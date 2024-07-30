@@ -81,14 +81,22 @@ namespace NP.Ava.Visuals
             return new Rect2D(startPoint.ToPoint2D(), endPoint.ToPoint2D());
         }
 
+        public static Point ToPoint(this Size size)
+        {
+            return size.ToPoint2D().ToPoint();
+        }
+
         public static Rect GetBoundsWithinVisual(this Visual v, Visual relativeTo)
         {
+            var boundRect = v.Bounds;
+
+            
 
             Point startPoint =
                 v.TranslatePoint(new Point(0, 0), relativeTo).Value;
 
             Point endPoint =
-                v.TranslatePoint(v.GetSize().ToPoint(), relativeTo).Value;
+                v.TranslatePoint(boundRect.Size.ToPoint(), relativeTo).Value;
 
             return new Rect(startPoint, endPoint);
         }
@@ -97,8 +105,12 @@ namespace NP.Ava.Visuals
         {
             Rect rect = v.GetBoundsWithinVisual(relativeTo);
 
-            double rightMargin = relativeTo.ActualWidth() - rect.Right;
-            double bottomMargin = relativeTo.ActualHeight() - rect.Bottom;
+            (double relativeToWidth, double relativeToHeight) =
+                relativeTo.Bounds.Size;
+
+            double rightMargin = relativeToWidth - rect.Right;
+            double bottomMargin = relativeToHeight - rect.Bottom;
+
 
             return new Thickness(rect.Left, rect.Top, rightMargin, bottomMargin);
         }
