@@ -10,13 +10,12 @@
 	<Grid x:Name="RootGrid"
           RowDefinitions="Auto, *, Auto"
 		  Margin="10">
-		<Grid x:Name="GridContainingOverlayPanel"
+        <Grid x:Name="GridContainingOverlayPanel"
               Grid.Row="1"
               ColumnDefinitions="*,*"
               RowDefinitions="*,*"
               Background="LightGray"
-              np:OverlayBehavior.OverlayContainingPanel="{Binding #OverlayPanel}"
-              np:OverlayBehavior.OverlayedControl="{Binding #OverlayedControl4}">
+              np:OverlayBehavior.OverlayContainingPanel="{Binding #OverlayPanel}">
             <np:OverlayBehavior.ContentTemplate>
                 <DataTemplate>
                     <Grid>
@@ -27,7 +26,7 @@
                                 CornerRadius="5"/>
                         <Grid Width="100"
                               Height="100"
-                              Background="Red"/>
+                              Background="LightGreen"/>
                     </Grid>
                 </DataTemplate>
             </np:OverlayBehavior.ContentTemplate>
@@ -43,19 +42,39 @@
                   Grid.Row="1"
                   Grid.Column="0"
                   />
-            <Grid x:Name="OverlayedControl4" 
+            <Grid x:Name="OverlayedControl4"
                   Grid.Row="1"
                   Grid.Column="1"
                   />
             <Grid x:Name="OverlayPanel"
                   Grid.ColumnSpan="2"
                   Grid.RowSpan="2"/>
-		</Grid>
-		<ToggleButton IsChecked="{Binding Path=#GridContainingOverlayPanel.(np:OverlayBehavior.IsOpen)}"
+        </Grid>
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Margin="10"
+                    DataContext="{Binding $parent[local:MainWindow]}">
+            <Button Content="Top Left"
+                    Command="{Binding SelectTopLeftQuarter}"
+                    Margin="5,0"/>
+            <Button Content="Top Right"
+                    Command="{Binding SelectTopRightQuarter}"
+                    Margin="5,0"/>
+            <Button Content="Bottom Left"
+                    Command="{Binding SelectBottomLeftQuarter}"
+                    Margin="5,0"/>
+            <Button Content="Bottom Right"
+                    Command="{Binding SelectBottomRightQuarter}"
+                    Margin="5,0"/>
+        </StackPanel>
+		<!--<ToggleButton IsChecked="{Binding Path=#GridContainingOverlayPanel.(np:OverlayBehavior.IsOpen)}"
 					  Grid.Row="2"
 					  HorizontalAlignment="Right"
 					  VerticalAlignment="Center"
-                      Margin="20,40,0,20"/>
+                      Margin="20,40,0,20"/>-->
 	</Grid>
 </Window>
 

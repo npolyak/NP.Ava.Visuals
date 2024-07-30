@@ -1,9 +1,10 @@
-﻿using Avalonia;
-using Avalonia.Controls;
+﻿global using Point2D = NP.Utilities.Point2D<double>;
+global using Rect2D = NP.Utilities.Rect2D<double>;
+
+using Avalonia;
 using Avalonia.Input;
 using NP.Utilities;
 using System;
-using System.Net;
 
 namespace NP.Ava.Visuals
 {

@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using NP.Ava.Visuals.Behaviors;
 
 namespace NP.OverlayingTransitionsDemo
 {
@@ -9,14 +10,36 @@ namespace NP.OverlayingTransitionsDemo
         public MainWindow()
         {
             InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
+
+            //OverlayBehavior.SetIsOpen(GridContainingOverlayPanel, true);
         }
 
-        private void InitializeComponent()
+        public void SelectTopLeftQuarter()
         {
-            AvaloniaXamlLoader.Load(this);
+            OverlayBehavior.SetOverlayedControl(GridContainingOverlayPanel, OverlayedControl1);
+            OverlayBehavior.SetIsOpen(GridContainingOverlayPanel, true);
+        }
+
+        public void SelectTopRightQuarter()
+        {
+            OverlayBehavior.SetOverlayedControl(GridContainingOverlayPanel, OverlayedControl2);
+            OverlayBehavior.SetIsOpen(GridContainingOverlayPanel, true);
+
+        }
+
+
+        public void SelectBottomLeftQuarter()
+        {
+            OverlayBehavior.SetOverlayedControl(GridContainingOverlayPanel, OverlayedControl3);
+            OverlayBehavior.SetIsOpen(GridContainingOverlayPanel, true);
+
+        }
+
+        public void SelectBottomRightQuarter()
+        {
+            OverlayBehavior.SetOverlayedControl(GridContainingOverlayPanel, OverlayedControl4);
+            OverlayBehavior.SetIsOpen(GridContainingOverlayPanel, true);
+
         }
     }
 }

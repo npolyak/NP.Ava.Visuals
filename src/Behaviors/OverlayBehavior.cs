@@ -168,8 +168,6 @@ namespace NP.Ava.Visuals.Behaviors
             );
         #endregion IsWindowOverlay Attached Avalonia Property
 
-
-
         #region OverlayContainingPanel Attached Avalonia Property
         // this is non-null when we use overlay panel and not overlay window
         public static Panel GetOverlayContainingPanel(Control obj)
@@ -193,7 +191,15 @@ namespace NP.Ava.Visuals.Behaviors
         static OverlayBehavior()
         {
             IsOpenProperty.Changed.Subscribe(OnIsOpenChanged);
+            OverlayedControlProperty.Changed.Subscribe(OnOverlayedControlChanged);
             OverlayContainingPanelProperty.Changed.Subscribe(OnOverlayContainingPanelChanged);
+        }
+
+        private static void OnOverlayedControlChanged(AvaloniaPropertyChangedEventArgs<Control> args)
+        {
+            Control rootContainer = (Control)args.Sender;
+
+            AdjustOverlay(rootContainer);
         }
 
         private static void OnOverlayContainingPanelChanged(AvaloniaPropertyChangedEventArgs<Panel> args)
@@ -208,57 +214,68 @@ namespace NP.Ava.Visuals.Behaviors
 
         private static string ChildContentControlName = "ChildContentControl";
 
+        private static void AdjustOverlay(Control topContainer)
+        {
+            Control overlayedControl = GetOverlayedControl(topContainer) ?? topContainer;
+
+            Panel overlayPanel = GetOverlayContainingPanel(topContainer);
+
+            if ((overlayPanel == null))
+            {
+                return;
+            }
+
+
+            if (!GetIsOpen(topContainer))
+            {
+                overlayPanel.IsVisible = false;
+                return;
+            }
+
+            var contentControl =
+                overlayPanel.Children
+                     .OfType<ContentControl>()
+                     .FirstOrDefault(child => child.Name == ChildContentControlName);
+
+
+            if (contentControl == null)
+            {
+                contentControl = new ContentControl
+                {
+                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
+                    VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch,
+                    Name = ChildContentControlName,
+                    Content = GetContent(topContainer),
+                    ContentTemplate = GetContentTemplate(topContainer),
+                    Padding = GetPadding(topContainer),
+                };
+
+                overlayPanel.Children.Add(contentControl);
+            }
+
+            Thickness margin = overlayedControl.ToMargin(overlayPanel);
+
+            contentControl.Margin = margin;
+
+            overlayPanel.IsVisible = true;
+        }
+
         private static async void OnIsOpenChanged(AvaloniaPropertyChangedEventArgs<bool> args)
         {
-            Control control = (Control) args.Sender;
-            Control overlayedControl = GetOverlayedControl(control) ?? control;
+            Control rootContainer = (Control) args.Sender;
+            Control overlayedControl = GetOverlayedControl(rootContainer) ?? rootContainer;
 
-            Panel panel = GetOverlayContainingPanel(control);
+            Panel panel = GetOverlayContainingPanel(rootContainer);
 
             bool shouldOpen = args.NewValue.Value;
 
             if (panel != null)
             {
-                var contentControl = 
-                    panel.Children
-                         .OfType<ContentControl>()
-                         .FirstOrDefault(child => child.Name == ChildContentControlName);
-
-                if (shouldOpen)
-                {
-                    if (contentControl == null)
-                    {
-                        contentControl = new ContentControl
-                        {
-                            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
-                            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch,
-                            Name = ChildContentControlName,
-                            Content = GetContent(control),
-                            ContentTemplate = GetContentTemplate(control),
-                            Padding = GetPadding(control),
-                        };
-
-                        panel.Children.Add(contentControl);
-                    }
-
-                    Thickness margin = overlayedControl.ToMargin(panel);
-
-                    contentControl.Margin = margin;
-
-                    panel.IsVisible = true;
-
-                }
-                else // close
-                {
-                    if (panel != null)
-                    {
-                        panel.IsVisible = false;
-                    }
-                }
+                AdjustOverlay(rootContainer);
             }
             else
             { 
-                Window? overlayWindow = GetOverlayWindow(control);
+                Window? overlayWindow = GetOverlayWindow(rootContainer);
 
                 if (shouldOpen)
                 {
@@ -271,13 +288,13 @@ namespace NP.Ava.Visuals.Behaviors
                                 Background = null,
                                 CanResize = false,
                                 SystemDecorations = SystemDecorations.None,
-                                Topmost = GetIsTopmost(control),
-                                Content = GetContent(control),
-                                ContentTemplate = GetContentTemplate(control),
-                                Padding = GetPadding(control)
+                                Topmost = GetIsTopmost(rootContainer),
+                                Content = GetContent(rootContainer),
+                                ContentTemplate = GetContentTemplate(rootContainer),
+                                Padding = GetPadding(rootContainer)
                             };
 
-                        SetOverlayWindow(control, overlayWindow);
+                        SetOverlayWindow(rootContainer, overlayWindow);
                     }
 
                     Rect2D screenBounds = overlayedControl.GetScreenBounds();
