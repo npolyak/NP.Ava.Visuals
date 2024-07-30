@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using NP.Utilities;
 using System;
+using System.Net;
 
 namespace NP.Ava.Visuals
 {
@@ -57,12 +58,12 @@ namespace NP.Ava.Visuals
             return new Rect2D(rect.TopLeft.ToPoint2D(), rect.BottomRight.ToPoint2D());
         }
 
-        public static Point2D GetSize(this Control c)
+        public static Point2D GetSize(this Visual c)
         {
             return new Point2D(c.Bounds.Width, c.Bounds.Height);
         }
 
-        public static bool IsPointWithinControl(this Control c, Point p)
+        public static bool IsPointWithinControl(this Visual c, Point p)
         {
             Rect2D bounds = new Rect2D(new Point2D(), c.GetSize());
 
@@ -80,12 +81,34 @@ namespace NP.Ava.Visuals
             return new Rect2D(startPoint.ToPoint2D(), endPoint.ToPoint2D());
         }
 
-        public static bool IsPointerWithinControl(this Control c, PointerEventArgs e)
+        public static Rect GetBoundsWithinVisual(this Visual v, Visual relativeTo)
+        {
+
+            Point startPoint =
+                v.TranslatePoint(new Point(0, 0), relativeTo).Value;
+
+            Point endPoint =
+                v.TranslatePoint(v.GetSize().ToPoint(), relativeTo).Value;
+
+            return new Rect(startPoint, endPoint);
+        }
+
+        public static Thickness ToMargin(this Visual v, Visual relativeTo)
+        {
+            Rect rect = v.GetBoundsWithinVisual(relativeTo);
+
+            double rightMargin = relativeTo.ActualWidth() - rect.Right;
+            double bottomMargin = relativeTo.ActualHeight() - rect.Bottom;
+
+            return new Thickness(rect.Left, rect.Top, rightMargin, bottomMargin);
+        }
+
+        public static bool IsPointerWithinControl(this Visual c, PointerEventArgs e)
         {
             return c.IsPointWithinControl(e.GetPosition(c));
         }
 
-        public static bool IsLeftMousePressed(this Control c, PointerEventArgs e)
+        public static bool IsLeftMousePressed(this Visual c, PointerEventArgs e)
         {
             var props = e.GetCurrentPoint(c).Properties;
 
@@ -117,24 +140,26 @@ namespace NP.Ava.Visuals
             return new Point(rect.Width, rect.Height);
         }
 
-        public static Point ToPoint(this Control c)
+        public static Point ToPoint(this Visual c)
         {
             return new Point(c.Bounds.Width, c.Bounds.Height);
         }
 
-        public static Rect ToRect(this Control c)
+        public static Rect ToRect(this Visual c)
         {
             return new Rect(new Point(), c.ToPoint());
         }
 
-        public static double ActualWidth(this Control c)
+        public static double ActualWidth(this Visual c)
         {
             return c.Bounds.Width;
         }
 
-        public static double ActualHeight(this Control c)
+        public static double ActualHeight(this Visual c)
         {
             return c.Bounds.Height;
         }
+
+        
     }
 }

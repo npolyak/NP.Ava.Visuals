@@ -10,6 +10,8 @@ using Avalonia.Controls.Templates;
 using System.Linq;
 using Avalonia.VisualTree;
 using Avalonia.Media;
+using System.Net;
+using System.Runtime.CompilerServices;
 
 namespace NP.Ava.Visuals.Behaviors
 {
@@ -239,16 +241,7 @@ namespace NP.Ava.Visuals.Behaviors
                         panel.Children.Add(contentControl);
                     }
 
-                    Point startPoint = 
-                        overlayedControl.TranslatePoint(new Point(0, 0), panel).Value;
-
-                    Point endPoint = 
-                        overlayedControl.TranslatePoint(new Point(overlayedControl.ActualWidth(), overlayedControl.ActualHeight()), panel).Value;
-
-                    double rightMargin = panel.ActualWidth() - endPoint.X;
-                    double bottomMargin = panel.ActualHeight() - endPoint.Y;
-
-                    Thickness margin = new Thickness(startPoint.X, startPoint.Y, rightMargin, bottomMargin);
+                    Thickness margin = overlayedControl.ToMargin(panel);
 
                     contentControl.Margin = margin;
 
