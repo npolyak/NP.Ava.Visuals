@@ -7,6 +7,9 @@ using System;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Avalonia.Controls.Templates;
+using System.Linq;
+using Avalonia.VisualTree;
+using Avalonia.Media;
 
 namespace NP.Ava.Visuals.Behaviors
 {
@@ -145,52 +148,128 @@ namespace NP.Ava.Visuals.Behaviors
         #endregion OverlayedControl Attached Avalonia Property
 
 
+        #region OverlayContainingPanel Attached Avalonia Property
+        // this is non-null when we use overlay panel and not overlay window
+        public static Panel GetOverlayContainingPanel(Control obj)
+        {
+            return obj.GetValue(OverlayContainingPanelProperty);
+        }
+
+        public static void SetOverlayContainingPanel(Control obj, Panel value)
+        {
+            obj.SetValue(OverlayContainingPanelProperty, value);
+        }
+
+        public static readonly AttachedProperty<Panel> OverlayContainingPanelProperty =
+            AvaloniaProperty.RegisterAttached<Control, Control, Panel>
+            (
+                "OverlayContainingPanel"
+            );
+        #endregion OverlayContainingPanel Attached Avalonia Property
+
+
         static OverlayWindowBehavior()
         {
             IsOpenProperty.Changed.Subscribe(OnIsOpenChanged);
         }
 
+        private static string ChildContentControlName = "ChildContentControl";
+
         private static async void OnIsOpenChanged(AvaloniaPropertyChangedEventArgs<bool> args)
         {
             Control control = (Control) args.Sender;
+            Control overlayedControl = GetOverlayedControl(control) ?? control;
 
-            Window? overlayWindow = GetOverlayWindow(control);
+            Panel panel = GetOverlayContainingPanel(overlayedControl);
 
-            if (args.NewValue.Value)
+            bool shouldOpen = args.NewValue.Value;
+
+            if (panel != null)
             {
-                if (overlayWindow == null)
+                var contentControl = 
+                    panel.Children
+                         .OfType<ContentControl>()
+                         .FirstOrDefault(child => child.Name == ChildContentControlName);
+
+                if (shouldOpen)
                 {
-                    overlayWindow =
-                        new Window()
+                    if (contentControl == null)
+                    {
+                        contentControl = new ContentControl
                         {
-                            TransparencyLevelHint = WindowTransparencyLevel.Transparent.ToCollection().ToImmutableList(),
-                            Background = null,
-                            CanResize = false,
-                            SystemDecorations = SystemDecorations.None,
-                            Topmost = GetIsTopmost(control),
+                            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
+                            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch,
+                            Name = ChildContentControlName,
                             Content = GetContent(control),
                             ContentTemplate = GetContentTemplate(control),
-                            Padding = GetPadding(control)
+                            Padding = GetPadding(control),
                         };
 
-                    SetOverlayWindow(control, overlayWindow);
+                        panel.Children.Add(contentControl);
+                    }
+
+                    Point startPoint = 
+                        overlayedControl.TranslatePoint(new Point(0, 0), panel).Value;
+
+                    Point endPoint = 
+                        overlayedControl.TranslatePoint(new Point(overlayedControl.ActualWidth(), overlayedControl.ActualHeight()), panel).Value;
+
+                    double rightMargin = panel.ActualWidth() - endPoint.X;
+                    double bottomMargin = panel.ActualHeight() - endPoint.Y;
+
+                    Thickness margin = new Thickness(startPoint.X, startPoint.Y, rightMargin, bottomMargin);
+
+                    contentControl.Margin = margin;
+
+                    panel.IsVisible = true;
+
                 }
-
-                Control overlayedControl = GetOverlayedControl(control) ?? control;
-
-                Rect2D screenBounds = overlayedControl.GetScreenBounds();
-
-                double renderScaling = overlayWindow.PlatformImpl.GetPropValue<double>("RenderScaling", true);
-
-                double scale = 1d / renderScaling;
-                overlayWindow.Position = screenBounds.StartPoint.ToPixelPoint();
-
-                overlayWindow.PlatformImpl.CallMethod("Resize", screenBounds.GetSize(scale).ToSize(), WindowResizeReason.Application);
-                overlayWindow.Show();
+                else // close
+                {
+                    if (panel != null)
+                    {
+                        panel.IsVisible = false;
+                    }
+                }
             }
             else
-            {
-                overlayWindow?.Hide();
+            { 
+                Window? overlayWindow = GetOverlayWindow(control);
+
+                if (shouldOpen)
+                {
+                    if (overlayWindow == null)
+                    {
+                        overlayWindow =
+                            new Window()
+                            {
+                                TransparencyLevelHint = WindowTransparencyLevel.Transparent.ToCollection().ToImmutableList(),
+                                Background = null,
+                                CanResize = false,
+                                SystemDecorations = SystemDecorations.None,
+                                Topmost = GetIsTopmost(control),
+                                Content = GetContent(control),
+                                ContentTemplate = GetContentTemplate(control),
+                                Padding = GetPadding(control)
+                            };
+
+                        SetOverlayWindow(control, overlayWindow);
+                    }
+
+                    Rect2D screenBounds = overlayedControl.GetScreenBounds();
+
+                    double renderScaling = overlayWindow.PlatformImpl.GetPropValue<double>("RenderScaling", true);
+
+                    double scale = 1d / renderScaling;
+                    overlayWindow.Position = screenBounds.StartPoint.ToPixelPoint();
+
+                    overlayWindow.PlatformImpl.CallMethod("Resize", screenBounds.GetSize(scale).ToSize(), WindowResizeReason.Application);
+                    overlayWindow.Show();
+                }
+                else // close
+                {
+                    overlayWindow?.Hide();
+                }
             }
         }
     }

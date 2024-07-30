@@ -1,80 +1,89 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<RootNamespace>NP.Ava.Visuals</RootNamespace>
-		<PackageId>NP.Ava.Visuals</PackageId>
-		<Version>1.0.33</Version>
-		<Authors>Nick Polyak, Ph. D.</Authors>
-		<Company>AWebPros</Company>
-		<Authors>Nick Polyak Ph. D.</Authors>
-		<Description>Visual Controls, Utilities and Behaviors for AvaloniaUI</Description>
-		<Copyright>Nick Polyak 2023</Copyright>
+    <PropertyGroup>
+        <RootNamespace>NP.Ava.Visuals</RootNamespace>
+        <PackageId>NP.Ava.Visuals</PackageId>
+        <Version>1.0.33</Version>
+        <Authors>Nick Polyak, Ph. D.</Authors>
+        <Company>AWebPros</Company>
+        <Authors>Nick Polyak Ph. D.</Authors>
+        <Description>Visual Controls, Utilities and Behaviors for AvaloniaUI</Description>
+        <Copyright>Nick Polyak 2023</Copyright>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<PackageTags>Avalonia Converters, Behaviors, CustomWindow</PackageTags>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-	</PropertyGroup>
-	<PropertyGroup>
-		<InternalsAssemblyUseEmptyMethodBodies>false</InternalsAssemblyUseEmptyMethodBodies>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLinux|AnyCPU'">
-		<Optimize>True</Optimize>
-		<DefineConstants></DefineConstants>
-	</PropertyGroup>
+        <PackageTags>Avalonia Converters, Behaviors, CustomWindow</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    </PropertyGroup>
+    <PropertyGroup>
+        <InternalsAssemblyUseEmptyMethodBodies>false</InternalsAssemblyUseEmptyMethodBodies>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLinux|AnyCPU'">
+        <Optimize>True</Optimize>
+        <DefineConstants></DefineConstants>
+    </PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DefineConstants></DefineConstants>
-	</PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DefineConstants></DefineConstants>
+    </PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<DefineConstants></DefineConstants>
-		<Optimize>True</Optimize>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	</PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <DefineConstants></DefineConstants>
+        <Optimize>True</Optimize>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLinux|AnyCPU'">
-		<DefineConstants></DefineConstants>
-	</PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLinux|AnyCPU'">
+        <DefineConstants></DefineConstants>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<AvaloniaXaml Remove="Themes\ButtonStyles.axaml" />
-		<AvaloniaXaml Remove="Themes\CustomWindowStyles.axaml" />
-		<AvaloniaXaml Remove="Themes\Geometries.axaml" />
-		<AvaloniaXaml Remove="Themes\OverlayingPopupStyles.axaml" />
-		<AvaloniaXaml Remove="Themes\ThemeStyles.axaml" />
-	</ItemGroup>
+    <ItemGroup>
+        <AvaloniaXaml Remove="Themes\ButtonStyles.axaml" />
+        <AvaloniaXaml Remove="Themes\CustomWindowStyles.axaml" />
+        <AvaloniaXaml Remove="Themes\Geometries.axaml" />
+        <AvaloniaXaml Remove="Themes\OverlayingPopupStyles.axaml" />
+        <AvaloniaXaml Remove="Themes\ThemeStyles.axaml" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<None Remove=".git" />
-		<None Remove="Assets\avalonia-32.png" />
-		<None Remove="LICENSE" />
-		<None Remove="*.nupkg" />
-		<None Remove="README.md" />
-	</ItemGroup>
+    <ItemGroup>
+        <None Remove=".git" />
+        <None Remove="Assets\avalonia-32.png" />
+        <None Remove="LICENSE" />
+        <None Remove="*.nupkg" />
+        <None Remove="README.md" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<AvaloniaResource Include="Assets\avalonia-32.png" />
-		<AvaloniaResource Include="Themes\ButtonStyles.axaml" />
-		<AvaloniaResource Include="Themes\CustomWindowStyles.axaml" />
-		<AvaloniaResource Include="Themes\Geometries.axaml" />
-		<AvaloniaResource Include="Themes\OverlayingPopupStyles.axaml" />
-		<AvaloniaResource Include="Themes\ThemeStyles.axaml" />
-	</ItemGroup>
-	<ItemGroup>
-        <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
-		<PackageReference Include="IgnoresAccessChecksToGenerator" Version="0.7.0" PrivateAssets="All" />
-	</ItemGroup>
-	<ItemGroup>
-		<InternalsAssemblyName Include="Avalonia" />
-		<InternalsAssemblyName Include="Avalonia.Base" />
-		<InternalsAssemblyName Include="Avalonia.Controls.DataGrid" />
-	</ItemGroup>
-	<ItemGroup Condition="'$(Configuration)'=='Debug'">
-		<ProjectReference Include="$(SolutionDir)..\..\SubModules\NP.Concepts.Behaviors\src\NP.Concepts.Behaviors.csproj" />
-		<ProjectReference Include="$(SolutionDir)..\..\SubModules\NP.ViewModelInterfaces\src\NP.ViewModelInterfaces.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <AvaloniaResource Include="Assets\avalonia-32.png" />
+        <AvaloniaResource Include="Themes\ButtonStyles.axaml" />
+        <AvaloniaResource Include="Themes\CustomWindowStyles.axaml" />
+        <AvaloniaResource Include="Themes\Geometries.axaml" />
+        <AvaloniaResource Include="Themes\OverlayingPopupStyles.axaml" />
+        <AvaloniaResource Include="Themes\ThemeStyles.axaml" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Avalonia"
+                          Version="$(AvaloniaVersion)" />
+        <PackageReference Include="IgnoresAccessChecksToGenerator"
+                          Version="0.7.0"
+                          PrivateAssets="All" />
+    </ItemGroup>
+    <ItemGroup>
+        <InternalsAssemblyName Include="Avalonia" />
+        <InternalsAssemblyName Include="Avalonia.Base" />
+        <InternalsAssemblyName Include="Avalonia.Controls.DataGrid" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(Configuration)'=='Debug'">
+        <PackageReference Include="Avalonia.Diagnostics"
+                          Version="$(AvaloniaVersion)" />
+        <PackageReference Include="Avalonia.Desktop"
+                          Version="$(AvaloniaVersion)" />
+        <ProjectReference Include="$(SolutionDir)..\..\SubModules\NP.Concepts.Behaviors\src\NP.Concepts.Behaviors.csproj" />
+        <ProjectReference Include="$(SolutionDir)..\..\SubModules\NP.ViewModelInterfaces\src\NP.ViewModelInterfaces.csproj" />
+    </ItemGroup>
 
-	<ItemGroup Condition="'$(Configuration)'=='Release'">
-		<PackageReference Include="NP.Concepts.Behaviors" Version="1.0.20" />
-		<PackageReference Include="NP.ViewModelInterfaces" Version="1.0.7" />
-	</ItemGroup>
+    <ItemGroup Condition="'$(Configuration)'=='Release'">
+        <PackageReference Include="NP.Concepts.Behaviors"
+                          Version="1.0.20" />
+        <PackageReference Include="NP.ViewModelInterfaces"
+                          Version="1.0.7" />
+    </ItemGroup>
 </Project>
