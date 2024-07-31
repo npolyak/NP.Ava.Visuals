@@ -11,6 +11,6 @@
         <PackageReference Include="Avalonia.Themes.Simple" Version="$(AvaloniaVersion)" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Update="NP.Ava.Visuals" Version="1.0.36" />
+      <PackageReference Update="NP.Ava.Visuals" Version="1.0.37" />
     </ItemGroup>
 </Project>
