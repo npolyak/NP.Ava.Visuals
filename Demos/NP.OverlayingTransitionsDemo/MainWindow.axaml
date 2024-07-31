@@ -15,6 +15,7 @@
               ColumnDefinitions="*,*"
               RowDefinitions="*,*"
               Background="LightGray"
+              ShowGridLines="True"
               np:OverlayBehavior.OverlayContainingPanel="{Binding #OverlayPanel}">
             <np:OverlayBehavior.ContentTemplate>
                 <DataTemplate>
