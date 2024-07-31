@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:NP.OverlayingTransitionsDemo"
         xmlns:np="https://np.com/visuals"
+        xmlns:nputils="using:NP.Utilities"
         x:Class="NP.OverlayingTransitionsDemo.MainWindow"
         Title="NP.OverlayingTransitionsDemo"
         x:Name="Root"
@@ -59,16 +60,83 @@
                     DataContext="{Binding $parent[local:MainWindow]}">
             <Button Content="Top Left"
                     Command="{Binding SelectTopLeftQuarter}"
+                    VerticalAlignment="Center"
                     Margin="5,0"/>
             <Button Content="Top Right"
                     Command="{Binding SelectTopRightQuarter}"
+                    VerticalAlignment="Center"
                     Margin="5,0"/>
             <Button Content="Bottom Left"
                     Command="{Binding SelectBottomLeftQuarter}"
+                    VerticalAlignment="Center"
                     Margin="5,0"/>
             <Button Content="Bottom Right"
                     Command="{Binding SelectBottomRightQuarter}"
+                    VerticalAlignment="Center"
                     Margin="5,0"/>
+
+            <Grid ColumnDefinitions="26,26,26"
+                  RowDefinitions="26,26,26"
+                  Margin="10">
+                <Button Height="25"
+                        Width="25"
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="&#x1F881;">
+                    <Button.Tag>
+                        <nputils:Side2D>Top</nputils:Side2D>
+                    </Button.Tag>
+                </Button>
+                <Button Height="25"
+                        Width="25"
+                        Grid.Row="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="&#x1F880;">
+                    <Button.Tag>
+                        <nputils:Side2D>Left</nputils:Side2D>
+                    </Button.Tag>
+                </Button>
+                <Button Height="25"
+                        Width="25"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="&#x26AB;">
+                    <Button.Tag>
+                        <nputils:Side2D>Center</nputils:Side2D>
+                    </Button.Tag>
+                </Button>
+                <Button Height="25"
+                        Width="25"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="&#x1F882;">
+                    <Button.Tag>
+                        <nputils:Side2D>Right</nputils:Side2D>
+                    </Button.Tag>
+                </Button>
+                <Button Height="25"
+                        Width="25"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Content="&#x1F883;">
+                    <Button.Tag>
+                        <nputils:Side2D>Bottom</nputils:Side2D>
+                    </Button.Tag>
+                </Button>
+            </Grid>
         </StackPanel>
 	</Grid>
 </Window>
