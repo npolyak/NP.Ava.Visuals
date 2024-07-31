@@ -132,6 +132,26 @@ namespace NP.Ava.Visuals.Behaviors
         #endregion IsTopmost Attached Avalonia Property
 
 
+        #region CurrentSide Attached Avalonia Property
+        public static Side2D GetCurrentSide(Control obj)
+        {
+            return obj.GetValue(CurrentSideProperty);
+        }
+
+        public static void SetCurrentSide(Control obj, Side2D value)
+        {
+            obj.SetValue(CurrentSideProperty, value);
+        }
+
+        public static readonly AttachedProperty<Side2D> CurrentSideProperty =
+            AvaloniaProperty.RegisterAttached<OverlayBehavior, Control, Side2D>
+            (
+                "CurrentSide",
+                Side2D.Center
+            );
+        #endregion CurrentSide Attached Avalonia Property
+
+
         #region OverlayedControl Attached Avalonia Property
         public static Control GetOverlayedControl(Control obj)
         {
@@ -194,6 +214,14 @@ namespace NP.Ava.Visuals.Behaviors
             IsOpenProperty.Changed.Subscribe(OnIsOpenChanged);
             OverlayedControlProperty.Changed.Subscribe(OnOverlayedControlChanged);
             OverlayContainingPanelProperty.Changed.Subscribe(OnOverlayContainingPanelChanged);
+            CurrentSideProperty.Changed.Subscribe(OnCurrentSideChanged);
+        }
+
+        private static void OnCurrentSideChanged(AvaloniaPropertyChangedEventArgs<Side2D> args)
+        {
+            Control rootContainer = (Control)args.Sender;
+
+            AdjustOverlay(rootContainer);
         }
 
         private static void OnOverlayedControlChanged(AvaloniaPropertyChangedEventArgs<Control> args)
@@ -226,7 +254,6 @@ namespace NP.Ava.Visuals.Behaviors
                 return;
             }
 
-
             if (!GetIsOpen(topContainer))
             {
                 overlayPanel.IsVisible = false;
@@ -237,7 +264,6 @@ namespace NP.Ava.Visuals.Behaviors
                 overlayPanel.Children
                      .OfType<ContentControl>()
                      .FirstOrDefault(child => child.Name == ChildContentControlName);
-
 
             if (contentControl == null)
             {
@@ -258,7 +284,9 @@ namespace NP.Ava.Visuals.Behaviors
                 contentControl.Transitions = transitions;
             }
 
-            Thickness margin = overlayedControl.ToMargin(overlayPanel);
+            var currentSide = GetCurrentSide(topContainer);
+
+            Thickness margin = overlayedControl.ToMargin(overlayPanel, currentSide);
 
             contentControl.Margin = margin;
 

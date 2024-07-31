@@ -26,9 +26,8 @@
                                 BorderThickness="4"
                                 BorderBrush="Violet"
                                 CornerRadius="5"/>
-                        <Grid Width="100"
-                              Height="100"
-                              Background="LightGreen"/>
+                        <Grid Background="LightGreen"
+                              Margin="20"/>
                     </Grid>
                 </DataTemplate>
             </np:OverlayBehavior.ContentTemplate>
@@ -84,6 +83,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         VerticalContentAlignment="Center"
+                        Command="{Binding SetTop}"
                         Content="&#x1F881;">
                     <Button.Tag>
                         <nputils:Side2D>Top</nputils:Side2D>
@@ -95,6 +95,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         VerticalContentAlignment="Center"
+                         Command="{Binding SetLeft}"
                         Content="&#x1F880;">
                     <Button.Tag>
                         <nputils:Side2D>Left</nputils:Side2D>
@@ -107,6 +108,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         VerticalContentAlignment="Center"
+                         Command="{Binding SetCenter}"
                         Content="&#x26AB;">
                     <Button.Tag>
                         <nputils:Side2D>Center</nputils:Side2D>
@@ -119,6 +121,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         VerticalContentAlignment="Center"
+                        Command="{Binding SetRight}"
                         Content="&#x1F882;">
                     <Button.Tag>
                         <nputils:Side2D>Right</nputils:Side2D>
@@ -131,6 +134,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         VerticalContentAlignment="Center"
+                        Command="{Binding SetBottom}"
                         Content="&#x1F883;">
                     <Button.Tag>
                         <nputils:Side2D>Bottom</nputils:Side2D>

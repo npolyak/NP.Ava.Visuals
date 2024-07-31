@@ -51,7 +51,9 @@ namespace NP.Ava.Visuals
 
         public static Rect ToRect(this Rect2D rect)
         {
-            return new Rect(rect.StartPoint.ToPoint(), rect.EndPoint.ToPoint());
+            var result =  new Rect(rect.StartPoint.ToPoint(), rect.EndPoint.ToPoint());
+
+            return result;
         }
 
         public static Rect2D ToRect2D(this Rect rect)
@@ -87,24 +89,26 @@ namespace NP.Ava.Visuals
             return size.ToPoint2D().ToPoint();
         }
 
-        public static Rect GetBoundsWithinVisual(this Visual v, Visual relativeTo)
+        public static Rect GetBoundsWithinVisual(this Visual v, Visual relativeTo, Side2D currentSide)
         {
             var boundRect = v.Bounds;
 
-            
+            Rect rect = new Rect(boundRect.Size);
+
+            Rect sideRect = rect.ScaleToSide(0.5, currentSide);
 
             Point startPoint =
-                v.TranslatePoint(new Point(0, 0), relativeTo).Value;
+                v.TranslatePoint(sideRect.TopLeft, relativeTo).Value;
 
             Point endPoint =
-                v.TranslatePoint(boundRect.Size.ToPoint(), relativeTo).Value;
+                v.TranslatePoint(sideRect.BottomRight, relativeTo).Value;
 
             return new Rect(startPoint, endPoint);
         }
 
-        public static Thickness ToMargin(this Visual v, Visual relativeTo)
+        public static Thickness ToMargin(this Visual v, Visual relativeTo, Side2D currentSide)
         {
-            Rect rect = v.GetBoundsWithinVisual(relativeTo);
+            Rect rect = v.GetBoundsWithinVisual(relativeTo, currentSide);
 
             (double relativeToWidth, double relativeToHeight) =
                 relativeTo.Bounds.Size;
@@ -161,6 +165,11 @@ namespace NP.Ava.Visuals
         public static Rect ToRect(this Visual c)
         {
             return new Rect(new Point(), c.ToPoint());
+        }
+
+        public static Rect ScaleToSide(this Rect rect, double scale, Side2D sideToScaleTo)
+        {
+            return rect.ToRect2D().ScaleToSide(scale, sideToScaleTo).ToRect();
         }
 
         public static double ActualWidth(this Visual c)

@@ -39,7 +39,36 @@ namespace NP.OverlayingTransitionsDemo
         {
             OverlayBehavior.SetOverlayedControl(GridContainingOverlayPanel, OverlayedControl4);
             OverlayBehavior.SetIsOpen(GridContainingOverlayPanel, true);
+        }
 
+        public void SetCenter()
+        {
+            OverlayBehavior.SetCurrentSide(GridContainingOverlayPanel, Utilities.Side2D.Center);
+            OverlayBehavior.SetIsOpen(GridContainingOverlayPanel, true);
+        }
+
+        public void SetLeft()
+        {
+            OverlayBehavior.SetCurrentSide(GridContainingOverlayPanel, Utilities.Side2D.Left);
+            OverlayBehavior.SetIsOpen(GridContainingOverlayPanel, true);
+        }
+
+        public void SetRight()
+        {
+            OverlayBehavior.SetCurrentSide(GridContainingOverlayPanel, Utilities.Side2D.Right);
+            OverlayBehavior.SetIsOpen(GridContainingOverlayPanel, true);
+        }
+
+        public void SetTop()
+        {
+            OverlayBehavior.SetCurrentSide(GridContainingOverlayPanel, Utilities.Side2D.Top);
+            OverlayBehavior.SetIsOpen(GridContainingOverlayPanel, true);
+        }
+
+        public void SetBottom()
+        {
+            OverlayBehavior.SetCurrentSide(GridContainingOverlayPanel, Utilities.Side2D.Bottom);
+            OverlayBehavior.SetIsOpen(GridContainingOverlayPanel, true);
         }
     }
 }
