@@ -11,45 +11,47 @@
 	<Grid x:Name="RootGrid"
           RowDefinitions="Auto, *, Auto"
 		  Margin="10">
-        <Grid x:Name="GridContainingOverlayPanel"
-              Grid.Row="1"
-              ColumnDefinitions="*,*"
-              RowDefinitions="*,*"
-              Background="LightGray"
-              ShowGridLines="True"
-              np:OverlayBehavior.OverlayContainingPanel="{Binding #OverlayPanel}">
-            <np:OverlayBehavior.ContentTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Border HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                BorderThickness="4"
-                                BorderBrush="Violet"
-                                CornerRadius="5"/>
-                        <Grid Background="LightGreen"
-                              Margin="20"/>
-                    </Grid>
-                </DataTemplate>
-            </np:OverlayBehavior.ContentTemplate>
-            <Grid x:Name="OverlayedControl1"
-                  Grid.Row="0"
-                  Grid.Column="0"
+        <Grid Grid.Row="1">
+            <Grid x:Name="GridContainingOverlayPanel"
+                  Background="LightGray"
+                  ShowGridLines="True"
+                  np:OverlayBehavior.OverlayContainingPanel="{Binding #OverlayPanel}">
+                <np:OverlayBehavior.ContentTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Border HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    BorderThickness="4"
+                                    BorderBrush="Violet"
+                                    CornerRadius="5"/>
+                            <Grid Background="LightGreen"
+                                  Margin="20"/>
+                        </Grid>
+                    </DataTemplate>
+                </np:OverlayBehavior.ContentTemplate>
+                <Grid x:Name="OverlayPanel"
+                      Grid.ColumnSpan="2"
+                      Grid.RowSpan="2"/>
+            </Grid>
+            <Grid ColumnDefinitions="*,*"
+                  RowDefinitions="*,*">
+                <Grid x:Name="OverlayedControl1"
+                      Grid.Row="0"
+                      Grid.Column="0"
                   />
-            <Grid x:Name="OverlayedControl2"
-                  Grid.Row="0"
-                  Grid.Column="1"
+                <Grid x:Name="OverlayedControl2"
+                      Grid.Row="0"
+                      Grid.Column="1"
                   />
-            <Grid x:Name="OverlayedControl3"
-                  Grid.Row="1"
-                  Grid.Column="0"
+                <Grid x:Name="OverlayedControl3"
+                      Grid.Row="1"
+                      Grid.Column="0"
                   />
-            <Grid x:Name="OverlayedControl4"
-                  Grid.Row="1"
-                  Grid.Column="1"
+                <Grid x:Name="OverlayedControl4"
+                      Grid.Row="1"
+                      Grid.Column="1"
                   />
-            <Grid x:Name="OverlayPanel"
-                  Grid.ColumnSpan="2"
-                  Grid.RowSpan="2"/>
+            </Grid>
         </Grid>
         <StackPanel Grid.Row="2"
                     Orientation="Horizontal"
