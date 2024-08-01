@@ -247,6 +247,12 @@ namespace NP.Ava.Visuals.Behaviors
         {
             Control overlayedControl = GetOverlayedControl(topContainer) ?? topContainer;
 
+            if (overlayedControl == null)
+                return;
+
+            if (!overlayedControl.IsLoaded)
+                return;
+
             Panel overlayPanel = GetOverlayContainingPanel(topContainer);
 
             if ((overlayPanel == null))
@@ -259,6 +265,10 @@ namespace NP.Ava.Visuals.Behaviors
                 overlayPanel.IsVisible = false;
                 return;
             }
+
+
+            if (overlayedControl.GetControlsWindow<Window>() != overlayPanel.GetControlsWindow<Window>())
+                return;
 
             var contentControl =
                 overlayPanel.Children

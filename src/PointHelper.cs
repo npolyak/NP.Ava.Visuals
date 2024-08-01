@@ -3,8 +3,10 @@ global using Rect2D = NP.Utilities.Rect2D<double>;
 
 using Avalonia;
 using Avalonia.Input;
+using Avalonia.VisualTree;
 using NP.Utilities;
 using System;
+using System.Linq;
 
 namespace NP.Ava.Visuals
 {
@@ -97,8 +99,14 @@ namespace NP.Ava.Visuals
 
             Rect sideRect = rect.ScaleToSide(0.5, currentSide);
 
-            Point startPoint =
-                v.TranslatePoint(sideRect.TopLeft, relativeTo).Value;
+            Point? startPointObj = v.TranslatePoint(sideRect.TopLeft, relativeTo);
+
+            if (startPointObj == null)
+            {
+                return new Rect();
+            }
+
+            Point startPoint = startPointObj.Value;
 
             Point endPoint =
                 v.TranslatePoint(sideRect.BottomRight, relativeTo).Value;
