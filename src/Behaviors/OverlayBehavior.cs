@@ -1,18 +1,13 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml.Templates;
 using NP.Ava.Visuals;
 using NP.Utilities;
 using System;
 using System.Collections.Immutable;
-using System.Threading.Tasks;
 using Avalonia.Controls.Templates;
 using System.Linq;
-using Avalonia.VisualTree;
-using Avalonia.Media;
-using System.Net;
-using System.Runtime.CompilerServices;
 using Avalonia.Animation;
+using Avalonia.Markup.Xaml.Templates;
 
 namespace NP.Ava.Visuals.Behaviors
 {
