@@ -307,7 +307,9 @@ namespace NP.Ava.Visuals.Behaviors
 
             bool shouldOpen = args.NewValue.Value;
 
-            if (panel != null)
+            bool isWindowOpen = GetIsWindowOverlay(rootContainer);
+
+            if (!isWindowOpen)
             {
                 AdjustOverlay(rootContainer);
             }
