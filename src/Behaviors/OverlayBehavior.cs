@@ -20,7 +20,7 @@ namespace NP.Ava.Visuals.Behaviors
         }
 
         public static void SetIsOpen(Control obj, bool value)
-        {
+        { 
             obj.SetValue(IsOpenProperty, value);
         }
 
