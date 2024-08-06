@@ -128,6 +128,7 @@ namespace NP.Ava.Visuals
             return new Thickness(rect.Left, rect.Top, rightMargin, bottomMargin);
         }
 
+
         public static bool IsPointerWithinControl(this Visual c, PointerEventArgs e)
         {
             return c.IsPointWithinControl(e.GetPosition(c));

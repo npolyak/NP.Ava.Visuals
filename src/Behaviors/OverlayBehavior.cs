@@ -147,6 +147,25 @@ namespace NP.Ava.Visuals.Behaviors
         #endregion CurrentSide Attached Avalonia Property
 
 
+        #region TabDropIndicatorPositionWithinControl Attached Avalonia Property
+        public static Rect2D? GetTabDropIndicatorPositionWithinControl(Control obj)
+        {
+            return obj.GetValue(TabDropIndicatorPositionWithinControlProperty);
+        }
+
+        public static void SetTabDropIndicatorPositionWithinControl(Control obj, Rect2D? value)
+        {
+            obj.SetValue(TabDropIndicatorPositionWithinControlProperty, value);
+        }
+
+        public static readonly AttachedProperty<Rect2D?> TabDropIndicatorPositionWithinControlProperty =
+            AvaloniaProperty.RegisterAttached<OverlayBehavior, Control, Rect2D?>
+            (
+                "TabDropIndicatorPositionWithinControl"
+            );
+        #endregion TabDropIndicatorPositionWithinControl Attached Avalonia Property
+
+
         #region OverlayedControl Attached Avalonia Property
         public static Control GetOverlayedControl(Control obj)
         {
@@ -210,6 +229,14 @@ namespace NP.Ava.Visuals.Behaviors
             OverlayedControlProperty.Changed.Subscribe(OnOverlayedControlChanged);
             OverlayContainingPanelProperty.Changed.Subscribe(OnOverlayContainingPanelChanged);
             CurrentSideProperty.Changed.Subscribe(OnCurrentSideChanged);
+            TabDropIndicatorPositionWithinControlProperty.Changed.Subscribe(OnabDropIndicatorPositionWithinControlChanged);
+        }
+
+        private static void OnabDropIndicatorPositionWithinControlChanged(AvaloniaPropertyChangedEventArgs<Rect2D?> args)
+        {
+            Control rootContainer = (Control)args.Sender;
+
+            AdjustOverlay(rootContainer);
         }
 
         private static void OnCurrentSideChanged(AvaloniaPropertyChangedEventArgs<Side2D> args)
@@ -291,7 +318,37 @@ namespace NP.Ava.Visuals.Behaviors
 
             var currentSide = GetCurrentSide(topContainer);
 
-            Thickness margin = overlayedControl.ToMargin(overlayPanel, currentSide);
+            Rect2D? tabBoundsFromLeftNullable = GetTabDropIndicatorPositionWithinControl(topContainer);
+
+            Thickness margin;
+
+            if (tabBoundsFromLeftNullable == null) 
+            {
+                margin = overlayedControl.ToMargin(overlayPanel, currentSide);
+            }
+            else
+            {
+                Rect2D tabBoundsFromLeft = tabBoundsFromLeftNullable;
+
+                Rect boundsWithinOverlayPanel = overlayedControl.GetBoundsWithinVisual(overlayPanel, Side2D.Center);
+
+                (double overlayPanelWidth, double overlayPanelHeight) = overlayPanel.Bounds.Size;
+
+                Point2D startMarginWithinOverlayPanel =
+                    new Point2D
+                    (
+                        tabBoundsFromLeft.StartPoint.X + boundsWithinOverlayPanel.X,
+                        tabBoundsFromLeft.StartPoint.Y + boundsWithinOverlayPanel.Y);
+
+                margin =
+                    new Thickness
+                        (
+                            startMarginWithinOverlayPanel.X,
+                            startMarginWithinOverlayPanel.Y,
+                            overlayPanelWidth - startMarginWithinOverlayPanel.X - tabBoundsFromLeft.Width,
+                            overlayPanelHeight - startMarginWithinOverlayPanel.Y - tabBoundsFromLeft.Height
+                        );
+            }
 
             contentControl.Margin = margin;
 
