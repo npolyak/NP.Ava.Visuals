@@ -8,6 +8,7 @@ using Avalonia.Controls.Templates;
 using System.Linq;
 using Avalonia.Animation;
 using Avalonia.Markup.Xaml.Templates;
+using System.Runtime.CompilerServices;
 
 namespace NP.Ava.Visuals.Behaviors
 {
@@ -127,6 +128,26 @@ namespace NP.Ava.Visuals.Behaviors
         #endregion IsTopmost Attached Avalonia Property
 
 
+        #region IsRoot Attached Avalonia Property
+        public static bool GetIsRoot(Control obj)
+        {
+            return obj.GetValue(IsRootProperty);
+        }
+
+        public static void SetIsRoot(Control obj, bool value)
+        {
+            obj.SetValue(IsRootProperty, value);
+        }
+
+        public static readonly AttachedProperty<bool> IsRootProperty =
+            AvaloniaProperty.RegisterAttached<OverlayBehavior, Control, bool>
+            (
+                "IsRoot"
+            );
+        #endregion IsRoot Attached Avalonia Property
+
+
+
         #region CurrentSide Attached Avalonia Property
         public static Side2D GetCurrentSide(Control obj)
         {
@@ -229,10 +250,19 @@ namespace NP.Ava.Visuals.Behaviors
             OverlayedControlProperty.Changed.Subscribe(OnOverlayedControlChanged);
             OverlayContainingPanelProperty.Changed.Subscribe(OnOverlayContainingPanelChanged);
             CurrentSideProperty.Changed.Subscribe(OnCurrentSideChanged);
-            TabDropIndicatorPositionWithinControlProperty.Changed.Subscribe(OnabDropIndicatorPositionWithinControlChanged);
+            TabDropIndicatorPositionWithinControlProperty.Changed.Subscribe(OnTabDropIndicatorPositionWithinControlChanged);
+
+            IsRootProperty.Changed.Subscribe(OnIsRootChanged);
         }
 
-        private static void OnabDropIndicatorPositionWithinControlChanged(AvaloniaPropertyChangedEventArgs<Rect2D?> args)
+        private static void OnIsRootChanged(AvaloniaPropertyChangedEventArgs<bool> args)
+        {
+            Control rootContainer = (Control)args.Sender;
+
+            AdjustOverlay(rootContainer);
+        }
+
+        private static void OnTabDropIndicatorPositionWithinControlChanged(AvaloniaPropertyChangedEventArgs<Rect2D?> args)
         {
             Control rootContainer = (Control)args.Sender;
 
@@ -265,6 +295,13 @@ namespace NP.Ava.Visuals.Behaviors
 
         private static string ChildContentControlName = "ChildContentControl";
 
+        private static ContentControl GetOverlayDropCueContentControl(Panel overlayPanel)
+        {
+            return overlayPanel.Children
+                     .OfType<ContentControl>()
+                     .FirstOrDefault(child => child.Name == ChildContentControlName);
+        }
+
         private static void AdjustOverlay(Control topContainer)
         {
             Control overlayedControl = GetOverlayedControl(topContainer) ?? topContainer;
@@ -282,24 +319,19 @@ namespace NP.Ava.Visuals.Behaviors
                 return;
             }
 
+            var overlayDropCueContentControl = GetOverlayDropCueContentControl(overlayPanel);
+
             if (!GetIsOpen(topContainer))
             {
-                overlayPanel.IsVisible = false;
                 return;
             }
-
 
             if (overlayedControl.GetControlsWindow<Window>() != overlayPanel.GetControlsWindow<Window>())
                 return;
 
-            var contentControl =
-                overlayPanel.Children
-                     .OfType<ContentControl>()
-                     .FirstOrDefault(child => child.Name == ChildContentControlName);
-
-            if (contentControl == null)
+            if (overlayDropCueContentControl == null)
             {
-                contentControl = new ContentControl
+                overlayDropCueContentControl = new ContentControl
                 {
                     HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
                     VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch,
@@ -309,11 +341,11 @@ namespace NP.Ava.Visuals.Behaviors
                     Padding = GetPadding(topContainer),
                 };
 
-                overlayPanel.Children.Add(contentControl);
+                overlayPanel.Children.Add(overlayDropCueContentControl);
 
                 Transitions transitions = [new ThicknessTransition { Property = Control.MarginProperty, Duration = TimeSpan.FromSeconds(0.2) }];
 
-                contentControl.Transitions = transitions;
+                overlayDropCueContentControl.Transitions = transitions;
             }
 
             var currentSide = GetCurrentSide(topContainer);
@@ -324,7 +356,8 @@ namespace NP.Ava.Visuals.Behaviors
 
             if (tabBoundsFromLeftNullable == null) 
             {
-                margin = overlayedControl.ToMargin(overlayPanel, currentSide);
+                bool isRoot = GetIsRoot(topContainer);
+                margin = overlayedControl.ToMargin(overlayPanel, currentSide, isRoot ? 0.2d : 0.5d);
             }
             else
             {
@@ -350,9 +383,9 @@ namespace NP.Ava.Visuals.Behaviors
                         );
             }
 
-            contentControl.Margin = margin;
+            overlayDropCueContentControl.Margin = margin;
 
-            overlayPanel.IsVisible = true;
+            //overlayDropCueContentControl.IsVisible = true;
         }
 
         private static async void OnIsOpenChanged(AvaloniaPropertyChangedEventArgs<bool> args)

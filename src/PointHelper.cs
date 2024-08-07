@@ -91,13 +91,13 @@ namespace NP.Ava.Visuals
             return size.ToPoint2D().ToPoint();
         }
 
-        public static Rect GetBoundsWithinVisual(this Visual v, Visual relativeTo, Side2D currentSide)
+        public static Rect GetBoundsWithinVisual(this Visual v, Visual relativeTo, Side2D currentSide, double sideScaleFactor = 0.5)
         {
             var boundRect = v.Bounds;
 
             Rect rect = new Rect(boundRect.Size);
 
-            Rect sideRect = rect.ScaleToSide(0.5, currentSide);
+            Rect sideRect = rect.ScaleToSide(sideScaleFactor, currentSide);
 
             Point? startPointObj = v.TranslatePoint(sideRect.TopLeft, relativeTo);
 
@@ -114,9 +114,9 @@ namespace NP.Ava.Visuals
             return new Rect(startPoint, endPoint);
         }
 
-        public static Thickness ToMargin(this Visual v, Visual relativeTo, Side2D currentSide)
+        public static Thickness ToMargin(this Visual v, Visual relativeTo, Side2D currentSide, double sideScaleFactor)
         {
-            Rect rect = v.GetBoundsWithinVisual(relativeTo, currentSide);
+            Rect rect = v.GetBoundsWithinVisual(relativeTo, currentSide, sideScaleFactor);
 
             (double relativeToWidth, double relativeToHeight) =
                 relativeTo.Bounds.Size;
