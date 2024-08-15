@@ -220,7 +220,8 @@ namespace NP.Ava.Visuals.Behaviors
         public static readonly AttachedProperty<bool> IsWindowOverlayProperty =
             AvaloniaProperty.RegisterAttached<Control, Control, bool>
             (
-                "IsWindowOverlay"
+                "IsWindowOverlay",
+                true
             );
         #endregion IsWindowOverlay Attached Avalonia Property
 
