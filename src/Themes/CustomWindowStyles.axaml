@@ -249,7 +249,7 @@
                   BorderThickness="{TemplateBinding BorderThickness}"/>
           <Panel Background="Transparent" Margin="{TemplateBinding WindowDecorationMargin}" />
           <VisualLayerManager>
-            <Grid>
+            <Grid Background="{TemplateBinding Background}">
               <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
