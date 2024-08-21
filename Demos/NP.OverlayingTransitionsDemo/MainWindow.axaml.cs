@@ -17,7 +17,7 @@ namespace NP.OverlayingTransitionsDemo
         public void SelectTopLeftQuarter()
         {
             OverlayBehavior.SetOverlayedControl(GridContainingOverlayPanel, OverlayedControl1);
-            OverlayBehavior.SetIsOpen(GridContainingOverlayPanel, true);
+           OverlayBehavior.SetIsOpen(GridContainingOverlayPanel, true);
         }
 
         public void SelectTopRightQuarter()
