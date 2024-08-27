@@ -358,6 +358,7 @@ namespace NP.Ava.Visuals.Behaviors
             if (tabBoundsFromLeftNullable == null) 
             {
                 bool isRoot = GetIsRoot(topContainer);
+
                 margin = overlayedControl.ToMargin(overlayPanel, currentSide, isRoot ? 0.2d : 0.5d);
             }
             else
