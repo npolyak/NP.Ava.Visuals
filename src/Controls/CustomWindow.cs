@@ -218,36 +218,6 @@ namespace NP.Ava.Visuals.Controls
         protected PixelPoint StartPointerPosition;
         protected PixelPoint StartWindowPosition;
 
-        internal Point StartPointerInWindowPosition { get; private set; }
-
-
-        #region CurrentDragWindowPointerScreenPosition Direct Avalonia Property
-        // this is how we get the current pointer position from Window.Position 
-        // in case we use BeginMoveDrag - the pointer events do not fire then, while 
-        // with Window.PositionChanged event still fires. 
-        private Point _CurrentDragWindowPointerScreenPosition = default;
-
-        public static readonly DirectProperty<CustomWindow, Point> CurrentDragWindowPointerScreenPositionProperty =
-            AvaloniaProperty.RegisterDirect<CustomWindow, Point>
-            (
-                nameof(CurrentDragWindowPointerScreenPosition),
-                o => o.CurrentDragWindowPointerScreenPosition,
-                (o, v) => o.CurrentDragWindowPointerScreenPosition = v
-            );
-
-        public Point CurrentDragWindowPointerScreenPosition
-        {
-            get => _CurrentDragWindowPointerScreenPosition;
-            set
-            {
-                SetAndRaise(CurrentDragWindowPointerScreenPositionProperty, ref _CurrentDragWindowPointerScreenPosition, value);
-            }
-        }
-
-        #endregion CurrentDragWindowPointerScreenPosition Direct Avalonia Property
-
-
-
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
@@ -279,14 +249,13 @@ namespace NP.Ava.Visuals.Controls
 
         private void OnHeaderPointerPressed(object? sender, PointerPressedEventArgs e)
         {
-            if (!_headerControl.IsLeftMousePressed(e))
-                return;
+            //if (!_headerControl.IsLeftMousePressed(e))
+            //    return;
 
             if (DragOnBeginMove)
             {
-                StartPointerInWindowPosition = e.GetPosition(this);
-                this.PositionChanged += CustomWindow_PositionChanged;
-                this.PointerReleased += CustomWindow_PointerReleased;
+                SetDragOnMovePointer(e);
+                //CurrentScreenPointBehavior.Capture(_headerControl, !DragOnBeginMove, e);
                 BeginMoveDrag(e);
             }
             else
@@ -294,21 +263,6 @@ namespace NP.Ava.Visuals.Controls
                 SetDragWindowOnMovePointer(e);
             }
         }
-
-        private void CustomWindow_PointerReleased(object? sender, PointerReleasedEventArgs e)
-        {
-            this.PositionChanged -= CustomWindow_PositionChanged;
-            this.PointerReleased -= CustomWindow_PointerReleased;
-        }
-
-        private void CustomWindow_PositionChanged(object? sender, PixelPointEventArgs e)
-        {
-            // this is how we get the current pointer position from Window.Position 
-            // in case we use BeginMoveDrag - the pointer events do not fire then, while 
-            // with Window.PositionChanged event still fires. 
-            CurrentDragWindowPointerScreenPosition = e.Point.ToPoint(1).Add(StartPointerInWindowPosition);
-        }
-
 
         #region PointerShift Styled Avalonia Property
         public PixelPoint PointerShift
@@ -343,7 +297,10 @@ namespace NP.Ava.Visuals.Controls
         {
             if (HeaderControl != null)
             {
-                HeaderControl.PointerMoved += OnPointerMoved;
+                if (!DragOnBeginMove)
+                {
+                    HeaderControl.PointerMoved += OnPointerMoved;
+                }
 
                 HeaderControl.PointerReleased += OnPointerReleased;
             }
@@ -358,7 +315,11 @@ namespace NP.Ava.Visuals.Controls
         {
             _headerControl.PointerMoved -= OnPointerMoved;
             _headerControl.PointerReleased -= OnPointerReleased;
-            UpdatePosition(e);
+
+            if (!DragOnBeginMove)
+            {
+                UpdatePosition(e);
+            }
             _startMoving = false;
         }
 
