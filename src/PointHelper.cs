@@ -138,7 +138,7 @@ namespace NP.Ava.Visuals
         {
             var props = e.GetCurrentPoint(c).Properties;
 
-            return props.PointerUpdateKind == PointerUpdateKind.LeftButtonPressed;
+            return props.IsLeftButtonPressed;
         }
 
         public static Point Add(this Point point1,  Point point2)

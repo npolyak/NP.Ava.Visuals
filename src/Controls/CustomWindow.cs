@@ -249,8 +249,8 @@ namespace NP.Ava.Visuals.Controls
 
         private void OnHeaderPointerPressed(object? sender, PointerPressedEventArgs e)
         {
-            //if (!_headerControl.IsLeftMousePressed(e))
-            //    return;
+            if (!_headerControl.IsLeftMousePressed(e))
+                return;
 
             if (DragOnBeginMove)
             {
