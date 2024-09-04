@@ -13,14 +13,10 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Input.Raw;
-using Avalonia.Media;
-using Avalonia.VisualTree;
 using NP.Utilities;
 using System;
-using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Threading.Tasks;
 
 namespace NP.Ava.Visuals.Behaviors
 {
@@ -262,6 +258,11 @@ namespace NP.Ava.Visuals.Behaviors
 
     public static class CurrentScreenPointBehavior
     {
+        public static bool IsPointerEventBased
+        {
+            get; private set;
+        }
+
         private static CurrentScreenPointBehaviorBase _pointerEventsImplementation =
             new CurrentScreenPointBehaviorPointerEventImpl();
         private static CurrentScreenPointBehaviorBase _windowPositionImplementation =
@@ -302,6 +303,8 @@ namespace NP.Ava.Visuals.Behaviors
 
         public static void Capture(Control control, bool pointerEventImplementation, PointerEventArgs e)
         {
+            IsPointerEventBased = pointerEventImplementation;
+
             _currentImplementation = pointerEventImplementation ? _pointerEventsImplementation : _windowPositionImplementation;
 
             _currentImplementation.Capture(control, e);
@@ -312,6 +315,7 @@ namespace NP.Ava.Visuals.Behaviors
             Control control,
             Point initPointerPositionWithinWindow)
         {
+            IsPointerEventBased = false;
             _currentImplementation = _windowPositionImplementation;
 
             _currentImplementation.CaptureOnInitPointerPosition(control, initPointerPositionWithinWindow);
