@@ -254,6 +254,7 @@ namespace NP.Ava.Visuals.Behaviors
             {
                 return;
             }
+            DisconnectControl(control);
             control.PointerMoved -= Control_PointerMoved;
             control.PointerReleased -= OnPointerReleased;
         }

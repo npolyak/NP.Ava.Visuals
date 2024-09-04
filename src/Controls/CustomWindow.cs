@@ -70,9 +70,13 @@ namespace NP.Ava.Visuals.Controls
                 HasCustomWindowFeaturesProperty.Changed.Subscribe(OnHasCustomFeaturesChanged);
 
             _resizeBehavior = new ResizeBehavior(this);
+
+#if DEBUG
+            this.AttachDevTools();
+#endif
         }
 
-        
+
         public bool IsTemplateApplied { get; private set; }
 
 
