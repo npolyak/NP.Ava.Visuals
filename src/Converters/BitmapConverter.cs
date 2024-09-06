@@ -15,11 +15,20 @@ namespace NP.Ava.Visuals.Converters
         {
             if (value == null)
                 return null;
-            Uri uri = new Uri(value.ToString(), UriKind.Absolute);
 
-            if (AssetLoader.Exists(uri))
+            string s = value?.ToString();
+            var uri = s.StartsWith("/")
+                ? new Uri(s, UriKind.Relative)
+                : new Uri(s, UriKind.RelativeOrAbsolute);
+
+            if (uri.IsAbsoluteUri && uri.IsFile)
+                return new Bitmap(uri.LocalPath);
+
+            Uri? baseUri = parameter as Uri;
+
+            if (AssetLoader.Exists(uri, baseUri))
             {
-                return new Bitmap(AssetLoader.Open(uri));
+                return new Bitmap(AssetLoader.Open(uri, baseUri));
             }
             return null;
         }
