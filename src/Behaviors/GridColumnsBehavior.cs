@@ -37,7 +37,12 @@ namespace NP.Ava.Visuals.Behaviors
 
             g.ColumnDefinitions.Clear();
 
-            g.ColumnDefinitions.AddRange(GetColDefsToSet(g));
+            var colDefs = GetColDefsToSet(g);
+
+            if (colDefs == null)
+                return;
+
+            g.ColumnDefinitions.AddRange(colDefs);
         }
         #endregion ColDefsToSet Attached Avalonia Property
     }
