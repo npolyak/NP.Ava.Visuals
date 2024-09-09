@@ -508,5 +508,25 @@ namespace NP.Ava.Visuals.Controls
                 "MainPartTemplate"
             );
         #endregion MainPartTemplate Attached Avalonia Property
+
+
+        #region ImagePath Attached Avalonia Property
+        public static IImage GetImagePath(Control control)
+        {
+            return control.GetValue(ImagePathProperty);
+        }
+
+        public static void SetImagePath(Control obj, IImage value)
+        {
+            obj.SetValue(ImagePathProperty, value);
+        }
+
+        public static readonly AttachedProperty<IImage> ImagePathProperty =
+            AvaloniaProperty.RegisterAttached<Control, Control, IImage>
+            (
+                "ImagePath"
+            );
+        #endregion ImagePath Attached Avalonia Property
+
     }
 }
