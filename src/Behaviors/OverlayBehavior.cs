@@ -431,9 +431,11 @@ namespace NP.Ava.Visuals.Behaviors
 
                     Rect2D screenBounds = overlayedControl.GetScreenBounds();
 
-                    double renderScaling = overlayWindow.PlatformImpl.GetPropValue<double>("RenderScaling", true);
+                    Window? currentWindow = overlayedControl?.GetControlsWindow<Window>();
 
-                    double scale = 1d / renderScaling;
+                    double screenScaling = currentWindow.Screens.ScreenFromWindow(currentWindow)?.Scaling ?? 1d;
+
+                    double scale = 1d / screenScaling;
                     overlayWindow.Position = screenBounds.StartPoint.ToPixelPoint();
 
                     overlayWindow.PlatformImpl.CallMethod("Resize", screenBounds.GetSize(scale).ToSize(), WindowResizeReason.Application);
