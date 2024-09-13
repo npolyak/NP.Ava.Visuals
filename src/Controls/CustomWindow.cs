@@ -699,6 +699,21 @@ namespace NP.Ava.Visuals.Controls
         #endregion ButtonsAreaTemplate Styled Avalonia Property
 
 
+        #region AreCustomWindowButtonsVisible Styled Avalonia Property
+        public bool AreCustomWindowButtonsVisible
+        {
+            get { return GetValue(AreCustomWindowButtonsVisibleProperty); }
+            set { SetValue(AreCustomWindowButtonsVisibleProperty, value); }
+        }
+
+        public static readonly StyledProperty<bool> AreCustomWindowButtonsVisibleProperty =
+            AvaloniaProperty.Register<CustomWindow, bool>
+            (
+                nameof(AreCustomWindowButtonsVisible),
+                true
+            );
+        #endregion AreCustomWindowButtonsVisible Styled Avalonia Property
+
         #region MenuPathClasses Styled Avalonia Property
         public string MenuPathClasses
         {

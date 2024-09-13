@@ -232,6 +232,7 @@
 								Grid.Column="2"
 								Focusable="False"
                                 HorizontalAlignment="Right"
+                                IsVisible="{Binding $parent[Window].AreCustomWindowButtonsVisible}"
                                 behaviors:HandleEventBehavior.TheEvent="{x:Static InputElement.DoubleTappedEvent}"
                                 Template="{Binding Path=ButtonsAreaTemplate, RelativeSource={RelativeSource AncestorType=controls:CustomWindow}}"
                                 DataContext="{Binding RelativeSource={RelativeSource AncestorType=controls:CustomWindow}}"/>
