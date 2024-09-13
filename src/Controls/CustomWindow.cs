@@ -111,7 +111,11 @@ namespace NP.Ava.Visuals.Controls
             }
             else if (HasCustomWindowFeatures)
             {
+                var oldChromeHints = this.ExtendClientAreaChromeHints;
+                this.ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
                 SetIsHitVisibleOnResizeControls(true);
+
+                this.ExtendClientAreaChromeHints = oldChromeHints;
             }
         }
 
@@ -303,10 +307,12 @@ namespace NP.Ava.Visuals.Controls
             {
                 if (!DragOnBeginMove)
                 {
+                    HeaderControl.PointerMoved -= OnPointerMoved;
                     HeaderControl.PointerMoved += OnPointerMoved;
                 }
 
-                HeaderControl.PointerReleased += OnPointerReleased;
+                HeaderControl.PointerReleased -= OnPointerReleased;
+                HeaderControl.PointerReleased += OnPointerReleased; ;
             }
         }
 
@@ -320,7 +326,7 @@ namespace NP.Ava.Visuals.Controls
             _headerControl.PointerMoved -= OnPointerMoved;
             _headerControl.PointerReleased -= OnPointerReleased;
 
-            if (!DragOnBeginMove)
+            if (!DragOnBeginMove && this.WindowState == WindowState.Normal)
             {
                 UpdatePosition(e);
             }
@@ -332,7 +338,7 @@ namespace NP.Ava.Visuals.Controls
             UpdatePosition(e);
         }
 
-        const double DefaultMinDistance = 0;
+        const double DefaultMinDistance = 5;
 
         private double MinDistance { get; set; } = DefaultMinDistance;
 
