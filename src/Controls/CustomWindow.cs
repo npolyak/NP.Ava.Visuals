@@ -253,6 +253,7 @@ namespace NP.Ava.Visuals.Controls
         private void OnHeaderDoubleTapped(object? sender, RoutedEventArgs e)
         {
             MaximizeOrRestore();
+            HeaderControl.PointerMoved -= OnPointerMoved;
         }
 
         private void OnHeaderPointerPressed(object? sender, PointerPressedEventArgs e)
