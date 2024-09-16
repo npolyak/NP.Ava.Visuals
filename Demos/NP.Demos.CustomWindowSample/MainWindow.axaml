@@ -1,6 +1,7 @@
 <np:CustomWindow xmlns="https://github.com/avaloniaui"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:np="https://np.com/visuals"
+                 xmlns:local="using:NP.Demos.CustomWindowSample"
                  x:Class="NP.Demos.CustomWindowSample.MainWindow"
                  Classes="PlainCustomWindow"
                  MenuForeground="Blue"
@@ -10,9 +11,14 @@
                  HeaderBackground="White"
                  Width="600"
                  Height="400"
-                 DragOnBeginMove="True"
+                 DragOnBeginMove="False"
                  SystemDecorations="Full"
                  ExtendClientAreaToDecorationsHint="True"
                  ExtendClientAreaTitleBarHeightHint="400"
                  ExtendClientAreaChromeHints="NoChrome">
+    <StackPanel HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+        <TextBlock Text="{ReflectionBinding $parent[Window].WindowPosition, StringFormat='Window Position: \{0\}'}"/>
+        <TextBlock Text="{ReflectionBinding $parent[Window].CurrentPointerPositionInScreen, StringFormat='Pointer Position: \{0\}'}"/>
+    </StackPanel>
 </np:CustomWindow>

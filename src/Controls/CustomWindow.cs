@@ -295,6 +295,7 @@ namespace NP.Ava.Visuals.Controls
                 return;
             }
 
+
             _startMoving = false;
             StartPointerPosition = GetCurrentPointInScreen(e);
             StartWindowPosition = this.Position;
@@ -353,10 +354,29 @@ namespace NP.Ava.Visuals.Controls
             MinDistance = DefaultMinDistance;
         }
 
+#if DEBUG
+        #region CurrentPointerPositionInScreen Styled Avalonia Property
+        public Point2D CurrentPointerPositionInScreen
+        {
+            get { return GetValue(CurrentPointerPositionInScreenProperty); }
+            set { SetValue(CurrentPointerPositionInScreenProperty, value); }
+        }
+
+        public static readonly StyledProperty<Point2D> CurrentPointerPositionInScreenProperty =
+            AvaloniaProperty.Register<CustomWindow, Point2D>
+            (
+                nameof(CurrentPointerPositionInScreen)
+            );
+        #endregion CurrentPointerPositionInScreen Styled Avalonia Property
+#endif
+
         protected void UpdatePosition(PointerEventArgs e)
         {
             try
             {
+#if DEBUG
+                CurrentPointerPositionInScreen = GetCurrentPointInScreen(e).ToPoint2D();
+#endif
                 PointerShift = GetCurrentPointInScreen(e) - StartPointerPosition;
             }
             catch
