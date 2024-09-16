@@ -15,6 +15,7 @@ using Avalonia.Input;
 using Avalonia.Input.Raw;
 using NP.Utilities;
 using System;
+using System.Diagnostics;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
@@ -130,6 +131,9 @@ namespace NP.Ava.Visuals.Behaviors
 
             var position = CapturedWindow.PointToScreen(e.Position);
 
+#if DEBUG
+            Debug.WriteLine($"Current Position: {position.ToPoint2D()}");
+#endif
             SetCurrentPosition(position.ToPoint(1));
         }
 
