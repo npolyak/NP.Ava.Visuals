@@ -98,15 +98,70 @@ namespace NP.Ava.Visuals.Behaviors
 
         protected void Control_PointerReleased(object? sender, PointerReleasedEventArgs e)
         {
+            BeforeCaptureRelease(e);
+
             ReleaseCapture(e);
 
             PointerReleasedEvent?.Invoke();
+        }
+
+        protected virtual void BeforeCaptureRelease(PointerReleasedEventArgs e)
+        {
+
         }
 
         protected void SetCurrentPosition(Point position)
         {
             CurrentScreenPointValue = position.ToPoint2D();
             _currentScreenPoint.OnNext(CurrentScreenPointValue);
+        }
+    }
+
+    internal class CurrentScreenPointBehaviorPointerEventControlBasedImpl : CurrentScreenPointBehaviorBase
+    {
+        public override void CaptureOnInitPointerPosition(Control control, Point initPointerPositionWithinWindow)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void OnCapturedControlChanged(Control? newControl, Control? oldControl, PointerEventArgs e)
+        {
+            base.OnCapturedControlChanged(newControl, oldControl, e);
+
+            if (newControl != null)
+            {
+                newControl.PointerMoved += NewControl_PointerMoved;
+            }
+        }
+
+        private void NewControl_PointerMoved(object? sender, PointerEventArgs e)
+        {
+            SetPosition(e);
+        }
+
+        private void SetPosition(PointerEventArgs e)
+        {
+            Visual? capturedControl = CapturedControl as Visual;
+
+            if (capturedControl == null)
+                return;
+
+            SetCurrentPosition(capturedControl.PointToScreen(e.GetPosition(capturedControl)).ToPoint(1));
+        }
+
+        protected override void BeforeCaptureRelease(PointerReleasedEventArgs e)
+        {
+            base.BeforeCaptureRelease(e);
+            SetPosition(e);
+        }
+
+        protected override void DisconnectControl(Control? control)
+        {
+            if (control != null)
+            {
+                control.PointerReleased -= NewControl_PointerMoved;
+                control.PointerReleased -= Control_PointerReleased;
+            }
         }
     }
 
@@ -119,6 +174,8 @@ namespace NP.Ava.Visuals.Behaviors
 
         private void OnInputReceived(RawInputEventArgs e)
         {
+
+
             bool handled = e.Handled;
             if (!handled && e is RawPointerEventArgs margs)
                 ProcessRawEvent(margs);
@@ -268,7 +325,8 @@ namespace NP.Ava.Visuals.Behaviors
         }
 
         private static CurrentScreenPointBehaviorBase _pointerEventsImplementation =
-            new CurrentScreenPointBehaviorPointerEventImpl();
+            OSUtils.IsMac ? new CurrentScreenPointBehaviorPointerEventControlBasedImpl() : new CurrentScreenPointBehaviorPointerEventImpl();
+
         private static CurrentScreenPointBehaviorBase _windowPositionImplementation =
             new CurrentScreenPointBehaviorWindowPositionImpl();
 
