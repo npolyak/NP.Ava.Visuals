@@ -130,11 +130,11 @@ namespace NP.Ava.Visuals.Behaviors
 
             if (newControl != null)
             {
-                newControl.PointerMoved += NewControl_PointerMoved;
+                newControl.PointerMoved += CapturedControl_PointerMoved;
             }
         }
 
-        private void NewControl_PointerMoved(object? sender, PointerEventArgs e)
+        private void CapturedControl_PointerMoved(object? sender, PointerEventArgs e)
         {
             SetPosition(e);
         }
@@ -159,7 +159,7 @@ namespace NP.Ava.Visuals.Behaviors
         {
             if (control != null)
             {
-                control.PointerReleased -= NewControl_PointerMoved;
+                control.PointerMoved -= CapturedControl_PointerMoved;
                 control.PointerReleased -= Control_PointerReleased;
             }
         }
