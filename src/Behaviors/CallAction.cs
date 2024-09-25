@@ -16,6 +16,7 @@ using NP.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace NP.Ava.Visuals.Behaviors
@@ -187,18 +188,30 @@ namespace NP.Ava.Visuals.Behaviors
         #endregion EventArgsMatcher Attached Avalonia Property
 
 
+        #region TriggerObj Attached Avalonia Property
+        public static object? GetTriggerObj(Visual obj)
+        {
+            return obj.GetValue(TriggerObjProperty);
+        }
+
+        public static void SetTriggerObj(Visual obj, object? value)
+        {
+            obj.SetValue(TriggerObjProperty, value);
+        }
+
+        public static readonly AttachedProperty<object?> TriggerObjProperty =
+            AvaloniaProperty.RegisterAttached<Visual, Visual, object?>
+            (
+                "TriggerObj"
+            );
+        #endregion TriggerObj Attached Avalonia Property
+
+
         private static void OnEvent(object? sender, RoutedEventArgs eventArgs)
         {
             Interactive? avaloniaObject = sender as Interactive;
 
             if (avaloniaObject == null)
-            {
-                return;
-            }
-
-            string methodName = avaloniaObject.GetValue(MethodNameProperty);
-
-            if (methodName == null)
             {
                 return;
             }
@@ -209,7 +222,17 @@ namespace NP.Ava.Visuals.Behaviors
             {
                 return;
             }
-            
+        }
+
+        private static void CallMethodImpl(Interactive avaloniaObject)
+        {
+            string methodName = avaloniaObject.GetValue(MethodNameProperty);
+
+            if (methodName == null)
+            {
+                return;
+            }
+
             Type staticType = GetStaticType(avaloniaObject);
 
             bool isStatic = staticType != null;
@@ -347,6 +370,13 @@ namespace NP.Ava.Visuals.Behaviors
             Init();
 
             TheRoutingStrategyProperty.Changed.Subscribe(ResetRoutingStrategy);
+
+            TriggerObjProperty.Changed.Subscribe(OnTriggerObjChanged);
+        }
+
+        private static void OnTriggerObjChanged(AvaloniaPropertyChangedEventArgs<object> args)
+        {
+            CallMethodImpl((Interactive) args.Sender);
         }
     }
 }
