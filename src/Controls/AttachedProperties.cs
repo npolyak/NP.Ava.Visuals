@@ -528,5 +528,23 @@ namespace NP.Ava.Visuals.Controls
             );
         #endregion ImagePath Attached Avalonia Property
 
+
+        #region IconTransform Attached Avalonia Property
+        public static Transform GetIconTransform(Visual obj)
+        {
+            return obj.GetValue(IconTransformProperty);
+        }
+
+        public static void SetIconTransform(Visual obj, Transform value)
+        {
+            obj.SetValue(IconTransformProperty, value);
+        }
+
+        public static readonly AttachedProperty<Transform> IconTransformProperty =
+            AvaloniaProperty.RegisterAttached<Visual, Visual, Transform>
+            (
+                "IconTransform"
+            );
+        #endregion IconTransform Attached Avalonia Property
     }
 }

@@ -32,7 +32,10 @@
 					CornerRadius="{TemplateBinding CornerRadius}"
                     Background="{TemplateBinding (np:AttachedProperties.RealBackground)}">
               <Path Data="{TemplateBinding (np:AttachedProperties.IconData)}"
+                    RenderTransform="{TemplateBinding (np:AttachedProperties.IconTransform)}"
                     Fill="{TemplateBinding Foreground}"
+                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                     Stretch="{TemplateBinding (np:AttachedProperties.IconStretch)}"
                     Margin="{TemplateBinding (np:AttachedProperties.IconMargin)}"
                     Width="{TemplateBinding (np:AttachedProperties.IconWidth)}"
