@@ -511,18 +511,18 @@ namespace NP.Ava.Visuals.Controls
 
 
         #region ImagePath Attached Avalonia Property
-        public static IImage GetImagePath(Control control)
+        public static string GetImagePath(Control control)
         {
             return control.GetValue(ImagePathProperty);
         }
 
-        public static void SetImagePath(Control obj, IImage value)
+        public static void SetImagePath(Control obj, string value)
         {
             obj.SetValue(ImagePathProperty, value);
         }
 
-        public static readonly AttachedProperty<IImage> ImagePathProperty =
-            AvaloniaProperty.RegisterAttached<Control, Control, IImage>
+        public static readonly AttachedProperty<string> ImagePathProperty =
+            AvaloniaProperty.RegisterAttached<Control, Control, string>
             (
                 "ImagePath"
             );
