@@ -241,6 +241,8 @@ namespace NP.Ava.Visuals.Behaviors
             {
                 return;
             }
+
+            CallMethodImpl(avaloniaObject);
         }
 
         private static void CallMethodImpl(Interactive avaloniaObject, object? triggerObj = null)
