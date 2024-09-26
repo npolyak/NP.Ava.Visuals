@@ -207,6 +207,25 @@ namespace NP.Ava.Visuals.Behaviors
         #endregion TriggerObj Attached Avalonia Property
 
 
+        #region UseTriggerObjAsArg Attached Avalonia Property
+        public static bool GetUseTriggerObjAsArg(Visual obj)
+        {
+            return obj.GetValue(UseTriggerObjAsArgProperty);
+        }
+
+        public static void SetUseTriggerObjAsArg(Visual obj, bool value)
+        {
+            obj.SetValue(UseTriggerObjAsArgProperty, value);
+        }
+
+        public static readonly AttachedProperty<bool> UseTriggerObjAsArgProperty =
+            AvaloniaProperty.RegisterAttached<Visual, Visual, bool>
+            (
+                "UseTriggerObjAsArg"
+            );
+        #endregion UseTriggerObjAsArg Attached Avalonia Property
+
+
         private static void OnEvent(object? sender, RoutedEventArgs eventArgs)
         {
             Interactive? avaloniaObject = sender as Interactive;
@@ -224,7 +243,7 @@ namespace NP.Ava.Visuals.Behaviors
             }
         }
 
-        private static void CallMethodImpl(Interactive avaloniaObject)
+        private static void CallMethodImpl(Interactive avaloniaObject, object? triggerObj = null)
         {
             string methodName = avaloniaObject.GetValue(MethodNameProperty);
 
@@ -245,7 +264,11 @@ namespace NP.Ava.Visuals.Behaviors
 
             IEnumerable<object> args = Enumerable.Empty<object>();
 
-            if (GetUseTargetObjAsFirstArg(avaloniaObject))
+            if (GetUseTriggerObjAsArg(avaloniaObject))
+            {
+                args = [triggerObj];
+            }
+            else if (GetUseTargetObjAsFirstArg(avaloniaObject))
             {
                 args = [targetObject];
             }
@@ -376,7 +399,7 @@ namespace NP.Ava.Visuals.Behaviors
 
         private static void OnTriggerObjChanged(AvaloniaPropertyChangedEventArgs<object> args)
         {
-            CallMethodImpl((Interactive) args.Sender);
+            CallMethodImpl((Interactive) args.Sender, args.NewValue.Value);
         }
     }
 }
