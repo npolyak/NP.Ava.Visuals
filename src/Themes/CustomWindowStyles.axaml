@@ -281,8 +281,8 @@
                                          Converter={x:Static converters:NoTopBorderThicknessConverter.Instance},
                                          RelativeSource={RelativeSource TemplatedParent}}">
                   <ContentPresenter Name="PART_ContentPresenter"
-                                    ContentTemplate="{TemplateBinding ContentTemplate}"
-                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{Binding ContentTemplate, RelativeSource={RelativeSource TemplatedParent}}"
+                                    Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}"
                                     Margin="{TemplateBinding Padding}"
                                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
