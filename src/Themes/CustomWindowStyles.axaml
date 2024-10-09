@@ -257,6 +257,7 @@
                 <RowDefinition Height="*"/>
               </Grid.RowDefinitions>
               <TemplatedControl x:Name="PART_HeaderControl"
+                                MaxWidth="{Binding $parent[Grid].Bounds.Width}"
 								Focusable="False"
                                 Template="{Binding Path=HeaderTemplate, RelativeSource={RelativeSource TemplatedParent}}"
                                 IsVisible="{Binding Path=IsCustomHeaderVisible, RelativeSource={RelativeSource AncestorType=controls:CustomWindow}}"/>
@@ -267,7 +268,9 @@
                      Background="{Binding Path=HeaderSeparatorBrush, RelativeSource={RelativeSource AncestorType=controls:CustomWindow}}"/>
 
 
-              <Grid Grid.Row="2">
+              <Grid x:Name="PART_ContentContainerPanel"
+                    Grid.Row="2"
+                    MaxWidth="{Binding $parent[Grid].Bounds.Width}">
                 <Border x:Name="BackgroundBorder"
 						Focusable="False"
                         Background="{TemplateBinding Background}"
