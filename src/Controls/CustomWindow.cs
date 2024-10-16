@@ -78,6 +78,13 @@ namespace NP.Ava.Visuals.Controls
                 (canMaximize, canMaximizeFlag) => canMaximize && canMaximizeFlag);
 
             this.Bind<bool>(CanReallyMaximizeProperty, canMaximizeObservable, Avalonia.Data.BindingPriority.Style);
+
+            var canRestoreObservable =
+                this.GetObservable(CanRestoreProperty)
+                .CombineLatest(this.GetObservable(CanRestoreFlagProperty),
+                (canRestore, canRestoreFlag) => canRestore && canRestoreFlag);
+
+            this.Bind<bool>(CanReallyRestoreProperty, canRestoreObservable, Avalonia.Data.BindingPriority.Style);
 #if DEBUG
             this.AttachDevTools();
 #endif
@@ -583,6 +590,40 @@ namespace NP.Ava.Visuals.Controls
             );
         #endregion CanReallyMaximize Styled Avalonia Property
 
+
+        #region CanRestoreFlag Attached Avalonia Property
+        public static bool GetCanRestoreFlag(Control obj)
+        {
+            return obj.GetValue(CanRestoreFlagProperty);
+        }
+
+        public static void SetCanRestoreFlag(Control obj, bool value)
+        {
+            obj.SetValue(CanRestoreFlagProperty, value);
+        }
+
+        public static readonly AttachedProperty<bool> CanRestoreFlagProperty =
+            AvaloniaProperty.RegisterAttached<CustomWindow, Control, bool>
+            (
+                "CanRestoreFlag",
+                true
+            );
+        #endregion CanRestoreFlag Attached Avalonia Property
+
+
+        #region CanReallyRestore Styled Avalonia Property
+        public bool CanReallyRestore
+        {
+            get { return GetValue(CanReallyRestoreProperty); }
+            private set { SetValue(CanReallyRestoreProperty, value); }
+        }
+
+        public static readonly StyledProperty<bool> CanReallyRestoreProperty =
+            AvaloniaProperty.Register<CustomWindow, bool>
+            (
+                nameof(CanReallyRestore)
+            );
+        #endregion CanReallyRestore Styled Avalonia Property
 
 
         #region CustomHeaderIconWidth Avalonia Property

@@ -128,7 +128,7 @@
                   behaviors:CallAction.MethodName="Minimize"/>
           <Button x:Name="RestoreButton"
 				  behaviors:ClassesBehavior.TheClasses="{Binding $parent[Window].WindowButtonClasses}"
-                  IsVisible="{Binding Path=CanRestore}"
+                  IsVisible="{Binding Path=CanReallyRestore}"
                   controls:AttachedProperties.IconData="{StaticResource RestoreIcon}"
                   behaviors:CallAction.MethodName="Restore"/>
           <Button x:Name="MaximizeButton"
