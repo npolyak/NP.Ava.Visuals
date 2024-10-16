@@ -591,24 +591,20 @@ namespace NP.Ava.Visuals.Controls
         #endregion CanReallyMaximize Styled Avalonia Property
 
 
-        #region CanRestoreFlag Attached Avalonia Property
-        public static bool GetCanRestoreFlag(Control obj)
+        #region CanRestoreFlag Styled Avalonia Property
+        public bool CanRestoreFlag
         {
-            return obj.GetValue(CanRestoreFlagProperty);
+            get { return GetValue(CanRestoreFlagProperty); }
+            set { SetValue(CanRestoreFlagProperty, value); }
         }
 
-        public static void SetCanRestoreFlag(Control obj, bool value)
-        {
-            obj.SetValue(CanRestoreFlagProperty, value);
-        }
-
-        public static readonly AttachedProperty<bool> CanRestoreFlagProperty =
-            AvaloniaProperty.RegisterAttached<CustomWindow, Control, bool>
+        public static readonly StyledProperty<bool> CanRestoreFlagProperty =
+            AvaloniaProperty.Register<CustomWindow, bool>
             (
-                "CanRestoreFlag",
+                nameof(CanRestoreFlag),
                 true
             );
-        #endregion CanRestoreFlag Attached Avalonia Property
+        #endregion CanRestoreFlag Styled Avalonia Property
 
 
         #region CanReallyRestore Styled Avalonia Property
