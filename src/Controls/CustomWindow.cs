@@ -29,6 +29,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Avalonia.Controls.Templates;
+using System.Reactive.Linq;
 
 namespace NP.Ava.Visuals.Controls
 {
@@ -71,6 +72,12 @@ namespace NP.Ava.Visuals.Controls
 
             _resizeBehavior = new ResizeBehavior(this);
 
+            var canMaximizeObservable =
+                this.GetObservable(CanMaximizeProperty)
+                .CombineLatest(this.GetObservable(CanMaximizeFlagProperty),
+                (canMaximize, canMaximizeFlag) => canMaximize && canMaximizeFlag);
+
+            this.Bind<bool>(CanReallyMaximizeProperty, canMaximizeObservable, Avalonia.Data.BindingPriority.Style);
 #if DEBUG
             this.AttachDevTools();
 #endif
@@ -544,6 +551,39 @@ namespace NP.Ava.Visuals.Controls
                 nameof(TitleMargin)
             );
         #endregion TitleMargin Styled Avalonia Property
+
+
+        #region CanMaximizeFlag Styled Avalonia Property
+        public bool CanMaximizeFlag
+        {
+            get { return GetValue(CanMaximizeFlagProperty); }
+            set { SetValue(CanMaximizeFlagProperty, value); }
+        }
+
+        public static readonly StyledProperty<bool> CanMaximizeFlagProperty =
+            AvaloniaProperty.Register<CustomWindow, bool>
+            (
+                nameof(CanMaximizeFlag),
+                true
+            );
+        #endregion CanMaximizeFlag Styled Avalonia Property
+
+
+        #region CanReallyMaximize Styled Avalonia Property
+        public bool CanReallyMaximize
+        {
+            get { return GetValue(CanReallyMaximizeProperty); }
+            private set { SetValue(CanReallyMaximizeProperty, value); }
+        }
+
+        public static readonly StyledProperty<bool> CanReallyMaximizeProperty =
+            AvaloniaProperty.Register<CustomWindow, bool>
+            (
+                nameof(CanReallyMaximize)
+            );
+        #endregion CanReallyMaximize Styled Avalonia Property
+
+
 
         #region CustomHeaderIconWidth Avalonia Property
         public double CustomHeaderIconWidth
