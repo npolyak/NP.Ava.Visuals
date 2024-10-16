@@ -177,9 +177,9 @@
     <Setter Property="SystemDecorations"
             Value="None"/>
     <Setter Property="MinWidth"
-        Value="100"/>
+        Value="900"/>
     <Setter Property="MinHeight"
-            Value="100"/>
+            Value="650"/>
     <Setter Property="TitleClasses"
             Value="DefaultWindowTitle"/>
     <Setter Property="BorderBrush"
