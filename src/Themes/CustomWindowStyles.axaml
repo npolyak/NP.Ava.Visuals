@@ -218,7 +218,8 @@
                                                  VerticalAlignment="Stretch"
 												 Focusable="False"/>
               
-              <ContentPresenter HorizontalAlignment="Stretch"
+              <ContentPresenter x:Name="IconAndTitleContentPresenter" 
+                                HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 Grid.Column="1"
 				                Focusable="False"
