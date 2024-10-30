@@ -305,6 +305,7 @@
 					  Focusable="False"/>
               
               <Grid x:Name="ResizeGrid"
+                    IsHitTestVisible="{Binding $parent[controls:CustomWindow].CanResize}"
                     Grid.RowSpan="3" Margin="{Binding Path=BorderThickness,
                                          Converter={x:Static converters:NoTopBorderThicknessConverter.Instance},
                                          RelativeSource={RelativeSource TemplatedParent}}">
