@@ -74,22 +74,23 @@ namespace NP.Ava.Visuals.Controls
 
             var canMaximizeObservable =
                 this.GetObservable(CanMaximizeProperty)
-                .CombineLatest(this.GetObservable(CanMaximizeFlagProperty),
-                (canMaximize, canMaximizeFlag) => canMaximize && canMaximizeFlag);
+                .CombineLatest
+                (
+                    this.GetObservable(CanMaximizeFlagProperty),
+                    (canMaximize, canMaximizeFlag) => canMaximize && canMaximizeFlag);
 
-            this.Bind<bool>(CanReallyMaximizeProperty, canMaximizeObservable, Avalonia.Data.BindingPriority.Style);
+            this.Bind<bool>(CanReallyMaximizeProperty, canMaximizeObservable);
 
             var canRestoreObservable =
                 this.GetObservable(CanRestoreProperty)
                 .CombineLatest(this.GetObservable(CanRestoreFlagProperty),
                 (canRestore, canRestoreFlag) => canRestore && canRestoreFlag);
 
-            this.Bind<bool>(CanReallyRestoreProperty, canRestoreObservable, Avalonia.Data.BindingPriority.Style);
+            this.Bind<bool>(CanReallyRestoreProperty, canRestoreObservable);
 #if DEBUG
             this.AttachDevTools();
 #endif
         }
-
 
         public bool IsTemplateApplied { get; private set; }
 
@@ -266,7 +267,9 @@ namespace NP.Ava.Visuals.Controls
 
         private void OnHeaderDoubleTapped(object? sender, RoutedEventArgs e)
         {
-            if (!CanResize || !CanReallyMaximize)
+            if ( 
+                ((!CanResize || !CanReallyMaximize) && (this.WindowState == WindowState.Normal)) ||
+                (!CanReallyRestore && this.WindowState != WindowState.Normal))
             {
                 return;
             }
