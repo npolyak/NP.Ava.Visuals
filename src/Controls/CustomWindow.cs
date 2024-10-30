@@ -266,7 +266,7 @@ namespace NP.Ava.Visuals.Controls
 
         private void OnHeaderDoubleTapped(object? sender, RoutedEventArgs e)
         {
-            if (!CanResize)
+            if (!CanResize || !CanReallyMaximize)
             {
                 return;
             }
