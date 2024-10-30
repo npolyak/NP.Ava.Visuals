@@ -128,11 +128,13 @@
                   behaviors:CallAction.MethodName="Minimize"/>
           <Button x:Name="RestoreButton"
 				  behaviors:ClassesBehavior.TheClasses="{Binding $parent[Window].WindowButtonClasses}"
+                  IsEnabled="{Binding CanResize}"
                   IsVisible="{Binding Path=CanReallyRestore}"
                   controls:AttachedProperties.IconData="{StaticResource RestoreIcon}"
                   behaviors:CallAction.MethodName="Restore"/>
           <Button x:Name="MaximizeButton"
 				  behaviors:ClassesBehavior.TheClasses="{Binding $parent[Window].WindowButtonClasses}"
+                  IsEnabled="{Binding CanResize}"
                   IsVisible="{Binding Path=CanReallyMaximize}"
                   controls:AttachedProperties.IconData="{StaticResource MaximizeIcon}"
                   behaviors:CallAction.MethodName="Maximize"/>
