@@ -179,9 +179,9 @@
     <Setter Property="SystemDecorations"
             Value="None"/>
     <Setter Property="MinWidth"
-        Value="900"/>
+        Value="200"/>
     <Setter Property="MinHeight"
-            Value="650"/>
+            Value="150"/>
     <Setter Property="TitleClasses"
             Value="DefaultWindowTitle"/>
     <Setter Property="BorderBrush"
@@ -260,7 +260,6 @@
                 <RowDefinition Height="*"/>
               </Grid.RowDefinitions>
               <TemplatedControl x:Name="PART_HeaderControl"
-                                MaxWidth="{Binding $parent[Grid].Bounds.Width}"
 								Focusable="False"
                                 Template="{Binding Path=HeaderTemplate, RelativeSource={RelativeSource TemplatedParent}}"
                                 IsVisible="{Binding Path=IsCustomHeaderVisible, RelativeSource={RelativeSource AncestorType=controls:CustomWindow}}"/>
@@ -272,8 +271,7 @@
 
 
               <Grid x:Name="PART_ContentContainerPanel"
-                    Grid.Row="2"
-                    MaxWidth="{Binding $parent[Grid].Bounds.Width}">
+                    Grid.Row="2">
                 <Border x:Name="BackgroundBorder"
 						Focusable="False"
                         Background="{TemplateBinding Background}"

@@ -19,7 +19,7 @@ namespace NP.Demos.MultiPlatformWindowDemo
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = 
-                    new StartupTestWindow{ Width = 600, Height = 400 };
+                    new StartupTestWindow{ SizeToContent = SizeToContent.WidthAndHeight, Content = "Hello World!" };
 
                 desktop.MainWindow.Classes.Add("PlainCustomWindow");
             }
