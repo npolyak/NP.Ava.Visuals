@@ -24,7 +24,7 @@ namespace NP.Ava.Visuals.Converters
             if (uri.IsAbsoluteUri && uri.IsFile)
                 return new Bitmap(uri.LocalPath);
 
-            Uri? baseUri = parameter as Uri;
+            Uri? baseUri = (parameter != null) ? new Uri(parameter.ToString(), UriKind.Absolute) : null;
 
             if (AssetLoader.Exists(uri, baseUri))
             {
