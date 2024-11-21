@@ -2,6 +2,7 @@
 global using Rect2D = NP.Utilities.Rect2D<double>;
 
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.VisualTree;
 using NP.Utilities;
@@ -84,6 +85,17 @@ namespace NP.Ava.Visuals
                 c.PointToScreen(new Point(c.Bounds.Width, c.Bounds.Height));
 
             return new Rect2D(startPoint.ToPoint2D(), endPoint.ToPoint2D());
+        }
+
+        public static Point2D GetWindowStartPoint(this Window w)
+        {
+            return new Point2D(w.Position.X, w.Position.Y);
+        }
+
+        public static Rect2D GetWindowRectangleInScreen(this Window w)
+        {
+            var startPoint = w.GetWindowStartPoint();
+            return new Rect2D(startPoint, startPoint.Plus(w.GetSize()));
         }
 
         public static Point ToPoint(this Size size)
