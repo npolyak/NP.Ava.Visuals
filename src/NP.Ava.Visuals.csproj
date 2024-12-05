@@ -60,7 +60,7 @@
         <AvaloniaResource Include="Themes\ThemeStyles.axaml" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.2.0" />
+        <PackageReference Include="Avalonia" Version="11.2.2.0" />
         <PackageReference Include="IgnoresAccessChecksToGenerator" Version="0.7.0" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup>
@@ -69,8 +69,8 @@
         <InternalsAssemblyName Include="Avalonia.Controls.DataGrid" />
     </ItemGroup>
     <ItemGroup Condition="'$(Configuration)'=='Debug'">
-        <PackageReference Include="Avalonia.Diagnostics" Version="11.2.0" />
-        <PackageReference Include="Avalonia.Desktop" Version="11.2.0" />
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.2.2.0" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.2.2.0" />
         <ProjectReference Include="$(SolutionDir)..\..\SubModules\NP.Concepts.Behaviors\src\NP.Concepts.Behaviors.csproj" />
         <ProjectReference Include="$(SolutionDir)..\..\SubModules\NP.ViewModelInterfaces\src\NP.ViewModelInterfaces.csproj" />
     </ItemGroup>
