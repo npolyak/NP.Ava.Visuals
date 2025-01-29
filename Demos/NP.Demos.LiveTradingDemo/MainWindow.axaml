@@ -5,9 +5,54 @@
 					x:Class="NP.Demos.LiveTradingDemo.MainWindow"
 					Classes="PlainCustomWindow"
 					Title="NP.LiveTradingDemo"
-					Width="600"
-					Height="400">
-	<Grid RowDefinitions="*,*"
-		  Background="Aqua">
+					Width="800"
+					Height="600">
+	<np:CustomWindow.Resources>
+		
+	</np:CustomWindow.Resources>
+	<Grid>
+		<DataGrid AutoGenerateColumns="False"
+				  IsReadOnly="True">
+			<!--<DataGrid.RowTheme>
+				<ControlTheme TargetType="{x:Type DataGridRow}">
+					
+				</ControlTheme>
+			</DataGrid.RowTheme>-->
+			<DataGrid.Columns>
+				<DataGridTextColumn
+					Header="Customer"
+					Binding="{ReflectionBinding Customer}"/>
+				<DataGridTextColumn
+					Header="Currency Pair"
+					Binding="{ReflectionBinding CurrencyPair}"/>
+				<DataGridTextColumn Header="Amount"
+									Binding="{Binding Amount,Mode=OneWay, StringFormat='N'}">
+					<DataGridTextColumn.CellTheme>
+						<ControlTheme TargetType="TextBlock">
+							<Setter Property="HorizontalAlignment"
+									Value="Right" />
+						</ControlTheme>
+					</DataGridTextColumn.CellTheme>
+				</DataGridTextColumn>
+
+				<DataGridTextColumn
+					Header="Trade Price"
+					Binding="{ReflectionBinding TradePrice,Mode=OneWay}"/>
+				<DataGridTextColumn
+					Header="Market Price"
+					Binding="{ReflectionBinding MarketPrice,Mode=OneWay}"/>
+				<DataGridTextColumn
+					Header="%"
+					Binding="{ReflectionBinding PercentFromMarket,Mode=OneWay}"/>
+
+				<DataGridTextColumn
+					Header="Status"
+					Binding="{ReflectionBinding Status,Mode=OneWay}"/>
+
+				<DataGridTextColumn
+					Header="Created At"
+					Binding="{ReflectionBinding Timestamp,Mode=OneWay}"/>
+			</DataGrid.Columns>
+		</DataGrid>
 	</Grid>
 </np:CustomWindow>
