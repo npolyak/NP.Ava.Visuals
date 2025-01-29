@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Remove="Assets\LinuxIcon.jpg" />
+	</ItemGroup>
+	<ItemGroup>
+		<AvaloniaResource Include="Assets\LinuxIcon.jpg" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(Configuration)'=='Debug'">
+		<ProjectReference Include="$(SolutionDir)..\..\src\NP.Ava.Visuals.csproj" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(Configuration)'=='Release'">
+		<PackageReference Include="NP.Ava.Visuals"
+						  Version="1.0.42"/>
+	</ItemGroup>
+</Project>

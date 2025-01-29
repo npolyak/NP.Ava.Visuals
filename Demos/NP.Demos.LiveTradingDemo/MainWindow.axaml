@@ -1,0 +1,13 @@
+<np:CustomWindow xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:np="https://np.com/visuals"
+					xmlns:local="clr-namespace:NP.Demos.LiveTradingDemo"
+					x:Class="NP.Demos.LiveTradingDemo.MainWindow"
+					Classes="PlainCustomWindow"
+					Title="NP.LiveTradingDemo"
+					Width="600"
+					Height="400">
+	<Grid RowDefinitions="*,*"
+		  Background="Aqua">
+	</Grid>
+</np:CustomWindow>
