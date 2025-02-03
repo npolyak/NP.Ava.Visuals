@@ -1,35 +1,38 @@
 <np:CustomWindow xmlns="https://github.com/avaloniaui"
-					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:np="https://np.com/visuals"
-					xmlns:local="clr-namespace:NP.Demos.LiveTradingDemo"
-					x:Class="NP.Demos.LiveTradingDemo.MainWindow"
-					Classes="PlainCustomWindow"
-					Title="NP.LiveTradingDemo"
-					Width="800"
-					Height="600">
+				 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				 xmlns:np="https://np.com/visuals"
+				 xmlns:local="clr-namespace:NP.Demos.LiveTradingDemo"
+				 x:Class="NP.Demos.LiveTradingDemo.MainWindow"
+				 Classes="PlainCustomWindow"
+				 Title="NP.LiveTradingDemo"
+				 xmlns:vm="using:NP.Demos.LiveTradingDemo.Domain.Model"
+				 Width="800"
+				 Height="600">
 	<np:CustomWindow.Resources>
-		<np:BoolToBrushConverter x:Key="RecentBackgroundConverter" 
+		<np:BoolToBrushConverter x:Key="RecentBackgroundConverter"
 								 FalseValue="Transparent"
 								 TrueValue="Orange"/>
 	</np:CustomWindow.Resources>
 	<Grid>
 		<DataGrid AutoGenerateColumns="False"
 				  IsReadOnly="True"
-				  ItemsSource="{Binding Data}">
+				  ItemsSource="{Binding Data}"
+				  CanUserResizeColumns="True">
 			<DataGrid.RowTheme>
 				<ControlTheme TargetType="DataGridRow"
+							  x:DataType="vm:TradeProxy"
 							  BasedOn="{StaticResource {x:Type DataGridRow}}">
 					<Setter Property="Background"
-							Value="{ReflectionBinding Recent, Converter={StaticResource RecentBackgroundConverter}}"/>
+							Value="{Binding Recent, Converter={StaticResource RecentBackgroundConverter}}"/>
 				</ControlTheme>
 			</DataGrid.RowTheme>
 			<DataGrid.Columns>
 				<DataGridTextColumn
 					Header="Customer"
-					Binding="{ReflectionBinding Customer}"/>
+					Binding="{Binding Customer}"/>
 				<DataGridTextColumn
 					Header="Currency Pair"
-					Binding="{ReflectionBinding CurrencyPair}"/>
+					Binding="{Binding CurrencyPair}"/>
 				<DataGridTextColumn Header="Amount"
 									Binding="{Binding Amount,Mode=OneWay, StringFormat='N'}">
 					<DataGridTextColumn.CellTheme>
@@ -42,21 +45,21 @@
 
 				<DataGridTextColumn
 					Header="Trade Price"
-					Binding="{ReflectionBinding TradePrice,Mode=OneWay}"/>
+					Binding="{Binding TradePrice,Mode=OneWay}"/>
 				<DataGridTextColumn
 					Header="Market Price"
-					Binding="{ReflectionBinding MarketPrice,Mode=OneWay}"/>
+					Binding="{Binding MarketPrice,Mode=OneWay}"/>
 				<DataGridTextColumn
 					Header="%"
-					Binding="{ReflectionBinding PercentFromMarket,Mode=OneWay}"/>
+					Binding="{Binding PercentFromMarket,Mode=OneWay}"/>
 
 				<DataGridTextColumn
 					Header="Status"
-					Binding="{ReflectionBinding Status,Mode=OneWay}"/>
+					Binding="{Binding Status,Mode=OneWay}"/>
 
 				<DataGridTextColumn
 					Header="Created At"
-					Binding="{ReflectionBinding Timestamp,Mode=OneWay}"/>
+					Binding="{Binding Timestamp,Mode=OneWay}"/>
 			</DataGrid.Columns>
 		</DataGrid>
 	</Grid>
