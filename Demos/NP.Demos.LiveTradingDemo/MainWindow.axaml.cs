@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using NP.Ava.Visuals.Controls;
+using NP.Demos.LiveTradingDemo.ViewModels;
 
 namespace NP.Demos.LiveTradingDemo
 {
@@ -22,6 +23,7 @@ namespace NP.Demos.LiveTradingDemo
             );
         #endregion WindowPosition Styled Avalonia Property
 
+        LiveTradesViewModel _viewModel;
 
         public MainWindow()
         {
@@ -29,6 +31,9 @@ namespace NP.Demos.LiveTradingDemo
 #if DEBUG
             this.AttachDevTools();
 #endif
+            _viewModel = new LiveTradesViewModel();
+
+            this.DataContext = _viewModel;
         }
 
         private void OnMyEvent(object? sender, RoutedEventArgs e)

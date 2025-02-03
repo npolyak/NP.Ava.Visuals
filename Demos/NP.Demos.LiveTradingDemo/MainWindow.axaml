@@ -8,16 +8,21 @@
 					Width="800"
 					Height="600">
 	<np:CustomWindow.Resources>
-		
+		<np:BoolToBrushConverter x:Key="RecentBackgroundConverter" 
+								 FalseValue="Transparent"
+								 TrueValue="Orange"/>
 	</np:CustomWindow.Resources>
 	<Grid>
 		<DataGrid AutoGenerateColumns="False"
-				  IsReadOnly="True">
-			<!--<DataGrid.RowTheme>
-				<ControlTheme TargetType="{x:Type DataGridRow}">
-					
+				  IsReadOnly="True"
+				  ItemsSource="{Binding Data}">
+			<DataGrid.RowTheme>
+				<ControlTheme TargetType="DataGridRow"
+							  BasedOn="{StaticResource {x:Type DataGridRow}}">
+					<Setter Property="Background"
+							Value="{ReflectionBinding Recent, Converter={StaticResource RecentBackgroundConverter}}"/>
 				</ControlTheme>
-			</DataGrid.RowTheme>-->
+			</DataGrid.RowTheme>
 			<DataGrid.Columns>
 				<DataGridTextColumn
 					Header="Customer"

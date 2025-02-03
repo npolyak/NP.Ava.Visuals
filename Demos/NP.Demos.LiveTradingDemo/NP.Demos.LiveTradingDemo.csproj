@@ -12,7 +12,16 @@
 		<ProjectReference Include="$(SolutionDir)..\..\src\NP.Ava.Visuals.csproj" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(Configuration)'=='Release'">
-		<PackageReference Include="NP.Ava.Visuals"
-						  Version="1.0.42"/>
+		<PackageReference Include="NP.Ava.Visuals" Version="1.0.42" />
+	</ItemGroup>
+	<ItemGroup>
+		<InternalsAssemblyName Include="Avalonia" />
+		<InternalsAssemblyName Include="Avalonia.Base" />
+		<InternalsAssemblyName Include="Avalonia.Controls.DataGrid" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="DynamicData" Version="9.1.1" />
+
+		<PackageReference Include="IgnoresAccessChecksToGenerator" Version="0.8.0" PrivateAssets="All" />
 	</ItemGroup>
 </Project>
