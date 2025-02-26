@@ -1,3 +1,5 @@
+global using Point2D = NP.Utilities.Point2D<double>;
+
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -18,14 +20,14 @@ namespace NP.ThemingPrototype
 
 
         #region ThePoint Styled Avalonia Property
-        public Point2D ThePoint
+        public Point ThePoint
         {
             get { return GetValue(ThePointProperty); }
             set { SetValue(ThePointProperty, value); }
         }
 
-        public static readonly StyledProperty<Point2D> ThePointProperty =
-            AvaloniaProperty.Register<MainWindow, Point2D>
+        public static readonly StyledProperty<Point> ThePointProperty =
+            AvaloniaProperty.Register<MainWindow, Point>
             (
                 nameof(ThePoint)
             );
