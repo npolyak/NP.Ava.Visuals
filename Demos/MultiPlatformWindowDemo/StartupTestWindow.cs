@@ -40,11 +40,11 @@ namespace NP.Demos.MultiPlatformWindowDemo
             var window = new CustomWindow
             {
                 Width = 600,
-                Height = 500,
-                //Classes = new Classes("CompleteHeaderRestyling")
+                Height = 500
             };
 
-            Classes.Add("CompleteHeaderRestyling");
+            window.Classes.Add("CompleteHeaderRestyling");
+
             window.Show();
         }
     }

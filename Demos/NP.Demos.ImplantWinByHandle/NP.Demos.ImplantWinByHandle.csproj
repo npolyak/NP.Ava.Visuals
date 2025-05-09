@@ -20,7 +20,4 @@
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
    </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\NP.Ava.Visuals.csproj" />
-  </ItemGroup>
 </Project>

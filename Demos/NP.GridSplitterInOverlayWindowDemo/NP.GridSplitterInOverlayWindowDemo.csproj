@@ -5,7 +5,4 @@
   <ItemGroup>
     <None Remove=".gitignore" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\NP.Ava.Visuals.csproj" />
-  </ItemGroup>
 </Project>

@@ -18,8 +18,8 @@
                  ExtendClientAreaChromeHints="NoChrome">
     <StackPanel HorizontalAlignment="Center"
                 VerticalAlignment="Center">
-        <TextBlock Text="{ReflectionBinding $parent[Window].WindowPosition, StringFormat='Window Position: \{0\}'}"/>
-        <TextBlock Text="{ReflectionBinding $parent[Window].CurrentPointerPositionInScreen, StringFormat='Pointer Position: \{0\}'}"/>
-        <TextBlock Text="{ReflectionBinding $parent[Window].CurrentCapturedPointerPositionInScreen, StringFormat='Captured Pointer Position: \{0\}'}"/>
+        <TextBlock Text="{Binding $parent[Window].WindowPosition, StringFormat='Window Position: \{0\}'}"/>
+        <TextBlock Text="{Binding $parent[Window].CurrentPointerPositionInScreen, StringFormat='Pointer Position: \{0\}'}"/>
+        <TextBlock Text="{Binding $parent[Window].CurrentCapturedPointerPositionInScreen, StringFormat='Captured Pointer Position: \{0\}'}"/>
     </StackPanel>
 </np:CustomWindow>

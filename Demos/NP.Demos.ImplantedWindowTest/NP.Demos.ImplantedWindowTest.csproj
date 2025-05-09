@@ -3,10 +3,4 @@
     <OutputType>WinExe</OutputType>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
-  <ItemGroup>
-    <None Remove="nuget.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)..\..\src\NP.Ava.Visuals.csproj" />
-  </ItemGroup>
 </Project>
