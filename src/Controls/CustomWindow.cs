@@ -20,20 +20,17 @@ using Avalonia.Markup.Xaml.Templates;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
-using Avalonia.Styling;
-using Avalonia.VisualTree;
 using NP.Ava.Visuals.Behaviors;
 using NP.Utilities;
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.InteropServices;
 using Avalonia.Controls.Templates;
 using System.Reactive.Linq;
 
 namespace NP.Ava.Visuals.Controls
 {
-    public class CustomWindow : Window, IStyleable
+    public class CustomWindow : Window
     {
         private const string ComponentName = nameof(CustomWindow);
 
@@ -87,9 +84,6 @@ namespace NP.Ava.Visuals.Controls
                 (canRestore, canRestoreFlag) => canRestore && canRestoreFlag);
 
             this.Bind<bool>(CanReallyRestoreProperty, canRestoreObservable);
-#if DEBUG
-            this.AttachDevTools();
-#endif
         }
 
         public bool IsTemplateApplied { get; private set; }
@@ -236,7 +230,8 @@ namespace NP.Ava.Visuals.Controls
             }
         }
 
-        Type IStyleable.StyleKey => typeof(CustomWindow);
+        protected override Type StyleKeyOverride => typeof(CustomWindow);
+        //Type IStyleable.StyleKey => typeof(CustomWindow);
 
         protected PixelPoint StartPointerPosition;
         protected PixelPoint StartWindowPosition;
