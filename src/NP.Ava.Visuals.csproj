@@ -3,7 +3,7 @@
     <PropertyGroup>
         <RootNamespace>NP.Ava.Visuals</RootNamespace>
         <PackageId>NP.Ava.Visuals</PackageId>
-        <Version>1.0.40</Version>
+        <Version>1.0.46</Version>
         <Authors>Nick Polyak, Ph. D.</Authors>
         <Company>AWebPros</Company>
         <Authors>Nick Polyak Ph. D.</Authors>
@@ -61,7 +61,7 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
-        <PackageReference Include="IgnoresAccessChecksToGenerator" Version="0.7.0" PrivateAssets="All" />
+        <PackageReference Include="IgnoresAccessChecksToGenerator" Version="0.8.0" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup>
         <InternalsAssemblyName Include="Avalonia" />
