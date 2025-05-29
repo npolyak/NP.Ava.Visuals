@@ -9,10 +9,4 @@
   <ItemGroup>
     <AvaloniaResource Include="Assets\LinuxIcon.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\NP.Ava.Visuals.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
-  </ItemGroup>
 </Project>

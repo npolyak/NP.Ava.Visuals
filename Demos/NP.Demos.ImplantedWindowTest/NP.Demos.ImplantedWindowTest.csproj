@@ -6,7 +6,4 @@
   <ItemGroup>
     <None Remove="nuget.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)..\..\src\NP.Ava.Visuals.csproj" />
-  </ItemGroup>
 </Project>

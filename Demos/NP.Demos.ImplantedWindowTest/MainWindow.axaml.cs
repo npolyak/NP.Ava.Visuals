@@ -37,7 +37,9 @@ namespace NP.Demos.BehaviorPrototypes
 
             //_control.ProcessExePath = path;
 
-            _control.GetObservable(ProcessControllerBehavior.MainWindowHandleProperty).Subscribe(OnWindowHandleChanged);
+            _control
+                .GetObservable(ProcessControllerBehavior.MainWindowHandleProperty)
+                .Subscribe(OnWindowHandleChanged);
 
             ProcessControllerBehavior.SetProcessExePath(_control, path);
 
