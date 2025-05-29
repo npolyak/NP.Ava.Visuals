@@ -8,8 +8,4 @@
 	<ItemGroup>
 		<AvaloniaResource Include="Assets\LinuxIcon.jpg" />
 	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="$(SolutionDir)..\..\src\NP.Ava.Visuals.csproj" />
-	</ItemGroup>
 </Project>
