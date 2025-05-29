@@ -10,11 +10,11 @@
 	<Grid 
 		  Margin="10"
 		  np:GridPartsResizeBehavior.Target="{Binding RelativeSource={RelativeSource Self}}"
-		  np:OverlayWindowBehavior.IsOpen="{Binding Path=(np:GridPartsResizeBehavior.CurrentSplitterPosition), 
-													Converter={x:Static ObjectConverters.IsNotNull}
-													RelativeSource={RelativeSource Self}}"
-		  np:OverlayWindowBehavior.IsTopmost="True"
-		  np:OverlayWindowBehavior.Content="{Binding RelativeSource={RelativeSource Self}, 
+		  np:OverlayBehavior.IsOpen="{Binding Path=(np:GridPartsResizeBehavior.CurrentSplitterPosition), 
+											  Converter={x:Static ObjectConverters.IsNotNull}
+											  RelativeSource={RelativeSource Self}}"
+		  np:OverlayBehavior.IsTopmost="True"
+		  np:OverlayBehavior.Content="{Binding RelativeSource={RelativeSource Self}, 
 													 Converter={x:Static np:ToControlContainerConverter.Instance}}">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"
@@ -23,7 +23,7 @@
 			<ColumnDefinition Width="*"
 							  MinWidth="30"/>
 		</Grid.ColumnDefinitions>
-		<np:OverlayWindowBehavior.ContentTemplate>
+		<np:OverlayBehavior.ContentTemplate>
 			<DataTemplate>
 				<Grid Background="#55880000"
 					  DataContext="{Binding Control}">
@@ -38,7 +38,7 @@
 					</Grid>
 				</Grid>
 			</DataTemplate>
-		</np:OverlayWindowBehavior.ContentTemplate>
+		</np:OverlayBehavior.ContentTemplate>
 		<local:MyGridSplitter x:Name="TheSplitter" 
 					  ShowsPreview="True"
 					  Grid.Column="1"

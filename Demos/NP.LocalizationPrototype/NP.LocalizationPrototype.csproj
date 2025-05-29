@@ -15,7 +15,4 @@
     <AvaloniaResource Include="Images\Russian.jpg" />
     <AvaloniaResource Include="Images\USA.png" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\NP.Ava.Visuals.csproj" />
-  </ItemGroup>
 </Project>
