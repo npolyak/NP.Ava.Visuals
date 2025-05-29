@@ -10,7 +10,6 @@
 				 Focusable="False"
 				 HeaderBackground="{DynamicResource ControlBorderBrush}"
 				 Background="{DynamicResource SectionBackgroundBrush}"
-				 ThePoint="22,33"
 				 x:Name="Root"
 				 Width="1000"
 				 Height="400">

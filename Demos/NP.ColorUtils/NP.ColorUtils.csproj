@@ -7,9 +7,4 @@
   <ItemGroup>
     <None Remove=".gitignore" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\NP.Ava.Visuals.csproj" />
-    <ProjectReference Include="..\..\SubModules\NP.Concepts.Behaviors\src\NP.Concepts.Behaviors.csproj" />
-    <ProjectReference Include="..\..\SubModules\NP.Utilities\src\NP.Utilities.csproj" />
-  </ItemGroup>
 </Project>

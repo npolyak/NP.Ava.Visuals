@@ -16,22 +16,6 @@ namespace NP.ThemingPrototype
 
         ReactiveVisualDesendantsBehavior _flattenVisualTreeBehavior;
 
-
-        #region ThePoint Styled Avalonia Property
-        public Point2D ThePoint
-        {
-            get { return GetValue(ThePointProperty); }
-            set { SetValue(ThePointProperty, value); }
-        }
-
-        public static readonly StyledProperty<Point2D> ThePointProperty =
-            AvaloniaProperty.Register<MainWindow, Point2D>
-            (
-                nameof(ThePoint)
-            );
-        #endregion ThePoint Styled Avalonia Property
-
-
         public MainWindow()
         {
             InitializeComponent();
