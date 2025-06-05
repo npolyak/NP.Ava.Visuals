@@ -1,0 +1,21 @@
+<Project>
+    <PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
+        <AvaloniaVersion>11.3.0</AvaloniaVersion>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Remove=".gitignore" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(Configuration)'=='Debug'">
+        <ProjectReference Include="$(SolutionDir)..\..\src\NP.Ava.Visuals.csproj" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(Configuration)'=='Release'">
+        <PackageReference Include="NP.Ava.Visuals" Version="1.0.46"/>
+		<PackageReference Include="Avalonia.Desktop"
+						  Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.Themes.Simple"
+						  Version="$(AvaloniaVersion)" />
+
+	</ItemGroup>
+</Project>

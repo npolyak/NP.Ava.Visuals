@@ -5,11 +5,4 @@
   <ItemGroup>
     <None Remove=".gitignore" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
-    <PackageReference Include="Avalonia.Diagnostics" Version="11.0.10" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\NP.Ava.Visuals.csproj" />
-  </ItemGroup>
 </Project>
