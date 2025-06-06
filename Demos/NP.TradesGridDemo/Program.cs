@@ -1,7 +1,7 @@
 using Avalonia;
 using System;
 
-namespace NP.Demos.SimpleThemingAndL10NSample
+namespace NP.TradesGridDemo
 {
     class Program
     {
