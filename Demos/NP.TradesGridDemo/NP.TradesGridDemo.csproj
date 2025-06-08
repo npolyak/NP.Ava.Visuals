@@ -2,4 +2,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SubModules\NP.Mockups\Finance\NP.Mockups.Finance\NP.Mockups.Finance.csproj" />
+  </ItemGroup>
 </Project>

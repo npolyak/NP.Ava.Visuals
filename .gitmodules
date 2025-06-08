@@ -13,3 +13,6 @@
 [submodule "SubModules/NP.ViewModelInterfaces"]
 	path = SubModules/NP.ViewModelInterfaces
 	url = https://github.com/npolyak/NP.ViewModelInterfaces.git
+[submodule "SubModules/NP.Mockups"]
+	path = SubModules/NP.Mockups
+	url = https://github.com/npolyak/NP.Mockups.git
