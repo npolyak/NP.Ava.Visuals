@@ -4,7 +4,7 @@
              xmlns:np="https://np.com/visuals"
              xmlns:local="clr-namespace:NP.TradesGridDemo">
 	<Application.Styles>
-		<!--<FluentTheme Mode="Dark"/>-->
 		<SimpleTheme/>
+		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Simple.xaml" />
 	</Application.Styles>
 </Application>

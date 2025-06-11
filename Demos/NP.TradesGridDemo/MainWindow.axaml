@@ -8,4 +8,16 @@
 		Width="600"
 		Height="600"
 		Background="{StaticResource PrimaryBrush}">
+	<DataGrid ItemsSource="{Binding ResultTrades}"
+			  AutoGenerateColumns="False"
+			  Background="Transparent"
+			  RowBackground="Transparent">
+		<DataGrid.Columns>
+			<DataGridTextColumn Header="Symbol" 
+								Binding="{Binding TheSymbol}"/>
+			<DataGridTextColumn Header="Total Trade Price"
+								Binding="{Binding TotalTradePrice, StringFormat='\{0:##\}'}"/>
+		</DataGrid.Columns>
+		
+	</DataGrid>
 </Window>

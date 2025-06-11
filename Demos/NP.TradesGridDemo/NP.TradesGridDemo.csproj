@@ -3,6 +3,10 @@
     <OutputType>WinExe</OutputType>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.3.0" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.0" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\SubModules\NP.Mockups\Finance\NP.Mockups.Finance\NP.Mockups.Finance.csproj" />
   </ItemGroup>
 </Project>
