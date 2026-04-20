@@ -32,7 +32,7 @@ using Avalonia.Controls.Templates;
 
 namespace NP.Ava.Visuals.Controls
 {
-    public class CustomWindow : Window, IStyleable
+    public class CustomWindow : Window
     {
         private const string ComponentName = nameof(CustomWindow);
 
@@ -68,7 +68,7 @@ namespace NP.Ava.Visuals.Controls
 
             _windowCustomFeatureDisposer =
                 HasCustomWindowFeaturesProperty.Changed.Subscribe(OnHasCustomFeaturesChanged);
-
+            
             _resizeBehavior = new ResizeBehavior(this);
         }
 
@@ -82,7 +82,6 @@ namespace NP.Ava.Visuals.Controls
             {
                 SetIsHitVisibleOnResizeControls(false);
                 this.IsCustomHeaderVisible = false;
-                this.SystemDecorations = SystemDecorations.Full;
             }
             else
             {
@@ -213,7 +212,7 @@ namespace NP.Ava.Visuals.Controls
             }
         }
 
-        Type IStyleable.StyleKey => typeof(CustomWindow);
+        protected override Type StyleKeyOverride => typeof(CustomWindow);
 
         protected PixelPoint StartPointerPosition;
         protected PixelPoint StartWindowPosition;
@@ -368,7 +367,7 @@ namespace NP.Ava.Visuals.Controls
 
         internal void Resize(Size size)
         {
-            this.ArrangeSetBounds(size);
+            this.CallMethodExtras("ArrangeSetBounds", true, false, size);
             //PlatformImpl?.Resize(size);
         }
 

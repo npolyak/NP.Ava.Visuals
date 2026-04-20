@@ -4,6 +4,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.PropertyStore;
 
 namespace NP.Ava.Visuals.Controls
 {
@@ -97,5 +98,6 @@ namespace NP.Ava.Visuals.Controls
                 nameof(Padding)
             );
         #endregion Padding Styled Avalonia Property
+
     }
 }

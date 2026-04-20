@@ -7,10 +7,11 @@ using System.Reactive.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using NP.Utilities;
 
 namespace NP.Ava.Visuals.MarkupExtensions
 {
-    public class DynamicResourceBinding : Binding, IBinding
+    public class DynamicResourceBinding : ReflectionBinding
 	{
         public DynamicResourceBinding()
         {
@@ -26,7 +27,7 @@ namespace NP.Ava.Visuals.MarkupExtensions
 			return tr?.Resolve(name);
 		}
 
-		public IBinding ProvideValue(IServiceProvider serviceProvider)
+		public ReflectionBinding ProvideValue(IServiceProvider serviceProvider)
         {
 			var descriptorContext = (ITypeDescriptorContext)serviceProvider;
 
@@ -38,23 +39,25 @@ namespace NP.Ava.Visuals.MarkupExtensions
 
 		Dictionary<IDisposable, object> dict = new Dictionary<IDisposable, object>();
 
-		public new InstancedBinding Initiate(
+
+
+		public new BindingExpressionBase CreateInstance(
 			AvaloniaObject target,
 			AvaloniaProperty targetProperty,
-			object? anchor = null,
-			bool enableDataValidation = false)
+			object? anchor = null)
 		{
 			var target1 = target as IResourceHost ?? anchor;
 			if (target1 is IResourceHost resourceHost)
 			{
-				var instBinding = base.Initiate(target, targetProperty, anchor, enableDataValidation);
 
-				return 
-					InstancedBinding.OneWay
-					(
-						instBinding.Observable
-							.Select(value => value != null ? resourceHost.GetResourceObservable(value.ToString()) : Observable.Never<object>())
-							.Switch());
+				var instBinding = base.CreateInstance(target, targetProperty, anchor);
+
+				IDisposable subscription = 
+					target.GetObservable(targetProperty)
+					  .Select(value => value != null ? resourceHost.GetResourceObservable(value.ToStr()) :
+														Observable.Never<object>()).Switch().Subscribe();
+
+				return new BindingExpressionBaseWrapperWithSubscription(instBinding, subscription);
 			}
 
 			return null;

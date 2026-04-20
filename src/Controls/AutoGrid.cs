@@ -21,8 +21,8 @@ namespace NP.Ava.Visuals.Controls
         private KeyedDisposables<Control> _keyedDisposables = new KeyedDisposables<Control>();
 
         private IDisposable _behaviorSubscription;
-        private IBinding _minRowBinding;
-        private IBinding _minColumnBinding;
+        private BindingBase _minRowBinding;
+        private BindingBase _minColumnBinding;
 
 
         #region RowsHeights shared Styled Avalonia Property

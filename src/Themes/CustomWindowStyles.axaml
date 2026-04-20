@@ -15,14 +15,6 @@
         xmlns:behaviors="clr-namespace:NP.Ava.Visuals.Behaviors"
         xmlns:converters="clr-namespace:NP.Ava.Visuals.Converters"
         xmlns:controls="clr-namespace:NP.Ava.Visuals.Controls">
-	<Styles.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceInclude Source="/Themes/Geometries.axaml"/>
-			</ResourceDictionary.MergedDictionaries>
-		</ResourceDictionary>
-	</Styles.Resources>
-
     <StyleInclude Source="avares://NP.Ava.Visuals/Themes/ButtonStyles.axaml"/>
 
 	<Style Selector="Path.DefaultCustomWindowMenu">
@@ -38,14 +30,15 @@
 
   <Styles.Resources>
     <ResourceDictionary>
-      <ResourceDictionary.MergedDictionaries>
-        <ResourceInclude Source="/Themes/Geometries.axaml"/>
-      </ResourceDictionary.MergedDictionaries>
+	   <ResourceDictionary.MergedDictionaries>
+			<ResourceInclude Source="/Themes/Geometries.axaml"/>
+		</ResourceDictionary.MergedDictionaries>
       <converters:BoolToDoubleConverter x:Key="TitleOpacityConverter"
                                         TrueValue="1"
                                         FalseValue="0.5"/>
 
-      <DataTemplate x:Key="DefaultWindowTitleAreaDataTemplate">
+      <DataTemplate x:Key="DefaultWindowTitleAreaDataTemplate"
+                    x:DataType="controls:CustomWindow">
         <StackPanel x:Name="PART_IconAndTitleContainer" 
                     Orientation="Horizontal"
                     Background="Transparent"
@@ -54,15 +47,16 @@
                                       Converter={StaticResource TitleOpacityConverter}}">
           <StackPanel.ContextMenu>
             <ContextMenu IsEnabled="True"
-						 Foreground="{Binding $parent[Window].MenuForeground}"
-                         DataContext="{Binding Path=Parent.Parent.DataContext, RelativeSource={RelativeSource Self}}">
+						 Foreground="{Binding $parent[controls:CustomWindow].MenuForeground}"
+                         DataContext="{Binding Path=Parent.Parent.DataContext, RelativeSource={RelativeSource Self}}"
+                         x:DataType="controls:CustomWindow">
               <MenuItem Header="Restore"
                         IsEnabled="{Binding Path=CanRestore}"
                         behaviors:CallAction.TheEvent="{x:Static MenuItem.ClickEvent}"
                         behaviors:CallAction.MethodName="Restore">
                 <MenuItem.Icon>
                   <Path Data="{StaticResource RestoreIcon}"
-						behaviors:ClassesBehavior.TheClasses="{Binding $parent[Window].MenuPathClasses}"/>
+						behaviors:ClassesBehavior.TheClasses="{Binding $parent[controls:CustomWindow].MenuPathClasses}"/>
                 </MenuItem.Icon>
               </MenuItem>
               <MenuItem Header="Maximize"
@@ -71,7 +65,7 @@
                         behaviors:CallAction.MethodName="Maximize">
                 <MenuItem.Icon>
                   <Path Data="{StaticResource MaximizeIcon}"
-						behaviors:ClassesBehavior.TheClasses="{Binding $parent[Window].MenuPathClasses}"/>
+						behaviors:ClassesBehavior.TheClasses="{Binding $parent[controls:CustomWindow].MenuPathClasses}"/>
                 </MenuItem.Icon>
               </MenuItem>
               <MenuItem Header="Minimize"
@@ -79,7 +73,7 @@
                         behaviors:CallAction.MethodName="Minimize">
                 <MenuItem.Icon>
                   <Path Data="{StaticResource MinimizeIcon}"
-						behaviors:ClassesBehavior.TheClasses="{Binding $parent[Window].MenuPathClasses}"
+						behaviors:ClassesBehavior.TheClasses="{Binding $parent[controls:CustomWindow].MenuPathClasses}"
                         VerticalAlignment="Center"
                         Height="3"/>
                 </MenuItem.Icon>
@@ -91,7 +85,7 @@
                         IsVisible="{Binding Path=CanClose}">
                 <MenuItem.Icon>
                   <Path Data="{StaticResource CloseIcon}"
-						behaviors:ClassesBehavior.TheClasses="{Binding $parent[Window].MenuPathClasses}"/>
+						behaviors:ClassesBehavior.TheClasses="{Binding $parent[controls:CustomWindow].MenuPathClasses}"/>
                 </MenuItem.Icon>
               </MenuItem>
             </ContextMenu>
@@ -118,26 +112,27 @@
 
       <ControlTemplate x:Key="CustomWindowButtonsTemplate">
         <StackPanel x:Name="WindowButtonsPanel"
-                    Orientation="Horizontal">
+                    Orientation="Horizontal"
+                    x:DataType="controls:CustomWindow">
           <Button x:Name="MinimizeButton"
-				  behaviors:ClassesBehavior.TheClasses="{Binding $parent[Window].WindowButtonClasses}"
+				  behaviors:ClassesBehavior.TheClasses="{Binding $parent[controls:CustomWindow].WindowButtonClasses}"
                   controls:AttachedProperties.IconData="{StaticResource MinimizeIcon}"
                   controls:AttachedProperties.IconHeight="2.1"
 				  controls:AttachedProperties.IconMargin="5,15,5,5"
                   controls:AttachedProperties.IconStretch="Fill"
                   behaviors:CallAction.MethodName="Minimize"/>
           <Button x:Name="RestoreButton"
-				  behaviors:ClassesBehavior.TheClasses="{Binding $parent[Window].WindowButtonClasses}"
+				  behaviors:ClassesBehavior.TheClasses="{Binding $parent[controls:CustomWindow].WindowButtonClasses}"
                   IsVisible="{Binding Path=CanRestore}"
                   controls:AttachedProperties.IconData="{StaticResource RestoreIcon}"
                   behaviors:CallAction.MethodName="Restore"/>
           <Button x:Name="MaximizeButton"
-				  behaviors:ClassesBehavior.TheClasses="{Binding $parent[Window].WindowButtonClasses}"
+				  behaviors:ClassesBehavior.TheClasses="{Binding $parent[controls:CustomWindow].WindowButtonClasses}"
                   IsVisible="{Binding Path=CanMaximize}"
                   controls:AttachedProperties.IconData="{StaticResource MaximizeIcon}"
                   behaviors:CallAction.MethodName="Maximize"/>
           <Button x:Name="CloseButton"
-				  behaviors:ClassesBehavior.TheClasses="{Binding $parent[Window].WindowButtonClasses}"
+				  behaviors:ClassesBehavior.TheClasses="{Binding $parent[controls:CustomWindow].WindowButtonClasses}"
                   IsVisible="{Binding Path=CanClose}"
                   controls:AttachedProperties.IconData="{StaticResource CloseIcon}"
                   behaviors:CallAction.MethodName="Close"/>
@@ -174,7 +169,7 @@
             Value="1"/>
 	<Setter Property="Focusable"
 			Value="False"/>
-    <Setter Property="SystemDecorations"
+    <Setter Property="WindowDecorations"
             Value="None"/>
     <Setter Property="MinWidth"
         Value="100"/>

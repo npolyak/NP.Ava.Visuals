@@ -15,4 +15,7 @@
     <AvaloniaResource Include="Images\Russian.jpg" />
     <AvaloniaResource Include="Images\USA.png" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.0" />
+  </ItemGroup>
 </Project>

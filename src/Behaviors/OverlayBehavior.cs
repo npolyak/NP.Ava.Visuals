@@ -407,7 +407,6 @@ namespace NP.Ava.Visuals.Behaviors
             else
             { 
                 Window? overlayWindow = GetOverlayWindow(rootContainer);
-
                 if (shouldOpen)
                 {
                     if (overlayWindow == null)
@@ -418,7 +417,7 @@ namespace NP.Ava.Visuals.Behaviors
                                 TransparencyLevelHint = WindowTransparencyLevel.Transparent.ToCollection().ToImmutableList(),
                                 Background = null,
                                 CanResize = false,
-                                SystemDecorations = SystemDecorations.None,
+                                WindowDecorations = WindowDecorations.None,
                                 Topmost = GetIsTopmost(rootContainer),
                                 Content = GetContent(rootContainer),
                                 ContentTemplate = GetContentTemplate(rootContainer),

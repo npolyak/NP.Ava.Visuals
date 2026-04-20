@@ -96,7 +96,7 @@
 				<Panel>
 					<Border Name="PART_TransparencyFallback"
 							IsHitTestVisible="False" />
-					<VisualLayerManager IsPopup="True">
+					<VisualLayerManager Name="PART_VisualLayerManager">
 						<ContentPresenter Name="PART_ContentPresenter"
 										  Background="{TemplateBinding Background}"
 										  ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -108,7 +108,8 @@
 		</Setter>
 	</Style>
 	<Style Selector=":is(TemplatedControl).Theme">
-		<Setter Property="Template">
+		<Setter Property="Template"
+				x:CompileBindings="False">
 			<Setter.Value>
 				<ControlTemplate TargetType="TemplatedControl">
 					<Grid>
@@ -327,13 +328,13 @@
 							   MinWidth="{Binding $parent[ComboBox].Bounds.Width}"
 							   MaxHeight="{Binding $parent[ComboBox].MaxDropDownHeight}"
 							   PlacementTarget="{Binding $parent[ComboBox]}"
-							   PlacementMode="Bottom"
+							   Placement="Bottom"
 							   IsLightDismissEnabled="True">
 							<Border Background="{DynamicResource SectionBackgroundBrush}"
 									BorderBrush="{DynamicResource SectionBorderBrush}"
 									BorderThickness="1">
-								<ScrollViewer HorizontalScrollBarVisibility="{Binding $parent[ComboBox].HorizontalScrollBarVisibility}"
-											  VerticalScrollBarVisibility="{Binding $parent[ComboBox].VerticalScrollBarVisibility}">
+								<ScrollViewer HorizontalScrollBarVisibility="{Binding $parent[ComboBox].(ScrollViewer.HorizontalScrollBarVisibility)}"
+											  VerticalScrollBarVisibility="{Binding $parent[ComboBox].(ScrollViewer.VerticalScrollBarVisibility)}">
 									<ItemsPresenter x:Name="ComboItemsPresenter"
 													ItemsPanel="{Binding $parent[ComboBox].ItemsPanel}">
 									</ItemsPresenter>
