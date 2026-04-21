@@ -25,9 +25,6 @@ namespace NP.LocalizationPrototype
         public MainWindow()
         {
             InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
             _languageThemeLoader = 
                 Application.Current.Resources.GetThemeLoader("LanguageLoader");
 

@@ -26,7 +26,7 @@
 				</TextBlock.TextAlignment>
 				<TextBlock.Text>
 					<MultiBinding Converter="{x:Static np:StringFormatConverter.Instance}">
-						<np:DynamicResourceBinding Path="Uid"/>
+						<Binding Path="Uid"/>
 						<Binding Path="ID"/>
 					</MultiBinding>
 				</TextBlock.Text>

@@ -1,8 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-	</PropertyGroup>
-	<ItemGroup>
-		<PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.1" />
-	</ItemGroup>
-</Project>
