@@ -46,12 +46,22 @@ namespace NP.Ava.Visuals.Behaviors
                 ProcessRawEvent(margs);
         }
 
+        static PixelPoint prevPosition = new PixelPoint(1,2);
         private static void ProcessRawEvent(RawPointerEventArgs e)
         {
             if (_capturedWindow == null)
                 return;
 
+            if (_releasing)
+            {
+                // for some reason after realease, the 
+                // pointer position is skewed in 12.0.1 
+                // avalonia version
+                return;
+            }
             var position = _capturedWindow.PointToScreen(e.Position);
+            //System.Diagnostics.Debug.WriteLine($"CurrentScreenPointBehavior: Captured window = {_capturedWindow.Title}");
+            //System.Diagnostics.Debug.WriteLine($"CurrentScreenPointBehavior: position = {position}");
 
             // var rootPoint = _capturedWindow.PointToClient(position);
             // var transform = _capturedWindow.TransformToVisual(_capturedWindow);
@@ -77,11 +87,11 @@ namespace NP.Ava.Visuals.Behaviors
                 /// Avalonia 11
                 //if (_mouseDevice == null)
                 //{
-
                 _mouseDevice = 
                     _capturedWindow
                         ?.PlatformImpl
                         ?.GetPropValue<IMouseDevice>("MouseDevice", true);
+                
                 //}
                 return _mouseDevice;
             }
@@ -89,6 +99,11 @@ namespace NP.Ava.Visuals.Behaviors
 
         public static void Capture(Control control, PointerEventArgs e)
         {
+            if (_releasing)
+            {
+                return;
+            }
+
             _capturedWindow = 
                 control.GetSelfAndVisualAncestors()
                        .OfType<Window>()
@@ -105,6 +120,8 @@ namespace NP.Ava.Visuals.Behaviors
             control.PointerReleased += Control_PointerReleased;
         }
 
+        static bool _releasing = false;
+
         public static void ReleaseCapture(PointerEventArgs e)
         {
             if (CapturedControl != null)
@@ -114,7 +131,18 @@ namespace NP.Ava.Visuals.Behaviors
 
             if (e?.Pointer != null)
             {
-                e.Pointer.Capture(null);
+                _releasing = true;
+                try
+                {
+                    //System.Diagnostics.Debug.WriteLine("CurrentScreenPointBehavior: NO CAPTURED WINDOW");
+                    e.Pointer.Capture(null);
+                    _releasing = false;
+                }
+                finally
+                {
+                    _releasing = false;
+                }
+
             }
             else
             {
