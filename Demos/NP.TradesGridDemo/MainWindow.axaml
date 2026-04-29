@@ -3,6 +3,7 @@
         xmlns:local="clr-namespace:NP.TradesGridDemo"
         xmlns:np="https://np.com/visuals"
         x:Class="NP.TradesGridDemo.MainWindow"
+		x:CompileBindings="False"
         Title="NP.TradesGridDemo"
         x:Name="Root" 
 		Width="600"
@@ -16,7 +17,7 @@
 			<DataGridTextColumn Header="Symbol" 
 								Binding="{Binding TheSymbol}"/>
 			<DataGridTextColumn Header="Total Trade Price"
-								Binding="{Binding TotalTradePrice, StringFormat='\{0:##\}'}"/>
+								Binding="{Binding TotalTradePrice, StringFormat='{}{0:##}'}"/>
 		</DataGrid.Columns>
 		
 	</DataGrid>
