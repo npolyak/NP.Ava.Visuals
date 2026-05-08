@@ -1,0 +1,11 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="NP.Demos.DragDropInPanel.App"
+             xmlns:np="https://np.com/visuals"
+             xmlns:local="clr-namespace:NP.Demos.DragDropInPanel">
+	<Application.Styles>
+		<!--<FluentTheme Mode="Dark"/>-->
+		<SimpleTheme/>
+		<StyleInclude Source="avares://NP.Ava.Visuals/Themes/CustomWindowStyles.axaml"/>
+	</Application.Styles>
+</Application>

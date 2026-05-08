@@ -1,0 +1,19 @@
+<np:CustomWindow xmlns="https://github.com/avaloniaui"
+				 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				 xmlns:local="clr-namespace:NP.Demos.DragDropInPanel"
+				 xmlns:np="https://np.com/visuals"
+				 xmlns:utils="clr-namespace:NP.Utilities;assembly=NP.Utilities"
+				 xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Collections"
+				 x:Class="NP.Demos.DragDropInPanel.MainWindow"
+				 Classes="PlainCustomWindow"
+				 Title="Theming Prototype"
+				 HeaderHeight="40"
+				 Focusable="False"
+				 HeaderBackground="Transparent"
+				 x:Name="Root"
+				 Width="1000"
+				 Height="400">
+	<Grid x:Name="RootPanel"
+		  Margin="3">
+	</Grid>
+</np:CustomWindow>
