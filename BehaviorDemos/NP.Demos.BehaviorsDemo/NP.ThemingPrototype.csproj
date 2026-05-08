@@ -1,18 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Remove=".gitignore" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\NP.Ava.Visuals.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Themes\CurveThemes\" />
-    <Folder Include="Themes\TextThemes\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Avalonia.Themes.Simple" Version="12.0.2" />
-  </ItemGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Remove=".gitignore" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Themes\CurveThemes\" />
+		<Folder Include="Themes\TextThemes\" />
+	</ItemGroup>
 </Project>
