@@ -37,7 +37,7 @@ namespace NP.ThemingPrototype
         {
             InitializeComponent();
 #if DEBUG
-            this.AttachDevTools();
+            //this.AttachDeveloperTools();
 #endif
             _lightDarkThemeLoader = 
                 Application.Current.Resources.GetThemeLoader("LightDarkThemeLoader")!;
