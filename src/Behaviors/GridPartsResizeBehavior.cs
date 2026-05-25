@@ -93,7 +93,7 @@ namespace NP.Ava.Visuals.Behaviors
 
                 maxChange -= gridSplitterDimension;
 
-                initialSplitterPosition = shiftConverter(gridSplitter.TranslatePoint(new Point(), grid)!.Value);
+                initialSplitterPosition = shiftConverter(gridSplitter.TranslatePoint(PointHelper.Origin, grid)!.Value);
                 initialShift = shiftConverter(new Point(e.Vector.X, e.Vector.Y));
 
                 SetCurrentSplitterPosition(targetControl, initialShift + initialSplitterPosition);

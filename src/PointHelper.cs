@@ -12,6 +12,8 @@ namespace NP.Ava.Visuals
 {
     public static class PointHelper
     {
+        public static Point Origin { get; } = new Point(0, 0);
+
         public static Point2D ToPoint2D(this Point point)
         {
             return new Point2D(point.X, point.Y);
@@ -30,7 +32,7 @@ namespace NP.Ava.Visuals
 
         public static PixelPoint ToPixelPoint(this Point2D point, double scale = 1)
         {
-            return new PixelPoint((int) (point.X * scale), (int) (point.Y * scale));
+            return new PixelPoint((int)(point.X * scale), (int)(point.Y * scale));
         }
 
         public static PixelPoint ToPixelPoint(this Point point, double scale = 1)
@@ -48,8 +50,12 @@ namespace NP.Ava.Visuals
             return new Size(pt.X, pt.Y);
         }
 
-        public static Point2D MinimumDragDistance =>
-            new Point2D(3.2, 3.2);
+        public static double MinimumDragDistance { get; } = 3.2;
+
+        public static PixelPoint OriginToScreen(this Visual visual)
+        {
+            return visual.PointToScreen(Origin);
+        }
 
         public static Rect ToRect(this Rect2D rect)
         {
@@ -78,7 +84,7 @@ namespace NP.Ava.Visuals
         public static Rect2D GetScreenBounds(this InputElement c)
         {
             PixelPoint startPoint = 
-                c.PointToScreen(new Point(0, 0));
+                c.PointToScreen(Origin);
             
             PixelPoint endPoint = 
                 c.PointToScreen(new Point(c.Bounds.Width, c.Bounds.Height));
@@ -161,6 +167,36 @@ namespace NP.Ava.Visuals
             return Math.Sqrt(p1.SquareDist(p2));
         }
 
+        public static double SquareMagnitude(this Point p)
+        {
+            return p.X * p.X + p.Y * p.Y;
+        }
+
+        public static double Magnitude(this Point p)
+        {
+            return Math.Sqrt(p.SquareMagnitude());
+        }
+
+        public static double SquareMagnitude(this PixelPoint p)
+        {
+            return p.X * p.X + p.Y * p.Y;
+        }
+
+        public static double Magnitude(this PixelPoint p)
+        {
+            return Math.Sqrt(p.SquareMagnitude());
+        }
+
+        public static double SquareDist(this PixelPoint p1, PixelPoint p2)
+        {
+            return (p1 - p2).SquareMagnitude();
+        }
+
+        public static double Dist(this PixelPoint p1, PixelPoint p2)
+        {
+            return Math.Sqrt(p1.SquareDist(p2));
+        }
+
         public static Point ToPoint(this Rect rect)
         {
             return new Point(rect.Width, rect.Height);
@@ -173,7 +209,7 @@ namespace NP.Ava.Visuals
 
         public static Rect ToRect(this Visual c)
         {
-            return new Rect(new Point(), c.ToPoint());
+            return new Rect(Origin, c.ToPoint());
         }
 
         public static Rect ScaleToSide(this Rect rect, double scale, Side2D sideToScaleTo)
@@ -191,6 +227,14 @@ namespace NP.Ava.Visuals
             return c.Bounds.Height;
         }
 
-        
+        public static bool ContainsPoint(this Rect r, PixelPoint p)
+        {
+            return r.Contains(p.ToPoint(1d));
+        }
+
+        public static bool ContainsPoint(this Rect2D r, PixelPoint p)
+        {
+            return r.ContainsPoint(p.ToPoint2D());
+        }
     }
 }

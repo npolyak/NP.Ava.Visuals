@@ -20,7 +20,7 @@ namespace NP.Ava.Visuals.Converters
                  (values.Count < 2) || 
                  values.Take(3).Any(v => !(v is double)))
             {
-                return new Point();
+                return PointHelper.Origin;
             }
 
             double angle = (double)values[0];

@@ -27,16 +27,16 @@ namespace NP.Ava.Visuals.Behaviors
 {
     public static class CurrentScreenPointBehavior
     {
-        private static Subject<Point2D> _currentScreenPoint = new Subject<Point2D>();
-        public static IObservable<Point2D> CurrentScreenPoint => _currentScreenPoint;
+        private static Subject<PixelPoint> _currentScreenPoint = new Subject<PixelPoint>();
+        public static IObservable<PixelPoint> CurrentScreenPoint => _currentScreenPoint;
 
-        public static Point2D CurrentScreenPointValue { get; private set; } = new Point2D();
+        public static PixelPoint CurrentScreenPointValue { get; private set; } = PixelPoint.Origin;
 
         public static event Action PointerReleasedEvent;
 
         static CurrentScreenPointBehavior()
         {
-            InputManager.Instance.Process.Subscribe(OnInputReceived);
+            InputManager.Instance!.Process.Subscribe(OnInputReceived);
         }
 
         private static void OnInputReceived(RawInputEventArgs e)
@@ -67,7 +67,8 @@ namespace NP.Ava.Visuals.Behaviors
             // var transform = _capturedWindow.TransformToVisual(_capturedWindow);
             // CurrentScreenPoint = _capturedWindow.PointToScreen(rootPoint * transform!.Value);
 
-            CurrentScreenPointValue = position.ToPoint2D();
+            CurrentScreenPointValue = position;
+
             _currentScreenPoint.OnNext(CurrentScreenPointValue);
         }
 
@@ -109,12 +110,15 @@ namespace NP.Ava.Visuals.Behaviors
                        .OfType<Window>()
                        .FirstOrDefault()!;
 
+            CurrentScreenPointValue = _capturedWindow.PointToScreen(e.GetPosition(_capturedWindow));
+
             var pointer = e?.Pointer ?? Mouse?.TryGetPointer(null);
                 
             if (pointer != null)
             {
                  pointer?.Capture(control);
             }   
+
 
             control.PointerReleased -= Control_PointerReleased;
             control.PointerReleased += Control_PointerReleased;

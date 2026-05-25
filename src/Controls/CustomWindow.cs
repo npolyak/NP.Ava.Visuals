@@ -355,7 +355,7 @@ namespace NP.Ava.Visuals.Controls
                 if (this.CanRestore)
                 {
                     this.Restore();
-                    StartWindowPosition = CurrentScreenPointBehavior.CurrentScreenPointValue.ToPixelPoint();
+                    StartWindowPosition = CurrentScreenPointBehavior.CurrentScreenPointValue;
                     Position = StartWindowPosition;
                 }
                 else

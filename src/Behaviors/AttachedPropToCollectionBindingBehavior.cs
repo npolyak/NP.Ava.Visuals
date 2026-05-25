@@ -2,21 +2,20 @@
 using System;
 using System.Collections.Generic;
 
-namespace NP.Ava.Visuals.Behaviors
-{
-    public class AttachedPropToCollectionBindingBehavior<TProp, TTarget> : 
-        ToCollectionBindingBehavior<TProp, TTarget>
-    {
-        public AttachedPropToCollectionBindingBehavior
-        (
-            AvaloniaObject source, 
-            AvaloniaProperty<TProp> attachedProp, 
-            IEnumerable<TTarget> collection,
-            Action<TTarget, TProp> setter) 
-            : 
-            base(new AttachedPropValueGetter<TProp>(source, attachedProp), collection, setter)
-        {
+namespace NP.Ava.Visuals.Behaviors.DragDrop;
 
-        }
+public class AttachedPropToCollectionBindingBehavior<TProp, TTarget> : 
+    ToCollectionBindingBehavior<TProp, TTarget>
+{
+    public AttachedPropToCollectionBindingBehavior
+    (
+        AvaloniaObject source, 
+        AvaloniaProperty<TProp> attachedProp, 
+        IEnumerable<TTarget> collection,
+        Action<TTarget, TProp> setter) 
+        : 
+        base(new AttachedPropValueGetter<TProp>(source, attachedProp), collection, setter)
+    {
+
     }
 }

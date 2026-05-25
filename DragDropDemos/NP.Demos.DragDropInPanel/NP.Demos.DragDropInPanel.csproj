@@ -1,8 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
+		<OutputType>Exe</OutputType>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove=".gitignore" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.1" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Update="Avalonia.Desktop" Version="12.0.3" />
+	  <PackageReference Update="Avalonia.Themes.Simple" Version="12.0.3" />
 	</ItemGroup>
 </Project>

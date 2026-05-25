@@ -4,6 +4,7 @@
 				 xmlns:np="https://np.com/visuals"
 				 xmlns:utils="clr-namespace:NP.Utilities;assembly=NP.Utilities"
 				 xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Collections"
+				 xmlns:dd="clr-namespace:NP.Ava.Visuals.Behaviors.DragDrop;assembly=NP.Demos.DragDropInPanel"
 				 x:Class="NP.Demos.DragDropInPanel.MainWindow"
 				 Classes="PlainCustomWindow"
 				 Title="Theming Prototype"
@@ -13,7 +14,41 @@
 				 x:Name="Root"
 				 Width="1000"
 				 Height="400">
+	<Window.Resources>
+		<dd:DragManager x:Key="TheDragManager"/>
+	</Window.Resources>
 	<Grid x:Name="RootPanel"
-		  Margin="3">
+		  Margin="20">
+		  <Border BorderThickness="1"
+				  Margin="-1"
+				  BorderBrush="Black"/>
+		<Grid x:Name="DropControl"
+			  dd:DragBehavior.DragManagerOnDropControl="{StaticResource TheDragManager}">
+			<Grid x:Name="DragControl" 
+				  Tag="100"
+				  Width="30"
+				  Height="30"
+				  dd:DragBehavior.DragManagerOnDragControl="{StaticResource TheDragManager}"
+				  Background="Pink"
+				  HorizontalAlignment="Left"
+				  VerticalAlignment="Top">
+				<Grid.RenderTransform>
+					<!--
+					<TranslateTransform x:CompileBindings="False"
+										X="{Binding #DragControl.DragManagerOnDragControl.Shift}"/>
+					-->
+					<!--
+					<TranslateTransform x:CompileBindings="False"
+										X="{Binding #DragControl.Tag}"/>
+										-->
+
+					<TranslateTransform x:CompileBindings="False"
+										X="{Binding #DragControl.DragManagerOnDragControl.CurrentDragShift.X}"
+										Y="{Binding #DragControl.DragManagerOnDragControl.CurrentDragShift.Y}"/>
+										
+				</Grid.RenderTransform>
+			</Grid>
+
+		</Grid>
 	</Grid>
 </np:CustomWindow>
