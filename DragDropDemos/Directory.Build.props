@@ -12,7 +12,7 @@
 		<PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.1" />
     </ItemGroup>
     <ItemGroup Condition="'$(Configuration)'=='Release'">
-        <PackageReference Include="NP.Ava.Visuals" Version="1.0.53"/>
+        <PackageReference Include="NP.Ava.Visuals" Version="1.0.54"/>
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Avalonia.Desktop"
