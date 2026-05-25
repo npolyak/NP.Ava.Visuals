@@ -41,3 +41,4 @@ using System.Runtime.InteropServices;
 [assembly: XmlnsDefinition("https://np.com/visuals", "NP.Ava.Visuals.ThemingAndL10N")]
 [assembly: XmlnsDefinition("https://np.com/visuals", "NP.Ava.Visuals.ColorUtils")]
 [assembly: XmlnsDefinition("https://np.com/visuals", "NP.Ava.Visuals.WindowsOnly")]
+[assembly: XmlnsDefinition("https://np.com/visuals", "NP.Ava.Visuals.Behaviors.DragDrop")]

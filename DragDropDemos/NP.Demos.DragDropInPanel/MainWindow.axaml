@@ -15,7 +15,7 @@
 				 Width="1000"
 				 Height="400">
 	<Window.Resources>
-		<dd:DragManager x:Key="TheDragManager"/>
+		<np:DragManager x:Key="TheDragManager"/>
 	</Window.Resources>
 	<Grid x:Name="RootPanel"
 		  Margin="20">
@@ -23,12 +23,12 @@
 				  Margin="-1"
 				  BorderBrush="Black"/>
 		<Grid x:Name="DropControl"
-			  dd:DragBehavior.DragManagerOnDropControl="{StaticResource TheDragManager}">
+			  np:DragBehavior.DragManagerOnDropControl="{StaticResource TheDragManager}">
 			<Grid x:Name="DragControl" 
 				  Tag="100"
 				  Width="30"
 				  Height="30"
-				  dd:DragBehavior.DragManagerOnDragControl="{StaticResource TheDragManager}"
+				  np:DragBehavior.DragManagerOnDragControl="{StaticResource TheDragManager}"
 				  Background="Pink"
 				  HorizontalAlignment="Left"
 				  VerticalAlignment="Top">
