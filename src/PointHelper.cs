@@ -1,12 +1,11 @@
-﻿global using Point2D = NP.Utilities.Point2D<double>;
-global using Rect2D = NP.Utilities.Rect2D<double>;
+﻿global using Point2D = NP.Utilities.Point.Point2D<double>;
+global using Rect2D = NP.Utilities.Point.Rect2D<double>;
 
 using Avalonia;
 using Avalonia.Input;
-using Avalonia.VisualTree;
-using NP.Utilities;
+using NP.Utilities.Point;
 using System;
-using System.Linq;
+
 
 namespace NP.Ava.Visuals
 {
@@ -14,23 +13,23 @@ namespace NP.Ava.Visuals
     {
         public static Point Origin { get; } = new Point(0, 0);
 
-        public static Point2D ToPoint2D(this Point point)
+        public static IPoint2D<double> ToPoint2D(this Point point)
         {
             return new Point2D(point.X, point.Y);
         }
 
 
-        public static Point2D ToPoint2D(this PixelPoint point)
+        public static IPoint2D<double> ToPoint2D(this PixelPoint point)
         {
-            return new Point2D(point.X, point.Y);
+            return new Point2D<double>(point.X, point.Y);
         }
 
-        public static Point ToPoint(this Point2D pt)
+        public static Point ToPoint(this IPoint2D<double> pt)
         {
             return new Point(pt.X, pt.Y);
         }
 
-        public static PixelPoint ToPixelPoint(this Point2D point, double scale = 1)
+        public static PixelPoint ToPixelPoint(this IPoint2D<double> point, double scale = 1)
         {
             return new PixelPoint((int)(point.X * scale), (int)(point.Y * scale));
         }
@@ -45,7 +44,7 @@ namespace NP.Ava.Visuals
             return new Point2D(size.Width, size.Height);
         }
 
-        public static Size ToSize(this Point2D pt)
+        public static Size ToSize(this IPoint2D<double> pt)
         {
             return new Size(pt.X, pt.Y);
         }
@@ -76,9 +75,14 @@ namespace NP.Ava.Visuals
 
         public static bool IsPointWithinControl(this Visual c, Point p)
         {
-            Rect2D bounds = new Rect2D(new Point2D(), c.GetSize());
+            Rect2D<double> bounds = new Rect2D<double>(new Point2D<double>(), c.GetSize());
+            
+            return bounds.ContainsPoint(p.ToPixelPoint());
+        }
 
-            return bounds.ContainsPoint(p.ToPoint2D());
+        public static Rect GetBounds(this Visual c)
+        {
+            return new Rect(0, 0, c.ActualWidth(), c.ActualHeight());
         }
 
         public static Rect2D GetScreenBounds(this InputElement c)
@@ -234,7 +238,37 @@ namespace NP.Ava.Visuals
 
         public static bool ContainsPoint(this Rect2D r, PixelPoint p)
         {
-            return r.ContainsPoint(p.ToPoint2D());
+            return r.ToRect().ContainsPoint(p);
+        }
+
+        public static (PixelPoint, PixelPoint)
+        FitRectangleToRectangle<T>
+            (
+                this Rect borderRect,
+                Rect rectToPlaceInside
+            )
+        {
+            (IPoint2D<double> boundPosition, IPoint2D<double> delta) = 
+                
+                borderRect.ToRect2D()
+                            .FitRectangleToRectangle(rectToPlaceInside.ToRect2D());
+
+            return (boundPosition.ToPixelPoint(), delta.ToPixelPoint());    
+        }
+
+        public static Point Shift(this Point point, Point shift)
+        {
+            return point + shift;
+        }
+
+        public static PixelPoint Shift(this PixelPoint point, PixelPoint shift)
+        {
+            return point + shift;
+        }
+
+        public static Rect Shift(this Rect r, Point shift)
+        {
+            return new Rect(r.TopLeft + shift, r.BottomRight + shift);
         }
     }
 }

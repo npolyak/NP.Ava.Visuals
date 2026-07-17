@@ -19,36 +19,44 @@
 	</Window.Resources>
 	<Grid x:Name="RootPanel"
 		  Margin="20">
-		  <Border BorderThickness="1"
-				  Margin="-1"
-				  BorderBrush="Black"/>
+		<Border BorderThickness="1"
+				Margin="-1"
+				BorderBrush="Black"/>
 		<Grid x:Name="DropControl"
 			  np:DragBehavior.DragManagerOnDropControl="{StaticResource TheDragManager}">
+			<Grid x:Name="ShiftedControl"
+				  Width="30"
+				  Height="30"
+				  HorizontalAlignment="Left"
+				  VerticalAlignment="Top"
+				  Background="Green"
+				  np:ShiftBehavior.Shift="100, 100"/>
 			<Grid x:Name="DragControl" 
-				  Tag="100"
 				  Width="30"
 				  Height="30"
 				  np:DragBehavior.DragManagerOnDragControl="{StaticResource TheDragManager}"
+				  x:CompileBindings="False"
+				  np:ShiftBehavior.Shift="{Binding $self.DragManagerOnDragControl.CurrentDragShift}"
 				  Background="Pink"
 				  HorizontalAlignment="Left"
 				  VerticalAlignment="Top">
-				<Grid.RenderTransform>
-					<!--
-					<TranslateTransform x:CompileBindings="False"
-										X="{Binding #DragControl.DragManagerOnDragControl.Shift}"/>
-					-->
-					<!--
-					<TranslateTransform x:CompileBindings="False"
-										X="{Binding #DragControl.Tag}"/>
-										-->
+				<np:ShiftBehavior.Shift>
+					<MultiBinding Converter="{x:Static np:WithinControlBoundariesConverter.TheBoundariesConverter}">
+						<Binding Path="#DropControl"/>
+						<Binding Path="#DragControl"/>
+						<Binding Path="$self.DragManagerOnDragControl.CurrentDragShift"/>
+					</MultiBinding>
+				</np:ShiftBehavior.Shift>
 
+				<!--
+				<Grid.RenderTransform>
 					<TranslateTransform x:CompileBindings="False"
 										X="{Binding #DragControl.DragManagerOnDragControl.CurrentDragShift.X}"
 										Y="{Binding #DragControl.DragManagerOnDragControl.CurrentDragShift.Y}"/>
 										
 				</Grid.RenderTransform>
+				-->
 			</Grid>
-
 		</Grid>
 	</Grid>
 </np:CustomWindow>

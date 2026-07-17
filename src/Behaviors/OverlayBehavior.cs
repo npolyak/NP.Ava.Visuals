@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using NP.Ava.Visuals;
 using NP.Utilities;
+using NP.Utilities.Point;
 using System;
 using System.Collections.Immutable;
 using Avalonia.Controls.Templates;
@@ -427,7 +428,7 @@ namespace NP.Ava.Visuals.Behaviors
                         SetOverlayWindow(rootContainer, overlayWindow);
                     }
 
-                    Rect2D screenBounds = overlayedControl.GetScreenBounds();
+                    Rect2D<double> screenBounds = overlayedControl.GetScreenBounds();
 
                     double renderScaling = overlayWindow.PlatformImpl.GetPropValue<double>("RenderScaling", true);
 

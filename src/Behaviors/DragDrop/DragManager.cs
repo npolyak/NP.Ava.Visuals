@@ -36,6 +36,21 @@ public class DragManager : VMBase
         }
     }
 
+    private Rect _dragBoundWithinDropControl = new Rect();
+    public Rect DragBoundsWithinDropControl
+    {
+        get => _dragBoundWithinDropControl;
+        init
+        {
+            _dragBoundWithinDropControl = value;
+        }
+    }
+
+    public DragManager()
+    {
+        
+    }
+
 
     private static IDisposable? _dragSubscription = null;
 
@@ -53,56 +68,69 @@ public class DragManager : VMBase
 
     }
 
-    public bool ChangeCurrentDropControl(Control? newDropControl)
+    Control? _currentDropControl;
+    public Control? CurrentDropControl 
     {
-        if (CurrentDropControl == newDropControl)
+        get => _currentDropControl;
+        private set
         {
-            return false;
-        }
-        CurrentDropControl = newDropControl;
-        this.OnPropertyChanged(nameof(CurrentDropControl));
-        return true;
-    }
+            if (_currentDropControl.ReferenceEq(value))
+            {
+                return;
+            }
+            _currentDropControl = value;
 
-    public Control? CurrentDropControl { get; private set; }
+            if (DragBoundsWithinDropControl.Width <= 0 && CurrentDropControl != null)
+            {
+                _dragBoundWithinDropControl = CurrentDropControl.Bounds;
+            }
+
+            OnPropertyChanged(nameof(CurrentDropControl));
+        }
+    }
 
     private void OnDragMove(PixelPoint currentPointerLocationInScreen)
     {
-        var currentDropControl = 
+        var currentDropControl =
             this.DropControls
-                .Where
+                .FirstOrDefault
                 (
-                    c => c.IsVisible && 
-                    c.GetScreenBounds()
-                     .ContainsPoint(currentPointerLocationInScreen));
+                    c => c.IsVisible &&
+                            c.GetScreenBounds()
+                             .ContainsPoint(currentPointerLocationInScreen)
+                 );  
 
 
         if (currentDropControl == null && DropControls.Count > 0)
         {
+            //CurrentDropControl = null;
             //Console.WriteLine("Null Current Control");
-            return;
+            //return;
         }
 
-        PixelPoint shiftFromOrigin = currentPointerLocationInScreen - DragPointerStartPositionInScreen;
+        PixelPoint pointerShiftFromOrigin = currentPointerLocationInScreen - DragPointerStartPositionInScreen;
 
         if (!IsDragOn)
         {
-            if (shiftFromOrigin.Magnitude() < MinDragShift)
+            if (pointerShiftFromOrigin.Magnitude() < MinDragShift)
             {
-                //Console.WriteLine("Distance too small");
+                // distance is too small to start drag
+                // Console.WriteLine("Distance too small");
                 return;
             }
             else
             {
                 IsDragOn = true;
+
+                CurrentDropControl = currentDropControl;
             }
         }
 
-        CurrentDragShift = shiftFromOrigin;
+        CurrentDragShift = pointerShiftFromOrigin + InitialDragControlShift;
 
         CurrentDragCuePositionInScreen = DragControlStartPositionInScreen + CurrentDragShift;
 
-        //Console.WriteLine(CurrentDragCuePositionInScreen);
+        Console.WriteLine(CurrentDragCuePositionInScreen);
     }
 
     public ObservableCollection<Control> DropControls { get; } = 
@@ -139,6 +167,10 @@ public class DragManager : VMBase
             {
                 DragControl!.PointerReleased += OnPointerReleased;
             }
+            else
+            {
+                CurrentDropControl = null;
+            }
         }
     }
 
@@ -146,9 +178,11 @@ public class DragManager : VMBase
 
     private void OnPointerReleased(object? sender, PointerReleasedEventArgs e)
     {
-        IsDragOn = false;
-
         DropEventArgs args = new DropEventArgs(DragControl, CurrentDropControl, DropEvent);
+
+        InitialDragControlShift = CurrentDragShift;
+
+        IsDragOn = false;
 
         DragControl.RaiseEvent(args);
     }
@@ -159,8 +193,6 @@ public class DragManager : VMBase
             "Drop",
             RoutingStrategies.Bubble);
 
-
-    public double Shift { get; set; } = 100;
 
     #region CurrentDragShift Property
     private PixelPoint _currentDragShift;
@@ -204,5 +236,27 @@ public class DragManager : VMBase
         }
     }
     #endregion CurrentDragCuePositionInScreen Property
+
+
+    #region InitialDragControlShift Property
+    private PixelPoint _initialDragControlShift = new PixelPoint();
+    public PixelPoint InitialDragControlShift   
+    {
+        get
+        {
+            return this._initialDragControlShift;
+        }
+        set
+        {
+            if (this._initialDragControlShift == value)
+            {
+                return;
+            }
+
+            this._initialDragControlShift = value;
+            this.OnPropertyChanged(nameof(InitialDragControlShift));
+        }
+    }
+    #endregion InitialDragControlShift Property
 
 }

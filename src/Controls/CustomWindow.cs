@@ -24,6 +24,7 @@ using Avalonia.Styling;
 using Avalonia.VisualTree;
 using NP.Ava.Visuals.Behaviors;
 using NP.Utilities;
+using NP.Utilities.Point;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -343,7 +344,8 @@ namespace NP.Ava.Visuals.Controls
             {
                 return;
             }
-            Point2D pointerShift = PointerShift.ToPoint2D();
+
+            IPoint2D<double> pointerShift = PointerShift.ToPoint2D();
 
             if (!_startMoving && pointerShift.AbsSquared() >= MinDistance)
             {

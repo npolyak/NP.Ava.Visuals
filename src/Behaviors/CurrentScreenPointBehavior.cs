@@ -13,13 +13,10 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Input.Raw;
-using Avalonia.Platform;
 using Avalonia.VisualTree;
-using NP.Ava.Visuals.Controls;
 using NP.Utilities;
 using System;
 using System.Linq;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
@@ -46,7 +43,6 @@ namespace NP.Ava.Visuals.Behaviors
                 ProcessRawEvent(margs);
         }
 
-        static PixelPoint prevPosition = new PixelPoint(1,2);
         private static void ProcessRawEvent(RawPointerEventArgs e)
         {
             if (_capturedWindow == null)

@@ -43,14 +43,19 @@ public static class DragBehavior
         );
     #endregion DragManagerOnDropControl Attached Avalonia Property
 
+    
     static IDisposable _dragManagerOnDragControlChanged;
     static IDisposable _dragManagerOnDropControlChanged;
     static DragBehavior()
     {
         _dragManagerOnDragControlChanged =
-            DragManagerOnDragControlProperty.Changed.Subscribe(OnDragManagerOnDragControlChanged);
+            DragManagerOnDragControlProperty
+                .Changed
+                .Subscribe(OnDragManagerOnDragControlChanged);
         _dragManagerOnDropControlChanged =
-            DragManagerOnDropControlProperty.Changed.Subscribe(OnDragManagerOnDropControlChanged);
+            DragManagerOnDropControlProperty
+                .Changed
+                .Subscribe(OnDragManagerOnDropControlChanged);
     }
 
     private static void OnDragManagerOnDragControlChanged(AvaloniaPropertyChangedEventArgs<DragManager> args)
@@ -97,4 +102,23 @@ public static class DragBehavior
             }
         }
     }
+
+
+    //#region DragShift Attached Avalonia Property
+    //public static PixelPoint GetDragShift(Control obj)
+    //{
+    //    return obj.GetValue(DragShiftProperty);
+    //}
+
+    //public static void SetDragShift(Control obj, PixelPoint value)
+    //{
+    //    obj.SetValue(DragShiftProperty, value);
+    //}
+
+    //public static readonly AttachedProperty<PixelPoint> DragShiftProperty =
+    //    AvaloniaProperty.RegisterAttached<Control, Control, PixelPoint>
+    //    (
+    //        "DragShift"
+    //    );
+    //#endregion DragShift Attached Avalonia Property
 }

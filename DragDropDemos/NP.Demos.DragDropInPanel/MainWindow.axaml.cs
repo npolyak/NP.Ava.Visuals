@@ -6,7 +6,7 @@ using Avalonia.Markup.Xaml;
 using NP.Ava.Visuals.Behaviors;
 using NP.Ava.Visuals.Controls;
 using NP.Ava.Visuals.ThemingAndL10N;
-using NP.Utilities;
+using NP.Utilities.Point;
 
 namespace NP.Demos.DragDropInPanel
 {
