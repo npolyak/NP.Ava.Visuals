@@ -61,12 +61,12 @@
     </ItemGroup>
     <ItemGroup>
 		<PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
-		<PackageReference Include="IgnoresAccessChecksToGenerator" Version="0.8.0" PrivateAssets="All" />
+		<PackageReference Include="IgnoresAccessChecksToGenerator" Version="1.0.0" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup>
-        <InternalsAssemblyName Include="Avalonia" />
-        <InternalsAssemblyName Include="Avalonia.Base" />
-        <InternalsAssemblyName Include="Avalonia.Controls.DataGrid" />
+		<IgnoresAccessChecksTo Include="Avalonia" />
+		<IgnoresAccessChecksTo Include="Avalonia.Base" />
+		<IgnoresAccessChecksTo Include="Avalonia.Controls.DataGrid" />
     </ItemGroup>
     <ItemGroup Condition="'$(Configuration)'=='Debug'">
         <ProjectReference Include="$(SolutionDir)..\..\SubModules\NP.Concepts.Behaviors\src\NP.Concepts.Behaviors.csproj" />
@@ -74,7 +74,7 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)'=='Release'">
-        <PackageReference Include="NP.Concepts.Behaviors" Version="1.0.26" />
+        <PackageReference Include="NP.Concepts.Behaviors" Version="1.0.27" />
         <PackageReference Include="NP.ViewModelInterfaces" Version="1.0.7" />
     </ItemGroup>
 </Project>

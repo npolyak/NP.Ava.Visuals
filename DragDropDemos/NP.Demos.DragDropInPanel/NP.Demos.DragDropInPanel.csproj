@@ -5,7 +5,4 @@
 	<ItemGroup>
 		<None Remove=".gitignore" />
 	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Update="NP.Ava.Visuals" Version="1.0.54" />
-	</ItemGroup>
 </Project>
